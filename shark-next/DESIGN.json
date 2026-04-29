@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-04-29T12:00:00Z",
+  "title": "Design System: SharkAuth",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Stellar White", "canonical": "oklch(100% 0 0)", "tonalRamp": ["#ffffff", "#f2f2f2", "#e6e6e6", "#d9d9d9", "#cccccc", "#bfbfbf", "#b3b3b3", "#a6a6a6"] },
+      "neutral-bg": { "role": "neutral", "displayName": "Void Black", "canonical": "oklch(0% 0 0)", "tonalRamp": ["#000000", "#0a0a0a", "#141414", "#1f1f1f", "#292929", "#333333", "#3d3d3d", "#474747"] },
+      "surface": { "role": "neutral", "displayName": "Abyssal Surface", "canonical": "oklch(12% 0 0)" },
+      "border": { "role": "neutral", "displayName": "Iron Border", "canonical": "oklch(22% 0 0)" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headlines only." },
+      "body": { "displayName": "Body", "purpose": "Standard reading text." },
+      "serif-emphasis": { "displayName": "Serif Italics", "purpose": "Technical charisma and branding." }
+    },
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Default easing for state transitions." },
+      { "name": "reveal-scroll", "value": "cubic-bezier(.2,.7,.2,1)", "purpose": "Smooth entrance for scroll-driven reveals." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "High-contrast action for primary CTAs.",
+      "html": "<button class=\"ds-btn-primary\">GET STARTED</button>",
+      "css": ".ds-btn-primary { background: white; color: black; padding: 11px 18px; border-radius: 999px; font-size: 14px; font-weight: 500; border: none; box-shadow: 0 1px 0 hsla(0,0%,100%,0.5) inset, 0 6px 30px hsla(0,0%,100%,0.18); cursor: pointer; transition: transform .15s ease, background .2s ease; } .ds-btn-primary:hover { background: #ececec; transform: translateY(-1px); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Subtle action for secondary links.",
+      "html": "<button class=\"ds-btn-ghost\">READ THE DOCS</button>",
+      "css": ".ds-btn-ghost { background: hsla(0,0%,100%,0.04); border: 1px solid hsla(0,0%,100%,0.12); color: white; padding: 11px 18px; border-radius: 999px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all .2s ease; } .ds-btn-ghost:hover { background: hsla(0,0%,100%,0.08); border-color: hsla(0,0%,100%,0.22); }"
+    },
+    {
+      "name": "Liquid Glass Badge",
+      "kind": "custom",
+      "description": "Premium status indicator.",
+      "html": "<div class=\"ds-pill\">v0.9.0 · NOW SHIPPING</div>",
+      "css": ".ds-pill { display: inline-flex; padding: 6px 14px; border-radius: 999px; font-size: 11px; font-weight: 500; letter-spacing: 0.05em; background: linear-gradient(180deg, hsla(0,0%,100%,0.06), hsla(0,0%,100%,0.015) 40%, hsla(0,0%,100%,0.04)); border: 1px solid hsla(0,0%,100%,0.12); backdrop-filter: blur(14px); color: white; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Void Engine",
+    "overview": "The SharkAuth visual system reflects a high-performance, invisible engine—powering the agent era with silent, absolute authority. It is a study in Minimalist Luxury, where every pixel must earn its place.",
+    "keyCharacteristics": ["Extreme Contrast", "Technical Charisma", "Atmospheric Depth"],
+    "dos": ["Do use font-style: italic for the serif font", "Do use 1px hairlines for all structural divisions"],
+    "donts": ["Don't use identical card grids", "Don't use generic vibe-coded glassmorphism"]
+  }
+}
