@@ -99,9 +99,9 @@ export default function PricingPage() {
                 </ul>
               </div>
 
-              <button className={`btn btn-${tier.type}`} style={{ width: '100%' }}>
+              <a href={tier.name === 'Cloud Free' || tier.name === 'Pro' ? '/waitlist' : '#'} className={`btn btn-${tier.type}`} style={{ width: '100%', justifyContent: 'center' }}>
                 {tier.cta}
-              </button>
+              </a>
             </div>
           ))}
         </div>

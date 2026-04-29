@@ -155,7 +155,7 @@ export function Hero() {
             <a href="#docs" className="btn btn-ghost" style={{ height: 44 }}>
               Read the Docs <Icon.arrow size={12} />
             </a>
-            <a href="#waitlist" className="btn btn-ghost" style={{ height: 44 }}>
+            <a href="/waitlist" className="btn btn-ghost" style={{ height: 44 }}>
               Join Cloud Waitlist <Icon.arrow size={12} />
             </a>
           </div>
