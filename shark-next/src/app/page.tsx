@@ -2,8 +2,6 @@
 
 import { useReveal } from '@/hooks/useReveal';
 import { Hero } from '@/components/sections/Hero';
-import { LogoStrip } from '@/components/sections/LogoStrip';
-import { Benchmarks } from '@/components/sections/Benchmarks';
 import { Comparison } from '@/components/sections/Comparison';
 import { Quickstart } from '@/components/sections/Quickstart';
 import { Differentiators } from '@/components/sections/Differentiators';
@@ -21,8 +19,6 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <LogoStrip />
-      <Benchmarks />
       <Comparison />
       <Quickstart />
       <Differentiators />

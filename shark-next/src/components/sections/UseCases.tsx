@@ -30,7 +30,7 @@ export function UseCases() {
     {
       tag: '06',
       h: 'Compliance teams who have seen too much.',
-      b: 'AGPL-3.0, hash-chained audit, deterministic config in shark.toml. Auditors get receipts. You get to sleep.',
+      b: 'MIT, hash-chained audit, deterministic config in shark.toml. Auditors get receipts. You get to sleep.',
     },
   ];
   return (

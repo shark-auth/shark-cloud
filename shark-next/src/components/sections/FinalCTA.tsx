@@ -27,7 +27,7 @@ export function FinalCTA() {
         </div>
       </div>
       <div className="reveal" style={{ position: 'relative', maxWidth: 880, margin: '0 auto', textAlign: 'center' }}>
-        <Pill live>Open source · AGPL-3.0 · Self-hostable today</Pill>
+        <Pill live>Open source · MIT · Self-hostable today</Pill>
         <h2 style={{ fontSize: 'clamp(40px, 6vw, 84px)', marginTop: 24, lineHeight: 1.02, letterSpacing: '-0.04em', fontWeight: 500 }}>
           Ship agent auth that <br />
           <span className="serif" style={{ color: 'hsl(0 0% 75%)' }}>holds up under audit.</span>

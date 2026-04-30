@@ -169,7 +169,7 @@ export function Hero() {
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><Icon.check size={11} /> OpenID Connect</span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><Icon.check size={11} /> RFC 8693 Token Exchange</span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><Icon.check size={11} /> RFC 9449 DPoP</span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><Icon.check size={11} /> AGPL-3.0</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><Icon.check size={11} /> MIT</span>
           </div>
         </div>
 

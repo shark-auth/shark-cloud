@@ -11,7 +11,7 @@ const TIERS = [
     name: 'Self-Host',
     price: '$0',
     desc: 'The complete engine, under your control.',
-    features: ['AGPL-3.0 Licensed', 'Unlimited Users', 'All Core Protocols', 'Community Support'],
+    features: ['MIT Licensed', 'Unlimited Users', 'All Core Protocols', 'Community Support'],
     cta: 'Get the Binary',
     type: 'primary'
   },
@@ -109,7 +109,7 @@ export default function PricingPage() {
         <div className="reveal" style={{ marginTop: 80, padding: 40, border: '1px solid var(--border)', borderRadius: 14, textAlign: 'center' }}>
           <h3 style={{ fontSize: 20, fontWeight: 500, marginBottom: 16 }}>Questions about self-hosting?</h3>
           <p className="text-muted" style={{ fontSize: 15, marginBottom: 24 }}>
-            Read our AGPL-3.0 compliance guide or talk to an engineer about your architecture.
+            Read our MIT compliance guide or talk to an engineer about your architecture.
           </p>
           <a href="#" className="text-white mono" style={{ fontSize: 12, textDecoration: 'none', borderBottom: '1px solid white' }}>
             VIEW DOCUMENTATION
