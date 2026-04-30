@@ -1,5 +1,8 @@
 import React from 'react';
-import { Icon } from '@/components/Primitives';
+
+const TerminalIcon = ({ size = 16 }: { size?: number }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 17l5-5-5-5M12 19h8" /></svg>
+);
 
 export const MDXComponents = {
   h1: (props: any) => <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 500, marginBottom: '1.5rem', letterSpacing: '-0.04em' }} {...props} />,
@@ -19,7 +22,7 @@ export const MDXComponents = {
       <div className="liquid-glass" style={{ margin: '2rem 0', padding: '24px', borderRadius: '14px', border: '1px solid var(--border)', background: 'var(--surface)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
           <span style={{ display: 'flex', alignItems: 'center', color: 'var(--muted-2)' }}>
-            <Icon.terminal size={14} />
+            <TerminalIcon size={14} />
           </span>
           <span className="mono" style={{ fontSize: 11, color: 'var(--muted-2)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{lang || 'bash'}</span>
         </div>

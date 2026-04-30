@@ -15,9 +15,6 @@ const getSafePath = (relativePath: string) => {
   return path.join(cwd, relativePath);
 };
 
-const DOCS_PATH = getSafePath('src/content/docs');
-const BLOGS_PATH = getSafePath('src/content/blogs');
-
 export interface DocItem {
   type: 'file' | 'directory';
   name: string;
@@ -51,13 +48,14 @@ function getMetadata(filePath: string, defaultName: string) {
   }
 }
 
-export function getDocsTree(dir: string = DOCS_PATH, baseSlug: string = ''): DocItem[] {
+export function getDocsTree(dir?: string, baseSlug: string = ''): DocItem[] {
   try {
-    if (!fs.existsSync(dir)) return [];
-    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    const targetDir = dir || getSafePath('src/content/docs');
+    if (!fs.existsSync(targetDir)) return [];
+    const entries = fs.readdirSync(targetDir, { withFileTypes: true });
     
     const items: DocItem[] = entries.map(entry => {
-      const fullPath = path.join(dir, entry.name);
+      const fullPath = path.join(targetDir, entry.name);
       const relativeSlug = entry.name.replace(/\.mdx$/, '');
       const currentSlug = baseSlug ? `${baseSlug}/${relativeSlug}` : relativeSlug;
 
@@ -90,7 +88,7 @@ export function getDocsTree(dir: string = DOCS_PATH, baseSlug: string = ''): Doc
 
     return items.sort((a, b) => a.order - b.order);
   } catch (error) {
-    console.error(`Error generating docs tree for ${dir}:`, error);
+    console.error(`Error generating docs tree:`, error);
     return [];
   }
 }
@@ -145,13 +143,14 @@ export async function getDocBySlug(slug: string) {
 }
 
 export function getAllBlogs(): BlogItem[] {
-  if (!fs.existsSync(BLOGS_PATH)) return [];
-  const files = fs.readdirSync(BLOGS_PATH);
+  const blogsPath = getSafePath('src/content/blogs');
+  if (!fs.existsSync(blogsPath)) return [];
+  const files = fs.readdirSync(blogsPath);
   
   return files
     .filter(file => file.endsWith('.mdx'))
     .map(file => {
-      const source = fs.readFileSync(path.join(BLOGS_PATH, file), 'utf8');
+      const source = fs.readFileSync(path.join(blogsPath, file), 'utf8');
       const { data, content } = matter(source);
       return { 
         slug: file.replace('.mdx', ''), 
@@ -167,7 +166,8 @@ export function getAllBlogs(): BlogItem[] {
 }
 
 export async function getBlogBySlug(slug: string): Promise<BlogItem | null> {
-  const fullPath = path.join(BLOGS_PATH, `${slug}.mdx`);
+  const blogsPath = getSafePath('src/content/blogs');
+  const fullPath = path.join(blogsPath, `${slug}.mdx`);
   if (!fs.existsSync(fullPath)) return null;
   
   const source = fs.readFileSync(fullPath, 'utf8');
