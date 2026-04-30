@@ -99,13 +99,36 @@ export async function getDocBySlug(slug: string) {
   try {
     if (!slug) return null;
     
-    let fullPath = path.join(DOCS_PATH, `${slug}.mdx`);
+    // Normalize slug to prevent directory traversal
+    const safeSlug = slug.replace(/\.+/g, '.').replace(/^\/+/, '');
+    const cwd = process.cwd();
     
-    if (!fs.existsSync(fullPath)) {
-      fullPath = path.join(DOCS_PATH, slug, 'index.mdx');
+    // Check both standard root and shark-next subdirectory (for Vercel monorepo setups)
+    const basePaths = [
+      path.join(cwd, 'src/content/docs'),
+      path.join(cwd, 'shark-next/src/content/docs')
+    ];
+
+    let fullPath = '';
+    let found = false;
+
+    for (const base of basePaths) {
+      const fileAttempt = path.join(base, `${safeSlug}.mdx`);
+      const indexAttempt = path.join(base, safeSlug, 'index.mdx');
+
+      if (fs.existsSync(fileAttempt)) {
+        fullPath = fileAttempt;
+        found = true;
+        break;
+      }
+      if (fs.existsSync(indexAttempt)) {
+        fullPath = indexAttempt;
+        found = true;
+        break;
+      }
     }
 
-    if (!fs.existsSync(fullPath)) return null;
+    if (!found) return null;
     
     const source = fs.readFileSync(fullPath, 'utf8');
     const { content, data } = matter(source);
