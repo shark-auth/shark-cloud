@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const METRICS = [
   { 
     label: 'Signup', 
-    val: '359', 
+    val: 359, 
     unit: 'RPS', 
     p99: '40ms',
     desc: 'Simulated high-concurrency registration flow with Argon2 hashing.',
@@ -17,7 +17,7 @@ const METRICS = [
   },
   { 
     label: 'Login', 
-    val: '622', 
+    val: 622, 
     unit: 'RPS', 
     p99: '49ms',
     desc: 'Standard password authentication and session establishment.',
@@ -29,7 +29,7 @@ const METRICS = [
   },
   { 
     label: 'Client Credentials', 
-    val: '896', 
+    val: 896, 
     unit: 'RPS', 
     p99: '38ms',
     desc: 'Machine-to-machine authentication for high-speed agent services.',
@@ -41,7 +41,7 @@ const METRICS = [
   },
   { 
     label: 'DPOP', 
-    val: '617', 
+    val: 617, 
     unit: 'RPS', 
     p99: '50ms',
     desc: 'Demonstrating Proof-of-Possession for every request.',
@@ -53,7 +53,7 @@ const METRICS = [
   },
   { 
     label: 'Cascade Revoke', 
-    val: '10,600', 
+    val: 10600, 
     unit: 'RPS', 
     p99: '11ms',
     desc: 'Recursive token revocation across complex agent hierarchies.',
@@ -66,13 +66,85 @@ const METRICS = [
 ];
 
 export function Benchmarks() {
-  const [activeTab, setActiveTab] = useState(0);
-  const m = METRICS[activeTab];
+  const [activeIdx, setActiveIdx] = useState(4);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const m = METRICS[activeIdx];
+  const maxVal = Math.max(...METRICS.map(x => x.val));
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="benchmarks" style={{ padding: 'clamp(80px, 12vw, 160px) clamp(20px, 4vw, 56px)', background: 'var(--bg)', borderTop: '1px solid var(--border)' }}>
+    <section 
+      ref={sectionRef}
+      id="benchmarks" 
+      style={{ 
+        padding: 'clamp(80px, 12vw, 160px) clamp(20px, 4vw, 56px)', 
+        background: 'var(--bg)', 
+        borderTop: '1px solid var(--border)',
+        overflow: 'hidden'
+      }}
+    >
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes barFill {
+          from { height: 0; opacity: 0; }
+          to { opacity: 1; }
+        }
+        .benchmark-bar {
+          transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .benchmark-bar:hover {
+          background: var(--fg) !important;
+          box-shadow: 0 0 20px hsla(0,0%,100%,0.1);
+        }
+        .grid-line {
+          position: absolute;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background: var(--border);
+          opacity: 0.4;
+          pointer-events: none;
+        }
+        .y-label {
+          position: absolute;
+          left: -54px;
+          font-size: 10px;
+          color: var(--muted-2);
+          font-family: var(--font-mono), monospace;
+          text-align: right;
+          width: 44px;
+        }
+        .chart-container {
+          overflow-x: auto;
+          scrollbar-width: none;
+          padding-bottom: 20px;
+        }
+        .chart-container::-webkit-scrollbar {
+          display: none;
+        }
+        @media (max-width: 800px) {
+          .chart-inner {
+            min-width: 700px;
+          }
+        }
+      `}} />
+
       <div style={{ maxWidth: 1240, margin: '0 auto' }}>
-        <div className="reveal" style={{ marginBottom: 80 }}>
+        <div className={`reveal ${isVisible ? 'in' : ''}`} style={{ marginBottom: 80 }}>
           <span className="eyebrow">Performance · Verified</span>
           <h2 style={{ fontSize: 'clamp(32px, 5vw, 64px)', marginTop: 24, lineHeight: 1, letterSpacing: '-0.04em' }}>
             Built for <span className="serif">speed.</span>
@@ -82,58 +154,133 @@ export function Benchmarks() {
           </p>
         </div>
 
-        <div className="reveal" style={{ 
+        <div className={`reveal ${isVisible ? 'in' : ''}`} style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+          gridTemplateColumns: '1fr', 
           gap: 64,
           alignItems: 'start'
         }}>
-          {/* Vertical Tabs */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div className="mono" style={{ fontSize: 11, color: 'var(--muted-2)', marginBottom: 12, letterSpacing: '0.1em' }}>SELECT TEST CASE</div>
-            {METRICS.map((item, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveTab(i)}
-                className="btn"
-                style={{
-                  justifyContent: 'space-between',
-                  padding: '16px 20px',
-                  borderRadius: 12,
-                  background: activeTab === i ? 'var(--surface-2)' : 'transparent',
-                  borderColor: activeTab === i ? 'var(--border-2)' : 'transparent',
-                  color: activeTab === i ? 'var(--fg)' : 'var(--muted)',
-                  transition: 'all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1)',
-                  textAlign: 'left',
-                  width: '100%',
-                }}
-              >
-                <span className="mono" style={{ fontSize: 13, fontWeight: activeTab === i ? 600 : 400 }}>{item.label}</span>
-                <span className="mono" style={{ fontSize: 12, opacity: activeTab === i ? 1 : 0.4 }}>{item.val} {item.unit}</span>
-              </button>
-            ))}
+          
+          {/* Main Chart Area */}
+          <div className="chart-container">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 24 }}>
+              <div className="mono" style={{ fontSize: 11, color: 'var(--muted-2)', letterSpacing: '0.1em' }}>
+                THROUGHPUT COMPARISON (RPS)
+              </div>
+              <div className="mono" style={{ fontSize: 10, color: 'var(--muted-2)' }}>
+                SCALE: LINEAR_VERIFIED
+              </div>
+            </div>
+            
+            <div className="chart-inner" style={{ 
+              height: 400, 
+              borderLeft: '1px solid var(--border)', 
+              borderBottom: '1px solid var(--border)',
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'flex-end',
+              justifyContent: 'space-around',
+              padding: '0 40px',
+              marginLeft: 60,
+              marginBottom: 60
+            }}>
+              {/* Grid Lines */}
+              {[0, 0.25, 0.5, 0.75, 1].map((p) => (
+                <div key={p} className="grid-line" style={{ bottom: `${p * 100}%` }}>
+                  <span className="y-label">{Math.round(maxVal * p).toLocaleString()}</span>
+                </div>
+              ))}
+
+              {/* Bars */}
+              {METRICS.map((item, i) => {
+                const height = (item.val / maxVal) * 100;
+                const isActive = activeIdx === i;
+                return (
+                  <div 
+                    key={i} 
+                    onClick={() => setActiveIdx(i)}
+                    style={{ 
+                      width: 'clamp(30px, 6vw, 80px)',
+                      height: isVisible ? `${height}%` : '0%',
+                      background: isActive ? 'var(--fg)' : 'var(--surface-2)',
+                      border: isActive ? '1px solid var(--fg)' : '1px solid var(--border-2)',
+                      cursor: 'pointer',
+                      position: 'relative',
+                      animation: isVisible ? `barFill 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards ${i * 0.12}s` : 'none',
+                    }}
+                    className="benchmark-bar"
+                  >
+                    {/* Peak Indicator Line */}
+                    <div style={{ 
+                      position: 'absolute', 
+                      top: -16, 
+                      left: '50%', 
+                      transform: 'translateX(-50%)',
+                      width: 1, 
+                      height: 12, 
+                      background: isActive ? 'var(--fg)' : 'var(--muted-2)',
+                      opacity: isActive ? 1 : 0.4
+                    }} />
+                    
+                    {/* Label below bar */}
+                    <div className="mono" style={{ 
+                      position: 'absolute', 
+                      bottom: -40, 
+                      left: '50%', 
+                      transform: 'translateX(-50%) rotate(-45deg)',
+                      transformOrigin: 'top right',
+                      fontSize: 10,
+                      whiteSpace: 'nowrap',
+                      color: isActive ? 'var(--fg)' : 'var(--muted-2)',
+                      letterSpacing: '0.05em',
+                      textTransform: 'uppercase',
+                      transition: 'color 0.3s ease'
+                    }}>
+                      {item.label}
+                    </div>
+
+                    {/* Value floating above bar on hover/active */}
+                    {isActive && (
+                      <div className="mono" style={{ 
+                        position: 'absolute', 
+                        top: -40, 
+                        left: '50%', 
+                        transform: 'translateX(-50%)',
+                        fontSize: 11,
+                        color: 'var(--fg)',
+                        fontWeight: 600
+                      }}>
+                        {item.val.toLocaleString()}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Tab Content */}
-          <div style={{ position: 'relative' }}>
-            {/* Value Display */}
-            <div style={{ marginBottom: 48 }}>
+          {/* Details Section */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+            gap: 48,
+            marginTop: 20
+          }}>
+            {/* Active Metric Info */}
+            <div style={{ transition: 'opacity 0.3s ease', opacity: isVisible ? 1 : 0 }}>
+              <div className="mono" style={{ fontSize: 11, color: 'var(--muted-2)', marginBottom: 16, letterSpacing: '0.1em' }}>METRIC_ANALYSIS</div>
               <div style={{ 
-                fontSize: 'clamp(80px, 10vw, 140px)', 
-                lineHeight: 0.9, 
+                fontSize: 'clamp(48px, 6vw, 92px)', 
+                lineHeight: 0.85, 
                 letterSpacing: '-0.06em',
-                marginBottom: 24
+                marginBottom: 20
               }}>
-                <span className="serif" style={{ fontStyle: 'italic' }}>{m.val}</span>
-                <span style={{ fontSize: '0.25em', color: 'var(--muted-2)', marginLeft: 16, verticalAlign: 'baseline' }}>{m.unit}</span>
+                <span className="serif" style={{ fontStyle: 'italic' }}>{m.val.toLocaleString()}</span>
+                <span style={{ fontSize: '0.22em', color: 'var(--muted-2)', marginLeft: 16, verticalAlign: 'baseline' }}>{m.unit}</span>
               </div>
-              <div style={{ display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap' }}>
-                <div className="chip" style={{ fontSize: 13, padding: '6px 14px' }}>
-                  p99: {m.p99}
-                </div>
-                <div className="text-muted" style={{ fontSize: 14, maxWidth: 360 }}>
-                  {m.desc}
-                </div>
+              <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                <div className="chip" style={{ background: 'var(--surface-2)', borderColor: 'var(--border-2)' }}>p99: {m.p99}</div>
+                <div className="text-muted" style={{ fontSize: 15, lineHeight: 1.5, maxWidth: 400 }}>{m.desc}</div>
               </div>
             </div>
 
@@ -143,44 +290,35 @@ export function Benchmarks() {
               background: 'linear-gradient(180deg, var(--surface-2), transparent)', 
               border: '1px solid var(--border)',
               borderRadius: 20,
-              overflow: 'hidden',
-              position: 'relative'
+              position: 'relative',
+              overflow: 'hidden'
             }}>
               <div className="noise" style={{ opacity: 0.1 }} />
-              <div className="mono" style={{ fontSize: 11, color: 'var(--muted-2)', marginBottom: 24, letterSpacing: '0.1em', position: 'relative' }}>TECHNICAL RUNTIME SPECS</div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 32, position: 'relative' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 32 }}>
                 {m.details.map((detail, idx) => (
                   <div key={idx}>
-                    <div style={{ fontSize: 11, color: 'var(--muted-2)', marginBottom: 8, textTransform: 'uppercase' }}>{detail.key}</div>
+                    <div style={{ fontSize: 10, color: 'var(--muted-2)', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{detail.key}</div>
                     <div className="mono" style={{ fontSize: 15, fontWeight: 500 }}>{detail.val}</div>
                   </div>
                 ))}
               </div>
-              
-              <div style={{ marginTop: 32, paddingTop: 32, borderTop: '1px solid var(--border)', position: 'relative' }}>
-                <div className="mono" style={{ fontSize: 12, color: 'var(--muted-2)', display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ marginTop: 32, paddingTop: 32, borderTop: '1px solid var(--border)' }}>
+                <div className="mono" style={{ fontSize: 11, color: 'var(--muted-2)', display: 'flex', alignItems: 'center', gap: 10 }}>
                   <span className="dot live" />
-                  VERIFIED BY RAILWAY PROMETHEUS SCRAPER
+                  RUNTIME: PROMETHEUS_NODE_EXPORTER_V2
                 </div>
               </div>
             </div>
-
-            {/* Subtle aesthetic touch */}
-            <div style={{
-              position: 'absolute', top: -100, right: -100, width: 400, height: 400,
-              background: 'radial-gradient(circle, hsla(0,0%,100%,0.04) 0%, transparent 70%)',
-              pointerEvents: 'none', zIndex: -1
-            }} />
           </div>
         </div>
 
-        <div className="reveal" style={{ marginTop: 96, textAlign: 'center' }}>
+        <div className={`reveal ${isVisible ? 'in' : ''}`} style={{ marginTop: 96, textAlign: 'center' }}>
+          <div className="divider-x" style={{ marginBottom: 48, opacity: 0.5 }} />
           <p className="mono" style={{ fontSize: 11, color: 'var(--muted-2)', letterSpacing: '0.05em' }}>
-            PRODUCTION RECOMMENDATION: <span style={{ color: 'var(--fg)' }}>19-32MB, 2 ITER</span> · INSPIRED BY POCKETBASE PERFORMANCE
+            PRODUCTION_GUIDE: <span style={{ color: 'var(--fg)' }}>19-32MB, 2 ITER</span> · INSPIRED_BY: POCKETBASE_ARCH
           </p>
         </div>
       </div>
     </section>
   );
 }
-
