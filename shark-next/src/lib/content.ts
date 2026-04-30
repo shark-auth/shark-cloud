@@ -76,7 +76,12 @@ export function getDocsTree(dir: string = DOCS_PATH, baseSlug: string = ''): Doc
 }
 
 export async function getDocBySlug(slug: string) {
-  const fullPath = path.join(DOCS_PATH, `${slug}.mdx`);
+  let fullPath = path.join(DOCS_PATH, `${slug}.mdx`);
+  
+  if (!fs.existsSync(fullPath)) {
+    fullPath = path.join(DOCS_PATH, slug, 'index.mdx');
+  }
+
   if (!fs.existsSync(fullPath)) return null;
   
   const source = fs.readFileSync(fullPath, 'utf8');

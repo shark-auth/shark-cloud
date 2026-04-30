@@ -7,8 +7,9 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const blog = await getBlogBySlug(params.slug);
+export default async function BlogPostPage(props: { params: Promise<{ slug: string }> }) {
+  const { slug } = await props.params;
+  const blog = await getBlogBySlug(slug);
 
   if (!blog) {
     notFound();

@@ -7,8 +7,9 @@ import { MDXComponents } from '@/components/MDXComponents';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 
-export default async function DocPage({ params }: { params: { slug: string[] } }) {
-  const slug = params.slug.join('/');
+export default async function DocPage(props: { params: Promise<{ slug: string[] }> }) {
+  const { slug: slugArray } = await props.params;
+  const slug = slugArray.join('/');
   const doc = await getDocBySlug(slug);
   const tree = getDocsTree();
 
