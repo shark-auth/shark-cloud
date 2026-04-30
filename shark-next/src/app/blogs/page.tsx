@@ -1,40 +1,67 @@
-import { getAllBlogs } from '@/lib/content';
 import React from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/sections/Footer';
+import { getAllBlogs } from '@/lib/content';
+import Link from 'next/link';
 
-export default function BlogsPage() {
+export default async function BlogsPage() {
   const blogs = getAllBlogs();
 
   return (
-    <main style={{ minHeight: '100vh', background: 'var(--bg)' }}>
+    <div className="bg-void text-white min-h-screen">
       <Navbar />
-      <section style={{ padding: '160px clamp(20px, 4vw, 56px) 100px' }}>
-        <div style={{ maxWidth: 1240, margin: '0 auto' }}>
-          <div style={{ marginBottom: 64 }}>
-            <span className="eyebrow">Blogs · /blogs</span>
-            <h2 style={{ fontSize: 'clamp(40px, 5vw, 64px)', marginTop: 24 }}>Engineering <span className="serif" style={{ color: 'var(--muted)' }}>Trust.</span></h2>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: 32 }}>
-            {blogs.map((post: any) => (
-              <a key={post.slug} href={`/blogs/${post.slug}`} style={{
-                display: 'flex', flexDirection: 'column', padding: '32px',
-                background: 'linear-gradient(180deg, hsla(0,0%,100%,0.03), transparent)',
-                border: '1px solid var(--border)', borderRadius: 14, textDecoration: 'none', color: 'inherit',
-              }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
-                  <span className="mono" style={{ fontSize: 11, color: 'var(--muted-2)' }}>
-                    {post.date instanceof Date ? post.date.toLocaleDateString() : String(post.date)}
-                  </span>
-                  <span className="chip" style={{ fontSize: 10 }}>{post.tag}</span>
+      
+      <main style={{ maxWidth: 1000, margin: '0 auto', padding: '160px 24px 80px' }}>
+        <header style={{ marginBottom: 80 }}>
+          <span className="eyebrow">Engineering Journal</span>
+          <h1 style={{ fontSize: 'clamp(40px, 6vw, 80px)', fontWeight: 500, letterSpacing: '-0.04em', marginTop: 24 }}>
+            The <span className="serif" style={{ fontStyle: 'italic' }}>Shark</span> Logs.
+          </h1>
+          <p className="text-muted" style={{ fontSize: 20, marginTop: 24, maxWidth: 600, lineHeight: 1.5 }}>
+            Technical deep dives, protocol updates, and internal engineering logs from the team building the future of agent auth.
+          </p>
+        </header>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+          {blogs.map((blog, idx) => (
+            <Link 
+              key={blog.slug} 
+              href={`/blogs/${blog.slug}`}
+              style={{ 
+                display: 'block', 
+                padding: '48px 0', 
+                borderTop: '1px solid var(--border)',
+                textDecoration: 'none',
+                transition: 'all 0.3s ease',
+                position: 'relative',
+                group: 'true'
+              }}
+              className="blog-card"
+            >
+              <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr 200px', gap: 48, alignItems: 'start' }}>
+                <div className="mono" style={{ fontSize: 13, color: 'var(--muted-2)' }}>
+                  {new Date(blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                 </div>
-                <h3 style={{ fontSize: 22, fontWeight: 500 }}>{post.title}</h3>
-              </a>
-            ))}
-          </div>
+                
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+                    <span className="chip" style={{ fontSize: 10, padding: '2px 8px' }}>{blog.tag}</span>
+                  </div>
+                  <h2 style={{ fontSize: 28, fontWeight: 500, color: 'white', marginBottom: 12, letterSpacing: '-0.02em' }}>{blog.title}</h2>
+                  <p className="text-muted" style={{ fontSize: 16, lineHeight: 1.6, maxWidth: 540 }}>{blog.description}</p>
+                </div>
+
+                <div style={{ textAlign: 'right', alignSelf: 'center' }}>
+                  <span className="mono" style={{ fontSize: 12, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Read Entry →</span>
+                </div>
+              </div>
+            </Link>
+          ))}
+          <div style={{ borderTop: '1px solid var(--border)' }} />
         </div>
-      </section>
+      </main>
+
       <Footer />
-    </main>
+    </div>
   );
 }

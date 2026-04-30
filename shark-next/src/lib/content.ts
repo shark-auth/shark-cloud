@@ -14,6 +14,16 @@ export interface DocItem {
   children?: DocItem[];
 }
 
+export interface BlogItem {
+  slug: string;
+  title: string;
+  date: string;
+  tag: string;
+  description: string;
+  author: string;
+  content: string;
+}
+
 function getMetadata(filePath: string, defaultName: string) {
   try {
     const content = fs.readFileSync(filePath, 'utf8');
@@ -37,7 +47,6 @@ export function getDocsTree(dir: string = DOCS_PATH, baseSlug: string = ''): Doc
 
     if (entry.isDirectory()) {
       const children = getDocsTree(fullPath, currentSlug);
-      // Try to find an index.mdx or folder.json for folder metadata, else use name
       const indexPath = path.join(fullPath, 'index.mdx');
       const meta = fs.existsSync(indexPath) ? getMetadata(indexPath, entry.name) : { title: entry.name, order: 99 };
       
@@ -80,16 +89,42 @@ export async function getDocBySlug(slug: string) {
   };
 }
 
-export function getAllBlogs() {
+export function getAllBlogs(): BlogItem[] {
+  if (!fs.existsSync(BLOGS_PATH)) return [];
   const files = fs.readdirSync(BLOGS_PATH);
-  return files.map(file => {
-    const source = fs.readFileSync(path.join(BLOGS_PATH, file), 'utf8');
-    return { 
-      slug: file.replace('.mdx', ''), 
-      title: 'Blog Post',
-      date: '2026-04-24',
-      tag: 'BLOG',
-      content: source
-    };
-  });
+  
+  return files
+    .filter(file => file.endsWith('.mdx'))
+    .map(file => {
+      const source = fs.readFileSync(path.join(BLOGS_PATH, file), 'utf8');
+      const { data, content } = matter(source);
+      return { 
+        slug: file.replace('.mdx', ''), 
+        title: data.title || 'Untitled Post',
+        date: data.date || '2026-04-01',
+        tag: data.tag || 'ENGINEERING',
+        description: data.description || '',
+        author: data.author || 'SharkAuth Team',
+        content
+      };
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export async function getBlogBySlug(slug: string): Promise<BlogItem | null> {
+  const fullPath = path.join(BLOGS_PATH, `${slug}.mdx`);
+  if (!fs.existsSync(fullPath)) return null;
+  
+  const source = fs.readFileSync(fullPath, 'utf8');
+  const { content, data } = matter(source);
+  
+  return {
+    slug,
+    title: data.title || 'Untitled Post',
+    date: data.date || '2026-04-01',
+    tag: data.tag || 'ENGINEERING',
+    description: data.description || '',
+    author: data.author || 'SharkAuth Team',
+    content
+  };
 }
