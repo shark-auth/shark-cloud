@@ -34,7 +34,6 @@ export default async function BlogsPage() {
                 textDecoration: 'none',
                 transition: 'all 0.3s ease',
                 position: 'relative',
-                group: 'true'
               }}
               className="blog-card"
             >
