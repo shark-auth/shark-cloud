@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Icon } from '../Primitives';
+import { Icon } from '../Icons';
 
 export function Docs() {
   const [active, setActive] = useState(0);
@@ -17,9 +17,9 @@ export function Docs() {
   ];
   const snippets = [
     `# install (verified by sha256)
-curl -fsSL get.sharkauth.dev | sh
+curl -fsSL sharkauth.com/get | sh
 shark --version
-# shark 0.9.0 (4f5a8b21) linux/amd64`,
+# shark 0.1.0 (4f5a8b21) linux/amd64`,
     `# shark.toml
 issuer = "https://auth.acme.dev"
 listen = ":4444"

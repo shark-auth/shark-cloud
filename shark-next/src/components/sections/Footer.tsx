@@ -1,6 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import { LogoMark } from '../Primitives';
+import { LogoMark } from '../Icons';
 
 export function Footer() {
   const cols = [
@@ -24,22 +26,12 @@ export function Footer() {
       ] 
     },
     { 
-      h: 'Specs', 
-      items: [
-        { label: 'OAuth 2.1', href: '/docs/api/oauth' },
-        { label: 'OIDC', href: '/docs/api/oauth' },
-        { label: 'RFC 8693', href: '/docs/api/oauth' },
-        { label: 'RFC 9449 DPoP', href: '/docs/api/oauth' },
-        { label: 'PKCE / PAR', href: '/docs/api/oauth' }
-      ] 
-    },
-    { 
       h: 'Company', 
       items: [
         { label: 'Blog', href: '/blogs' },
         { label: 'Security', href: '/docs/advanced-concepts' },
         { label: 'License (MIT)', href: 'https://github.com/shark-auth/shark/blob/main/LICENSE' },
-        { label: 'Contact', href: '/team' }
+        { label: 'Contact', href: 'mailto:raul@sharkauth.com' }
       ] 
     },
   ];
@@ -54,9 +46,6 @@ export function Footer() {
           <p className="text-muted" style={{ fontSize: 13.5, marginTop: 14, lineHeight: 1.55, maxWidth: 280 }}>
             OAuth 2.1 + OIDC authorization server for the agent-on-behalf-of-user era. Open source, MIT licensed.
           </p>
-          <div className="mono" style={{ fontSize: 11.5, color: 'hsl(0 0% 40%)', marginTop: 22 }}>
-            sha256: 4f5a 8b21 19e6 …  ·  v0.9.0
-          </div>
         </div>
         {cols.map(c => (
           <div key={c.h}>
@@ -74,7 +63,7 @@ export function Footer() {
         ))}
       </div>
       <div style={{ maxWidth: 1240, margin: '60px auto 0', paddingTop: 24, borderTop: '1px solid hsl(0 0% 8%)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-        <span className="mono" style={{ fontSize: 11.5, color: 'hsl(0 0% 45%)' }}>© 2026 SharkAuth Labs · An honest piece of software.</span>
+        <span className="mono" style={{ fontSize: 11.5, color: 'hsl(0 0% 45%)' }}>© 2026 SharkAuth - The Identity Provider for the Agentic Era.</span>
       </div>
     </footer>
   );

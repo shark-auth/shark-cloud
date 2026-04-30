@@ -4,7 +4,7 @@ import React from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/sections/Footer';
 import { useReveal } from '@/hooks/useReveal';
-import { Icon } from '@/components/Primitives';
+import { Icon } from '@/components/Icons';
 
 const PHASES = [
   {

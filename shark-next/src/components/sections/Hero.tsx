@@ -3,10 +3,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { Navbar } from '../Navbar';
-import { Pill, CopyCmd, Icon } from '../Primitives';
-import { DelegationCanvas } from '../DelegationCanvas';
+import { Pill, CopyCmd } from '../Primitives';
+import { Icon } from '../Icons';
 
-const INSTALL_CMD = 'curl -fsSL get.sharkauth.dev | sh';
+const INSTALL_CMD = 'curl -fsSL sharkauth.com/get | sh';
 
 export function Hero() {
   const [revoked, setRevoked] = useState('none');
@@ -117,7 +117,7 @@ export function Hero() {
           willChange: 'transform, filter',
         }}>
           <div className="reveal" style={{ transitionDelay: '50ms' }}>
-            <Pill live>v0.9.0 · Now Shipping · Open Source · Self-hosted</Pill>
+            <Pill live>v0.1.0 · Now Shipping · Open Source · Self-hosted</Pill>
           </div>
 
           <h1 className="reveal" style={{
@@ -142,7 +142,7 @@ export function Hero() {
             lineHeight: 1.55, letterSpacing: '-0.005em',
             transitionDelay: '200ms',
           }}>
-            Real delegation. Real DPoP. Real audit. One ~40&nbsp;MB Go binary with embedded SQLite.
+            Real delegation. Real DPoP. Real audit. One ~29&nbsp;MB Go binary with embedded SQLite.
             <br className="hide-sm" />
             Zero dependencies. Runs anywhere — even on a Raspberry&nbsp;Pi.
           </p>
@@ -195,7 +195,9 @@ export function Hero() {
           willChange: 'transform, opacity',
           transition: 'opacity .2s linear',
         }}>
-          <DelegationCanvas revoked={revoked} setRevoked={setRevoked} />
+          <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', background: 'hsl(0 0% 4%)', borderRadius: 16, border: '1px solid var(--border)', overflow: 'hidden' }}>
+            <img src="/dashboard.png" alt="SharkAuth Dashboard" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
         </div>
       </div>
     </section>

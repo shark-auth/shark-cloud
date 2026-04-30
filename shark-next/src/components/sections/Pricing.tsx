@@ -1,10 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/sections/Footer';
-import { useReveal } from '@/hooks/useReveal';
-import { Icon } from '@/components/Icons';
+import { Icon } from '../Icons';
 
 const TIERS = [
   {
@@ -43,17 +40,13 @@ const TIERS = [
   }
 ];
 
-export default function PricingPage() {
-  useReveal();
-
+export function Pricing() {
   return (
-    <div className="bg-void text-white min-h-screen">
-      <Navbar />
-      
-      <main style={{ maxWidth: 1240, margin: '0 auto', padding: '160px 24px 100px' }}>
+    <section id="pricing" style={{ padding: 'clamp(80px, 12vw, 160px) clamp(20px, 4vw, 56px)', borderTop: '1px solid var(--border)' }}>
+      <div style={{ maxWidth: 1240, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 80 }}>
           <div className="eyebrow reveal" style={{ marginBottom: 12 }}>Pricing</div>
-          <h1 className="display reveal" style={{ marginBottom: 24 }}>Simple. <span className="serif-italic">Transparent.</span></h1>
+          <h2 className="display reveal" style={{ fontSize: 'clamp(40px, 6vw, 64px)', marginBottom: 24 }}>Simple. <span className="serif-italic">Transparent.</span></h2>
           <p className="text-muted reveal" style={{ fontSize: 18, maxWidth: 600, margin: '0 auto' }}>
             Choose the right power level for your infrastructure. 
             Open source by default, managed by experts when you need it.
@@ -80,7 +73,7 @@ export default function PricingPage() {
                   {tier.tag}
                 </div>
               )}
-              <h2 className="mono" style={{ fontSize: 14, color: 'hsl(0 0% 60%)', marginBottom: 8, textTransform: 'uppercase' }}>{tier.name}</h2>
+              <h3 className="mono" style={{ fontSize: 14, color: 'hsl(0 0% 60%)', marginBottom: 8, textTransform: 'uppercase' }}>{tier.name}</h3>
               <div style={{ fontSize: 40, fontWeight: 500, marginBottom: 16 }}>
                 {tier.price}<span style={{ fontSize: 16, color: 'hsl(0 0% 40%)' }}>{tier.price !== 'Custom' ? '/mo' : ''}</span>
               </div>
@@ -105,19 +98,7 @@ export default function PricingPage() {
             </div>
           ))}
         </div>
-
-        <div className="reveal" style={{ marginTop: 80, padding: 40, border: '1px solid var(--border)', borderRadius: 14, textAlign: 'center' }}>
-          <h3 style={{ fontSize: 20, fontWeight: 500, marginBottom: 16 }}>Questions about self-hosting?</h3>
-          <p className="text-muted" style={{ fontSize: 15, marginBottom: 24 }}>
-            Read our MIT compliance guide or talk to an engineer about your architecture.
-          </p>
-          <a href="#" className="text-white mono" style={{ fontSize: 12, textDecoration: 'none', borderBottom: '1px solid white' }}>
-            VIEW DOCUMENTATION
-          </a>
-        </div>
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </section>
   );
 }

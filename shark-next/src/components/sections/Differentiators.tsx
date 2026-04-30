@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Icon } from '../Primitives';
+import { Icon } from '../Icons';
 
 export function Differentiators() {
   const cards = [
@@ -33,7 +35,7 @@ export function Differentiators() {
     },
     {
       icon: <Icon.cube size={20} />,
-      tag: '~40 MB binary',
+      tag: '~29 MB binary',
       title: 'Embedded SQLite. Zero deps. Anywhere.',
       body: 'Static Go binary with WAL-mode SQLite inside. Run it next to your app, in a Fly.io machine, in a corporate VM, on an air-gapped Pi. Backup is cp shark.db.',
       kicker: 'cold start: 38 ms',

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Icon } from './Primitives';
+import { Icon } from './Icons';
 
 /* DelegationCanvas — original visual: a "trust chain" with revocable links.
    user → agent A → agent B  with may_act_grants and DPoP key bindings */

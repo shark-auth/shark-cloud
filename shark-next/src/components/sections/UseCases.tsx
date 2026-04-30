@@ -25,7 +25,7 @@ export function UseCases() {
     {
       tag: '05',
       h: 'Edge & air-gapped deployments.',
-      b: 'A 40 MB binary on a Pi, talking to a SQLite file. No outbound calls. No phone-home. No "free until we change our mind."',
+      b: 'A 29 MB binary on a Pi, talking to a SQLite file. No outbound calls. No phone-home. No "free until we change our mind."',
     },
     {
       tag: '06',

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Icon } from '../Primitives';
+import { Icon } from '../Icons';
 
 const ITEMS = [
   { t: 'Zero-Code Auth Proxy', desc: 'High-performance gateway for identity injection.', status: 'IN PROGRESS' },

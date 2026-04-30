@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { LogoMark, Icon } from './Primitives';
+import { LogoMark, Icon } from './Icons';
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [stars, setStars] = useState('4.2k');
+  const [stars, setStars] = useState('4,200');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -17,7 +17,7 @@ export function Navbar() {
       .then(res => res.json())
       .then(data => {
         if (data.stargazers_count) {
-          setStars((data.stargazers_count / 1000).toFixed(1) + 'k');
+          setStars(data.stargazers_count.toLocaleString('en-US'));
         }
       })
       .catch(() => {});
@@ -28,8 +28,6 @@ export function Navbar() {
   const links = [
     { name: 'Docs', href: '/docs' },
     { name: 'Pricing', href: '/pricing' },
-    { name: 'Team', href: '/team' },
-    { name: 'Roadmap', href: '/roadmap' },
     { name: 'Blog', href: '/blogs' }
   ];
 

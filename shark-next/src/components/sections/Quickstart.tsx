@@ -1,26 +1,24 @@
 import React from 'react';
 
 export function Quickstart() {
-  const lines = [
-    { p: '$', t: 'curl -fsSL get.sharkauth.dev | sh', muted: false },
-    { p: '', t: '✓ downloaded shark-0.9.0-linux-amd64 (39.8 MB)', muted: true },
-    { p: '$', t: 'shark init --issuer https://auth.acme.dev', muted: false },
-    { p: '', t: '✓ wrote shark.toml  ✓ generated EC P-256 signing key', muted: true },
-    { p: '$', t: 'shark serve', muted: false },
-    { p: '', t: 'listening on :4444  ·  admin on :4445  ·  sqlite at ./shark.db', muted: true },
-    { p: '', t: 'discovery → /.well-known/oauth-authorization-server', muted: true },
-  ];
-  const sdk = `import { Shark } from "@sharkauth/sdk";
+  const cliText = `shark ❯ shark serve  main    
 
-const shark = new Shark({ issuer: "https://auth.acme.dev" });
+  ▄▄▄▄▄  
+   ██▀▀▀▀█▄ █▄  
+   ▀██▄ ▄▀ ██ ▄ ▄▄  
+   ▀██▄▄ ████▄ ▄▀▀█▄ ████▄ ██ ▄█▀  
+   ▄ ▀██▄ ██ ██ ▄█▀██ ██ ████  
+   ▀██████▀▄██ ██▄▀█▄██▄█▀ ▄██ ▀█▄
 
-// Exchange the user's id_token for an agent token bound to a DPoP key
-const agentToken = await shark.tokenExchange({
-  subject_token: userIdToken,
-  actor_token: agentJwk,            // RFC 9449 DPoP-bound
-  scope: "read:gmail read:calendar",
-  may_act: { client_id: "research-orchestrator" },
-});`;
+SharkAuth — Open Source Auth for Agents and Humans
+Binary: 29 MB · Version: 0.1.0
+Docs: https://sharkauth.com/docs
+Repo: https://github.com/shark-auth/shark
+13:17:42 INFO database schema up to date
+13:17:42 INFO email: provider=dev â€” using in-db dev inbox for capture
+13:17:42 INFO oauth: loaded existing ES256 signing key kid=uLHp-sa54BeWehkO
+
+Dashboard http://localhost:8080/admin`;
 
   return (
     <section id="install" style={{ padding: 'clamp(60px, 9vw, 120px) clamp(20px, 4vw, 56px)' }}>
@@ -29,7 +27,7 @@ const agentToken = await shark.tokenExchange({
           <div>
             <span className="eyebrow">60-second quickstart</span>
             <h2 style={{ fontSize: 'clamp(30px, 4vw, 52px)', marginTop: 14, lineHeight: 1.05 }}>
-              From zero to <span className="serif" style={{ color: 'hsl(0 0% 70%)' }}>token exchange</span> in three commands.
+              Simple ops.
             </h2>
           </div>
           <div className="text-muted" style={{ fontSize: 14, maxWidth: 380 }}>
@@ -37,10 +35,7 @@ const agentToken = await shark.tokenExchange({
           </div>
         </div>
 
-        <div className="reveal" style={{
-          display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 24,
-        }}>
-          {/* Terminal */}
+        <div className="reveal" style={{ marginTop: 40 }}>
           <div className="codeblock" style={{ padding: 0, overflow: 'hidden' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', borderBottom: '1px solid hsl(0 0% 12%)', background: 'hsl(0 0% 4%)' }}>
               <div style={{ display: 'flex', gap: 6 }}>
@@ -51,39 +46,15 @@ const agentToken = await shark.tokenExchange({
               <span className="mono" style={{ fontSize: 11.5, color: 'hsl(0 0% 55%)' }}>~/acme · zsh</span>
               <span style={{ width: 30 }} />
             </div>
-            <div style={{ padding: '18px 22px' }}>
-              {lines.map((l, i) => (
-                <div key={i} style={{
-                  display: 'flex', gap: 14, padding: '2px 0',
-                  color: l.muted ? 'hsl(0 0% 55%)' : 'hsl(0 0% 95%)',
-                }}>
-                  <span style={{ color: l.p ? 'hsl(0 0% 38%)' : 'transparent', width: 10, flex: '0 0 10px' }}>{l.p || '·'}</span>
-                  <span>{l.t}</span>
-                </div>
-              ))}
-              <div style={{ marginTop: 10, color: 'hsl(0 0% 60%)' }}>
-                <span style={{ color: 'hsl(0 0% 38%)', marginRight: 14 }}>$</span>
-                <span style={{ borderRight: '2px solid white', paddingRight: 2, animation: 'pulse 1.2s steps(1) infinite' }}> </span>
-              </div>
-            </div>
-          </div>
-
-          {/* SDK */}
-          <div className="codeblock" style={{ padding: 0, overflow: 'hidden' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', borderBottom: '1px solid hsl(0 0% 12%)', background: 'hsl(0 0% 4%)' }}>
-              <div className="mono" style={{ fontSize: 11.5, color: 'hsl(0 0% 70%)' }}>agent.ts</div>
-              <span className="chip" style={{ fontSize: 10.5 }}>@sharkauth/sdk · v0.9.0</span>
-            </div>
-            <pre style={{ margin: 0, padding: '18px 22px', whiteSpace: 'pre-wrap', color: 'hsl(0 0% 88%)', fontSize: 13 }}>
-              {sdk}
+            <pre style={{ margin: 0, padding: '24px 32px', whiteSpace: 'pre-wrap', color: 'hsl(0 0% 88%)', fontSize: 14, lineHeight: 1.6 }}>
+              {cliText}
             </pre>
           </div>
         </div>
 
-        {/* Steps */}
         <div className="reveal" style={{ marginTop: 36, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
           {[
-            { n: '01', t: 'Drop the binary', d: 'Single Go binary, ~40 MB. macOS, Linux, ARM. No runtime, no daemon.' },
+            { n: '01', t: 'Drop the binary', d: 'Single Go binary, ~29 MB. macOS, Linux, ARM. No runtime, no daemon.' },
             { n: '02', t: 'Configure once', d: 'shark.toml. Issuers, clients, may_act_grants. Or POST to the admin API.' },
             { n: '03', t: 'Mint agent tokens', d: 'OAuth 2.1, OIDC, Token Exchange, DPoP. Audit by grant_id. Done.' },
           ].map(s => (

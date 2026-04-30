@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Icon, LogoMark } from '../Primitives';
+import { Icon, LogoMark } from '../Icons';
 
 export function Comparison() {
   const rows = [
@@ -10,7 +12,7 @@ export function Comparison() {
     { feat: 'RFC 9449 DPoP key binding', shark: 'yes', auth0: 'partial', clerk: 'no', kc: 'no' },
     { feat: 'Cascade revocation', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
     { feat: 'Audit indexed by grant_id', shark: 'yes', auth0: 'partial', clerk: 'partial', kc: 'partial' },
-    { feat: 'Single ~40 MB binary', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
+    { feat: 'Single ~29 MB binary', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
     { feat: 'Self-hostable & open-source', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'yes' },
     { feat: 'Runs on a Raspberry Pi', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
   ];

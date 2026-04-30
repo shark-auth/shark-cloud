@@ -1,8 +1,11 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
-import { Pill, CopyCmd, Icon } from '../Primitives';
+import { Pill, CopyCmd } from '../Primitives';
+import { Icon } from '../Icons';
 
-const INSTALL_CMD = 'curl -fsSL get.sharkauth.dev | sh';
+const INSTALL_CMD = 'curl -fsSL sharkauth.com/get | sh';
 
 export function FinalCTA() {
   return (
