@@ -11,6 +11,16 @@ export const MDXComponents = {
   p: (props: any) => <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--muted)', marginBottom: '1.5rem' }} {...props} />,
   ul: (props: any) => <ul style={{ marginBottom: '1.5rem', paddingLeft: '1.5rem', color: 'var(--muted)' }} {...props} />,
   li: (props: any) => <li style={{ marginBottom: '0.5rem', lineHeight: '1.6' }} {...props} />,
+  table: (props: any) => (
+    <div style={{ overflowX: 'auto', marginBottom: '2rem', borderRadius: '12px', border: '1px solid var(--border)' }}>
+      <table className="cmp-table glass-card" style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, overflow: 'hidden', margin: 0 }} {...props} />
+    </div>
+  ),
+  thead: (props: any) => <thead style={{ background: 'var(--surface-2)' }} {...props} />,
+  tbody: (props: any) => <tbody {...props} />,
+  tr: (props: any) => <tr style={{ transition: 'background 0.2s ease' }} {...props} />,
+  th: (props: any) => <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid var(--border)' }} {...props} />,
+  td: (props: any) => <td style={{ padding: '16px 20px', textAlign: 'left', fontSize: '14.5px', color: 'var(--fg)', borderBottom: '1px solid var(--border)', lineHeight: '1.6' }} {...props} />,
   code: ({ children, className }: any) => {
     const isInline = !className;
     if (isInline) {
