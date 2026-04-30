@@ -6,6 +6,7 @@ import { DocsSidebar } from '@/components/DocsSidebar';
 import { MDXComponents } from '@/components/MDXComponents';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
+import remarkGfm from 'remark-gfm';
 
 export default async function DocPage(props: { params: Promise<{ slug: string[] }> }) {
   const { slug: slugArray } = await props.params;
@@ -33,6 +34,11 @@ export default async function DocPage(props: { params: Promise<{ slug: string[] 
             <MDXRemote 
               source={doc.content} 
               components={MDXComponents} 
+              options={{
+                mdxOptions: {
+                  remarkPlugins: [remarkGfm],
+                }
+              }}
             />
           </div>
         </article>

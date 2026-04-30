@@ -7,13 +7,13 @@ The agent detail drawer slides in from the right when you click any row in the A
 
 ## Tabs
 
-| Tab | Purpose |
-|-----|---------|
-| Config | Edit name, description, redirect URIs, grant types, scopes, and rotate the client secret. |
-| Tokens | List and revoke active tokens issued to this agent. |
-| Consents | Users who have authorized this agent via OAuth consent. |
-| Audit | Time-ordered audit log of events for this agent. |
-| Security | DPoP keypair details and key-rotation history (added W1-Edit1). |
+| Tab                 | Purpose                                                                                                    |
+|---------------------|------------------------------------------------------------------------------------------------------------|
+| Config              | Edit name, description, redirect URIs, grant types, scopes, and rotate the client secret.                  |
+| Tokens              | List and revoke active tokens issued to this agent.                                                        |
+| Consents            | Users who have authorized this agent via OAuth consent.                                                    |
+| Audit               | Time-ordered audit log of events for this agent.                                                           |
+| Security            | DPoP keypair details and key-rotation history (added W1-Edit1).                                            |
 | Delegation Policies | Configure which other agents this agent may delegate to, with optional scope downscoping (added W1-Edit3). |
 
 ---
@@ -55,10 +55,10 @@ If no matching audit events exist the panel renders "No key rotation events foun
 
 The Security tab consumes these fields from `GET /api/v1/agents/:id`:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `dpop_jkt` (or `jkt`) | `string \| null` | JWK thumbprint of the bound DPoP key. |
-| `dpop_key_id` (or `key_id`) | `string \| null` | Server-assigned key identifier. |
+| Field                       | Type      | Description |                                       |
+|-----------------------------|-----------|-------------|---------------------------------------|
+| `dpop_jkt` (or `jkt`)       | `string \ | null`       | JWK thumbprint of the bound DPoP key. |
+| `dpop_key_id` (or `key_id`) | `string \ | null`       | Server-assigned key identifier.       |
 
 Rotation history comes from `GET /api/v1/agents/:id/audit?limit=50` (existing endpoint, no new backend required).
 
@@ -95,20 +95,20 @@ Clicking **Configure** enters edit mode.
 
 A checkbox grid lists every other agent in the workspace. Each row contains:
 
-| Control | Description |
-|---------|-------------|
-| Checkbox | Enable/disable delegation to this agent |
-| Agent name + description | Identity of the target agent |
-| Scope input | Optional scope string to downscope delegated tokens (disabled when checkbox is unchecked) |
+| Control                  | Description                                                                               |
+|--------------------------|-------------------------------------------------------------------------------------------|
+| Checkbox                 | Enable/disable delegation to this agent                                                   |
+| Agent name + description | Identity of the target agent                                                              |
+| Scope input              | Optional scope string to downscope delegated tokens (disabled when checkbox is unchecked) |
 
 **Save policies** calls `POST /api/v1/agents/{id}/policies` with the full policies array. Saving an empty list removes all delegations. The backend fires an audit event automatically via existing audit middleware.
 
 ### Data contract
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `GET /api/v1/agents/{id}/policies` | GET | Fetch existing delegation policies for display |
-| `POST /api/v1/agents/{id}/policies` | POST | Replace the full policy set; body: `{ "policies": [{ "delegate_to_id": "<uuid>", "scope": "<optional>" }] }` |
+| Endpoint                            | Method | Purpose                                                                                                      |
+|-------------------------------------|--------|--------------------------------------------------------------------------------------------------------------|
+| `GET /api/v1/agents/{id}/policies`  | GET    | Fetch existing delegation policies for display                                                               |
+| `POST /api/v1/agents/{id}/policies` | POST   | Replace the full policy set; body: `{ "policies": [{ "delegate_to_id": "<uuid>", "scope": "<optional>" }] }` |
 
 Both endpoints are pre-existing (per audit findings); no new backend changes are needed.
 

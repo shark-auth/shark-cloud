@@ -16,16 +16,16 @@ secret reveal.
 
 ## Table Columns
 
-| Column | Description |
-|--------|-------------|
-| Avatar | First letter of agent name |
-| Name | Agent name + optional description (truncated at 280 px) |
-| Client ID | Middle-truncated to 24 chars |
-| Grants | Count of configured grant types |
-| Scopes | Count of configured scopes |
-| Created | Relative timestamp |
+| Column         | Description                                                      |
+|----------------|------------------------------------------------------------------|
+| Avatar         | First letter of agent name                                       |
+| Name           | Agent name + optional description (truncated at 280 px)          |
+| Client ID      | Middle-truncated to 24 chars                                     |
+| Grants         | Count of configured grant types                                  |
+| Scopes         | Count of configured scopes                                       |
+| Created        | Relative timestamp                                               |
 | **Created by** | Email/username of the registering user (W1.5 Edit 4 — see below) |
-| Status | `active` / `inactive` chip |
+| Status         | `active` / `inactive` chip                                       |
 
 ## Toolbar
 
@@ -72,14 +72,14 @@ If no creator is recorded the cell shows `—`.
 
 Clicking any row opens the `AgentDetail` slide-over with six tabs:
 
-| Tab | Content |
-|-----|---------|
-| Config | Editable name, description, redirect URIs, grant types, scopes, secret rotation |
-| Tokens | Active tokens with per-agent revoke-all |
-| Consents | Users who have authorized this agent |
-| Audit | Last 30 audit events |
-| Security | DPoP keypair + rotation history |
-| Delegation Policies | Which agents this agent may delegate to |
+| Tab                 | Content                                                                         |
+|---------------------|---------------------------------------------------------------------------------|
+| Config              | Editable name, description, redirect URIs, grant types, scopes, secret rotation |
+| Tokens              | Active tokens with per-agent revoke-all                                         |
+| Consents            | Users who have authorized this agent                                            |
+| Audit               | Last 30 audit events                                                            |
+| Security            | DPoP keypair + rotation history                                                 |
+| Delegation Policies | Which agents this agent may delegate to                                         |
 
 ## Create Flow
 
@@ -90,20 +90,20 @@ the panel closes.
 
 ## Backend Endpoints
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/api/v1/agents?limit=200` | All registered agents |
-| `GET` | `/api/v1/agents?limit=200&created_by_user_id=<id>` | Filter agents by creator |
-| `POST` | `/api/v1/agents` | Register a new agent |
-| `PATCH` | `/api/v1/agents/:id` | Update agent fields |
-| `DELETE` | `/api/v1/agents/:id` | Deactivate agent + revoke tokens |
-| `POST` | `/api/v1/agents/:id/tokens/revoke-all` | Revoke all tokens for an agent |
-| `POST` | `/api/v1/agents/:id/rotate-secret` | Rotate client secret |
-| `GET` | `/api/v1/agents/:id/tokens?limit=50` | List active tokens |
-| `GET` | `/api/v1/agents/:id/audit?limit=30` | Audit log for agent |
-| `GET` | `/api/v1/agents/:id/policies` | Delegation policies |
-| `POST` | `/api/v1/agents/:id/policies` | Save delegation policies |
-| `GET` | `/api/v1/users?limit=200` | User list for creator dropdown |
+| Method   | Path                                               | Description                      |
+|----------|----------------------------------------------------|----------------------------------|
+| `GET`    | `/api/v1/agents?limit=200`                         | All registered agents            |
+| `GET`    | `/api/v1/agents?limit=200&created_by_user_id=<id>` | Filter agents by creator         |
+| `POST`   | `/api/v1/agents`                                   | Register a new agent             |
+| `PATCH`  | `/api/v1/agents/:id`                               | Update agent fields              |
+| `DELETE` | `/api/v1/agents/:id`                               | Deactivate agent + revoke tokens |
+| `POST`   | `/api/v1/agents/:id/tokens/revoke-all`             | Revoke all tokens for an agent   |
+| `POST`   | `/api/v1/agents/:id/rotate-secret`                 | Rotate client secret             |
+| `GET`    | `/api/v1/agents/:id/tokens?limit=50`               | List active tokens               |
+| `GET`    | `/api/v1/agents/:id/audit?limit=30`                | Audit log for agent              |
+| `GET`    | `/api/v1/agents/:id/policies`                      | Delegation policies              |
+| `POST`   | `/api/v1/agents/:id/policies`                      | Save delegation policies         |
+| `GET`    | `/api/v1/users?limit=200`                          | User list for creator dropdown   |
 
 ## CLI Parity
 

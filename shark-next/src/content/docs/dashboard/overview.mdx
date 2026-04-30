@@ -24,22 +24,22 @@ health summary. Clicking anywhere on the card navigates to `/agents`.
 
 #### Metrics displayed
 
-| Metric | Description |
-|---|---|
-| Active token-exchange grants | Count of `token.exchange` audit events in the last 24 h |
-| Delegation chains | Count of events carrying an `act_chain` or `oauth.act` delegation; `max depth` = longest chain seen |
-| DPoP binding % | Percentage of active agent tokens that carry a `dpop_jkt` / `cnf.jkt` claim |
-| Expired DPoP keys | Count of DPoP-bound tokens whose `expires_at` is in the past — shown in amber if > 0 |
+| Metric                       | Description                                                                                         |
+|------------------------------|-----------------------------------------------------------------------------------------------------|
+| Active token-exchange grants | Count of `token.exchange` audit events in the last 24 h                                             |
+| Delegation chains            | Count of events carrying an `act_chain` or `oauth.act` delegation; `max depth` = longest chain seen |
+| DPoP binding %               | Percentage of active agent tokens that carry a `dpop_jkt` / `cnf.jkt` claim                         |
+| Expired DPoP keys            | Count of DPoP-bound tokens whose `expires_at` is in the past — shown in amber if > 0                |
 
 #### Data sources (no new backend)
 
 All four metrics are derived from existing endpoints:
 
-| Endpoint | Used for |
-|---|---|
+| Endpoint                                                                      | Used for                                                                         |
+|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
 | `GET /api/v1/admin/audit-logs?action=token.exchange&from=<24h ago>&limit=200` | Token-exchange grant count; delegation chain analysis (`act_chain`, `oauth.act`) |
-| `GET /api/v1/agents?limit=200` | Agent list for token iteration |
-| `GET /api/v1/agents/{id}/tokens` | Per-agent token list; DPoP binding (`dpop_jkt` / `cnf.jkt`) and expiry check |
+| `GET /api/v1/agents?limit=200`                                                | Agent list for token iteration                                                   |
+| `GET /api/v1/agents/{id}/tokens`                                              | Per-agent token list; DPoP binding (`dpop_jkt` / `cnf.jkt`) and expiry check     |
 
 #### Live updates
 
@@ -62,14 +62,14 @@ opened.
 Six stat tiles across the full width (hidden when the Magical Moment hero is
 shown):
 
-| Tile | Source field |
-|---|---|
-| Users | `stats.users.total` |
-| Active sessions | `stats.sessions.active` |
-| MFA adoption | `stats.mfa.pct * 100` % |
+| Tile              | Source field                  |
+|-------------------|-------------------------------|
+| Users             | `stats.users.total`           |
+| Active sessions   | `stats.sessions.active`       |
+| MFA adoption      | `stats.mfa.pct * 100` %       |
 | Failed logins 24h | `stats.failedLogins24h.count` |
-| API keys active | `stats.apiKeys.count` |
-| Agents active | `agentsRaw.total` |
+| API keys active   | `stats.apiKeys.count`         |
+| Agents active     | `agentsRaw.total`             |
 
 ---
 

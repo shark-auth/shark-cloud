@@ -26,11 +26,11 @@ shark user list [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--limit` | int | `50` | Maximum number of users to return |
+| Flag       | Type   | Default  | Description                               |
+|------------|--------|----------|-------------------------------------------|
+| `--limit`  | int    | `50`     | Maximum number of users to return         |
 | `--search` | string | _(none)_ | Filter by email or name (substring match) |
-| `--json` | bool | `false` | Emit JSON array |
+| `--json`   | bool   | `false`  | Emit JSON array                           |
 
 #### Examples
 
@@ -61,12 +61,12 @@ shark user create --email <email> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--email` | string | _(required)_ | User email address |
-| `--name` | string | _(none)_ | Display name |
-| `--password` | string | _(none)_ | Initial password (optional; user can set via magic link otherwise) |
-| `--json` | bool | `false` | Emit created user as JSON |
+| Flag         | Type   | Default      | Description                                                        |
+|--------------|--------|--------------|--------------------------------------------------------------------|
+| `--email`    | string | _(required)_ | User email address                                                 |
+| `--name`     | string | _(none)_     | Display name                                                       |
+| `--password` | string | _(none)_     | Initial password (optional; user can set via magic link otherwise) |
+| `--json`     | bool   | `false`      | Emit created user as JSON                                          |
 
 #### Examples
 
@@ -94,8 +94,8 @@ shark user show <id> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description              |
+|----------|------|---------|--------------------------|
 | `--json` | bool | `false` | Emit user object as JSON |
 
 #### Examples
@@ -119,12 +119,12 @@ shark user update <id> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--name` | string | _(none)_ | New display name |
-| `--email` | string | _(none)_ | New email address |
-| `--email-verified` | bool | `false` | Set email-verified state |
-| `--json` | bool | `false` | Emit updated user as JSON |
+| Flag               | Type   | Default  | Description               |
+|--------------------|--------|----------|---------------------------|
+| `--name`           | string | _(none)_ | New display name          |
+| `--email`          | string | _(none)_ | New email address         |
+| `--email-verified` | bool   | `false`  | Set email-verified state  |
+| `--json`           | bool   | `false`  | Emit updated user as JSON |
 
 #### Examples
 
@@ -156,10 +156,10 @@ shark user delete <id> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--yes` | bool | `false` | Skip interactive confirmation prompt |
-| `--json` | bool | `false` | Emit `{"deleted":"<id>"}` |
+| Flag     | Type | Default | Description                          |
+|----------|------|---------|--------------------------------------|
+| `--yes`  | bool | `false` | Skip interactive confirmation prompt |
+| `--json` | bool | `false` | Emit `{"deleted":"<id>"}`            |
 
 #### Examples
 
@@ -190,12 +190,12 @@ shark agent register --name <name> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--name` | string | _(required)_ | Human-readable agent name |
-| `--description` | string | _(none)_ | Optional description |
-| `--app` | string | _(none)_ | App slug to associate this agent with (stored in metadata) |
-| `--json` | bool | `false` | Emit created agent as JSON |
+| Flag            | Type   | Default      | Description                                                |
+|-----------------|--------|--------------|------------------------------------------------------------|
+| `--name`        | string | _(required)_ | Human-readable agent name                                  |
+| `--description` | string | _(none)_     | Optional description                                       |
+| `--app`         | string | _(none)_     | App slug to associate this agent with (stored in metadata) |
+| `--json`        | bool   | `false`      | Emit created agent as JSON                                 |
 
 #### Examples
 
@@ -232,8 +232,8 @@ shark agent show <id> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description               |
+|----------|------|---------|---------------------------|
 | `--json` | bool | `false` | Emit agent object as JSON |
 
 #### Examples
@@ -257,11 +257,11 @@ shark agent update <id> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--name` | string | _(none)_ | New agent name |
-| `--description` | string | _(none)_ | New description |
-| `--json` | bool | `false` | Emit updated agent as JSON |
+| Flag            | Type   | Default  | Description                |
+|-----------------|--------|----------|----------------------------|
+| `--name`        | string | _(none)_ | New agent name             |
+| `--description` | string | _(none)_ | New description            |
+| `--json`        | bool   | `false`  | Emit updated agent as JSON |
 
 #### Examples
 
@@ -284,9 +284,9 @@ shark agent delete <id> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--yes` | bool | `false` | Skip confirmation prompt |
+| Flag     | Type | Default | Description               |
+|----------|------|---------|---------------------------|
+| `--yes`  | bool | `false` | Skip confirmation prompt  |
 | `--json` | bool | `false` | Emit `{"deleted":"<id>"}` |
 
 #### Examples
@@ -310,8 +310,8 @@ shark agent rotate-secret <id> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description                            |
+|----------|------|---------|----------------------------------------|
 | `--json` | bool | `false` | Emit `{"client_secret":"..."}` as JSON |
 
 #### Examples
@@ -336,8 +336,8 @@ shark agent revoke-tokens <id> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description                |
+|----------|------|---------|----------------------------|
 | `--json` | bool | `false` | Emit `{"revoked":<count>}` |
 
 #### Examples
@@ -365,10 +365,10 @@ shark api-key create --name <name> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--name` | string | _(required)_ | Name for the API key |
-| `--json` | bool | `false` | Emit created key as JSON |
+| Flag     | Type   | Default      | Description              |
+|----------|--------|--------------|--------------------------|
+| `--name` | string | _(required)_ | Name for the API key     |
+| `--json` | bool   | `false`      | Emit created key as JSON |
 
 #### Examples
 
@@ -396,8 +396,8 @@ shark api-key list [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description     |
+|----------|------|---------|-----------------|
 | `--json` | bool | `false` | Emit JSON array |
 
 #### Examples
@@ -421,8 +421,8 @@ shark api-key revoke <id> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description               |
+|----------|------|---------|---------------------------|
 | `--json` | bool | `false` | Emit `{"revoked":"<id>"}` |
 
 #### Examples
@@ -446,8 +446,8 @@ shark api-key rotate <id> [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description                         |
+|----------|------|---------|-------------------------------------|
 | `--json` | bool | `false` | Emit `{"key":"..."}` with new value |
 
 #### Examples
@@ -473,10 +473,10 @@ shark consents list [flags]
 
 #### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag            | Type   | Default  | Description       |
+|-----------------|--------|----------|-------------------|
 | `--user` / `-u` | string | _(none)_ | Filter by user ID |
-| `--json` | bool | `false` | Emit JSON array |
+| `--json`        | bool   | `false`  | Emit JSON array   |
 
 #### Examples
 

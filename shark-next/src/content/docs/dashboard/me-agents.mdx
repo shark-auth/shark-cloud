@@ -20,14 +20,14 @@ to filter the global Agents list manually.
 Lists every agent whose `created_by_user_id` matches the current session. Each
 row shows:
 
-| Column | Value |
-|--------|-------|
-| Avatar | First letter of agent name |
-| Name | Agent name + optional description |
-| Client ID | Truncated (mid-ellipsis, 22 chars) |
-| Created | Relative timestamp (`Xs ago`, `Xm ago`, …) |
-| Status | `active` / `inactive` chip |
-| Action | **Revoke** button (disabled if already inactive) |
+| Column    | Value                                            |
+|-----------|--------------------------------------------------|
+| Avatar    | First letter of agent name                       |
+| Name      | Agent name + optional description                |
+| Client ID | Truncated (mid-ellipsis, 22 chars)               |
+| Created   | Relative timestamp (`Xs ago`, `Xm ago`, …)       |
+| Status    | `active` / `inactive` chip                       |
+| Action    | **Revoke** button (disabled if already inactive) |
 
 Clicking **Revoke** opens a confirmation modal. On confirm the component calls
 `PATCH /api/v1/agents/:id` with `{ active: false }`, which deactivates the
@@ -37,14 +37,14 @@ agent and revokes all its tokens.
 
 Lists every agent the current user has granted OAuth consent to. Each row shows:
 
-| Column | Value |
-|--------|-------|
-| Avatar | First letter of agent name |
-| Name | Agent name + optional description |
-| Provider | `provider` or `audience` field |
-| Granted | Relative timestamp |
-| Status | `active` / `inactive` chip |
-| Action | **Revoke consent** button |
+| Column   | Value                             |
+|----------|-----------------------------------|
+| Avatar   | First letter of agent name        |
+| Name     | Agent name + optional description |
+| Provider | `provider` or `audience` field    |
+| Granted  | Relative timestamp                |
+| Status   | `active` / `inactive` chip        |
+| Action   | **Revoke consent** button         |
 
 Clicking **Revoke consent** opens a confirmation modal. On confirm the component
 calls `DELETE /api/v1/oauth/consents/:consent_id`. If the `consent_id` is not
@@ -62,13 +62,13 @@ sections.
 
 ## Backend Endpoints
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/api/v1/me/agents?filter=created` | Agents created by the current user |
-| `GET` | `/api/v1/me/agents?filter=authorized` | Agents the current user has consented to |
-| `PATCH` | `/api/v1/agents/:id` | Deactivate an agent (`active: false`) |
-| `DELETE` | `/api/v1/oauth/consents/:consent_id` | Revoke a single consent grant |
-| `POST` | `/api/v1/me/agents/revoke-all` | Revoke all agents + consents for current user |
+| Method   | Path                                  | Description                                   |
+|----------|---------------------------------------|-----------------------------------------------|
+| `GET`    | `/api/v1/me/agents?filter=created`    | Agents created by the current user            |
+| `GET`    | `/api/v1/me/agents?filter=authorized` | Agents the current user has consented to      |
+| `PATCH`  | `/api/v1/agents/:id`                  | Deactivate an agent (`active: false`)         |
+| `DELETE` | `/api/v1/oauth/consents/:consent_id`  | Revoke a single consent grant                 |
+| `POST`   | `/api/v1/me/agents/revoke-all`        | Revoke all agents + consents for current user |
 
 ## Empty State
 

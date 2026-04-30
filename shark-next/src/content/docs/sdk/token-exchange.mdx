@@ -42,15 +42,15 @@ function exchangeToken(opts: {
 
 ## Parameters
 
-| Param                   | Required | Notes                                                  |
-| ----------------------- | -------- | ------------------------------------------------------ |
-| `subject_token`         | yes      | Token being exchanged (parent's `access_token`)        |
-| `dpop_prover`           | yes (Py) | Same keypair preserves DPoP binding across exchange    |
-| `scope`                 | no       | Subset of parent's scope. Server rejects expansion.    |
-| `audience`              | no       | Restrict child token to a single resource server       |
-| `actor_token`           | no       | Token of the agent doing the delegation — adds `act`   |
-| `subject_token_type`    | no       | Default `urn:...:access_token`                         |
-| `requested_token_type`  | no       | Default `urn:...:access_token`. Pass `:jwt` for JWT.   |
+| Param                  | Required | Notes                                                |
+|------------------------|----------|------------------------------------------------------|
+| `subject_token`        | yes      | Token being exchanged (parent's `access_token`)      |
+| `dpop_prover`          | yes (Py) | Same keypair preserves DPoP binding across exchange  |
+| `scope`                | no       | Subset of parent's scope. Server rejects expansion.  |
+| `audience`             | no       | Restrict child token to a single resource server     |
+| `actor_token`          | no       | Token of the agent doing the delegation — adds `act` |
+| `subject_token_type`   | no       | Default `urn:...:access_token`                       |
+| `requested_token_type` | no       | Default `urn:...:access_token`. Pass `:jwt` for JWT. |
 
 ## Common patterns
 
@@ -108,12 +108,12 @@ The server emits the new token bound to the new key; the old token is unchanged 
 
 ## Errors
 
-| Error code        | When                                                       |
-| ----------------- | ---------------------------------------------------------- |
-| `invalid_token`   | `subject_token` revoked or expired                         |
-| `invalid_scope`   | Requested scope exceeds parent's grant                     |
-| `invalid_target`  | `audience` not allowed for this client                     |
-| `unauthorized_client` | Client not allowed to use token-exchange grant         |
+| Error code            | When                                           |
+|-----------------------|------------------------------------------------|
+| `invalid_token`       | `subject_token` revoked or expired             |
+| `invalid_scope`       | Requested scope exceeds parent's grant         |
+| `invalid_target`      | `audience` not allowed for this client         |
+| `unauthorized_client` | Client not allowed to use token-exchange grant |
 
 Python raises `OAuthError(error, error_description, status_code)`. TypeScript raises `TokenError`.
 

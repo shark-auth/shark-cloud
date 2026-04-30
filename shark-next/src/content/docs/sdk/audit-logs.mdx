@@ -53,16 +53,16 @@ const result = await audit.list({
 });
 ```
 
-| Filter        | Notes                                              |
-| ------------- | -------------------------------------------------- |
-| `actor_id`    | Subject that triggered the event                   |
-| `actor_type`  | `user`, `agent`, `api_key`, `system`               |
-| `action`      | Event string (e.g. `agent.created`)                |
-| `target_id`   | Affected resource id                               |
-| `target_type` | Resource type                                      |
-| `since` / `until` | ISO 8601 timestamps                            |
-| `limit`       | Default 100                                        |
-| `cursor`      | Opaque pagination cursor from previous response    |
+| Filter            | Notes                                           |
+|-------------------|-------------------------------------------------|
+| `actor_id`        | Subject that triggered the event                |
+| `actor_type`      | `user`, `agent`, `api_key`, `system`            |
+| `action`          | Event string (e.g. `agent.created`)             |
+| `target_id`       | Affected resource id                            |
+| `target_type`     | Resource type                                   |
+| `since` / `until` | ISO 8601 timestamps                             |
+| `limit`           | Default 100                                     |
+| `cursor`          | Opaque pagination cursor from previous response |
 
 Returns `{events: [...], next_cursor: ...}`. Each event carries `id`, `action` (or `event`), `actor_id`, `actor_type`, `target_id`, `target_type`, `metadata`, `created_at`, `ip`, `user_agent`.
 
@@ -95,11 +95,11 @@ const text = await audit.export({
 });
 ```
 
-| Format    | Notes                                         |
-| --------- | --------------------------------------------- |
-| `csv`     | Default server emission today                 |
-| `ndjson`  | Newline-delimited JSON                        |
-| `json`    | Single JSON array                             |
+| Format   | Notes                         |
+|----------|-------------------------------|
+| `csv`    | Default server emission today |
+| `ndjson` | Newline-delimited JSON        |
+| `json`   | Single JSON array             |
 
 `since` and `until` are required. Returns the raw response body as a string.
 
@@ -120,20 +120,20 @@ Deletes all entries strictly older than `before`. Use `dry_run=True` to preview 
 
 ## Common event types
 
-| Event                        | Emitted when                              |
-| ---------------------------- | ----------------------------------------- |
-| `user.created`               | Signup or admin create                    |
-| `user.deleted`               | DELETE /me or admin                       |
-| `user.session_created`       | Login                                     |
-| `user.session_revoked`       | Logout / revoke / cascade                 |
-| `agent.created`              | Register agent                            |
-| `agent.token_issued`         | `client_credentials` or exchange          |
-| `agent.token_revoked`        | revoke / revoke_all / bulk                |
-| `agent.dpop_key_rotated`     | `rotate_dpop_key`                         |
-| `agent.cascade_revoked`      | `users.revoke_agents`                     |
-| `vault.connection_disconnected` | `vault.disconnect`                     |
-| `oauth.bulk_revoked_pattern` | `bulk_revoke_by_pattern`                  |
-| `webhook.delivery_failed`    | Webhook target returned non-2xx           |
+| Event                           | Emitted when                     |
+|---------------------------------|----------------------------------|
+| `user.created`                  | Signup or admin create           |
+| `user.deleted`                  | DELETE /me or admin              |
+| `user.session_created`          | Login                            |
+| `user.session_revoked`          | Logout / revoke / cascade        |
+| `agent.created`                 | Register agent                   |
+| `agent.token_issued`            | `client_credentials` or exchange |
+| `agent.token_revoked`           | revoke / revoke_all / bulk       |
+| `agent.dpop_key_rotated`        | `rotate_dpop_key`                |
+| `agent.cascade_revoked`         | `users.revoke_agents`            |
+| `vault.connection_disconnected` | `vault.disconnect`               |
+| `oauth.bulk_revoked_pattern`    | `bulk_revoke_by_pattern`         |
+| `webhook.delivery_failed`       | Webhook target returned non-2xx  |
 
 ## See also
 

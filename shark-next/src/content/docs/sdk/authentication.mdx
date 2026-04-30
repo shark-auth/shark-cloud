@@ -38,11 +38,11 @@ print(user["id"])
 const user = await auth.signup("alice@example.com", "Strong-Pwd-2026", { name: "Alice" });
 ```
 
-| Param      | Type   | Required | Notes                                |
-| ---------- | ------ | -------- | ------------------------------------ |
-| `email`    | string | yes      | Lowercased server-side               |
-| `password` | string | yes      | Server enforces complexity policy    |
-| `name`     | string | no       | `full_name` in Python; `name` in TS  |
+| Param      | Type   | Required | Notes                               |
+|------------|--------|----------|-------------------------------------|
+| `email`    | string | yes      | Lowercased server-side              |
+| `password` | string | yes      | Server enforces complexity policy   |
+| `name`     | string | no       | `full_name` in Python; `name` in TS |
 
 Returns the new user object: `{ id, email, name?, email_verified?, created_at, updated_at, ... }`.
 

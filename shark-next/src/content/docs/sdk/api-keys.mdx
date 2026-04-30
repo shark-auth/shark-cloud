@@ -52,11 +52,11 @@ const created = await keys.create({
 console.log(created.key);
 ```
 
-| Param        | Type      | Required | Notes                                   |
-| ------------ | --------- | -------- | --------------------------------------- |
-| `name`       | string    | yes      | Human-readable label                    |
-| `scopes`     | string[]  | no       | Empty array means "no admin scopes"     |
-| `expires_at` | ISO 8601  | no       | Defaults to no expiry                   |
+| Param        | Type     | Required | Notes                               |
+|--------------|----------|----------|-------------------------------------|
+| `name`       | string   | yes      | Human-readable label                |
+| `scopes`     | string[] | no       | Empty array means "no admin scopes" |
+| `expires_at` | ISO 8601 | no       | Defaults to no expiry               |
 
 Response: `{ id, key, name, scopes, expires_at, created_at }`. The `key` field is the bearer to pass to subsequent clients.
 
@@ -112,19 +112,19 @@ await keys.revoke("ak_abc");
 
 Admin scopes follow a `<resource>:<verb>` pattern:
 
-| Scope                     | What                                        |
-| ------------------------- | ------------------------------------------- |
-| `users:read` / `:write`   | List/CRUD users, set tier                   |
-| `agents:read` / `:write`  | Register, revoke, rotate agents             |
-| `oauth:revoke`            | Bulk revoke by GLOB pattern                 |
-| `vault:admin`             | List + disconnect vault connections         |
-| `vault:read`              | Used on **agent** tokens, not API keys      |
-| `webhooks:write`          | CRUD webhook subscriptions                  |
-| `audit:read` / `:export`  | Query / export audit logs                   |
-| `audit:purge`             | Delete old audit log entries                |
-| `rbac:write`              | Manage roles, permissions, role assignments |
-| `organizations:write`     | Org CRUD + member + invitation              |
-| `apps:write`              | Application CRUD + secret rotation          |
+| Scope                    | What                                        |
+|--------------------------|---------------------------------------------|
+| `users:read` / `:write`  | List/CRUD users, set tier                   |
+| `agents:read` / `:write` | Register, revoke, rotate agents             |
+| `oauth:revoke`           | Bulk revoke by GLOB pattern                 |
+| `vault:admin`            | List + disconnect vault connections         |
+| `vault:read`             | Used on **agent** tokens, not API keys      |
+| `webhooks:write`         | CRUD webhook subscriptions                  |
+| `audit:read` / `:export` | Query / export audit logs                   |
+| `audit:purge`            | Delete old audit log entries                |
+| `rbac:write`             | Manage roles, permissions, role assignments |
+| `organizations:write`    | Org CRUD + member + invitation              |
+| `apps:write`             | Application CRUD + secret rotation          |
 
 Pass an empty `scopes` list (or omit) to request "all admin scopes" — but production keys should be scoped tightly.
 

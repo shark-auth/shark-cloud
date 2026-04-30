@@ -58,10 +58,10 @@ Rotates the DPoP keypair binding for an agent. The caller supplies the new publi
 }
 ```
 
-| Field           | Type   | Required | Description                                          |
-|-----------------|--------|----------|------------------------------------------------------|
-| `new_public_jwk`| object | yes      | New public key in JWK format (EC P-256, RSA, or OKP) |
-| `reason`        | string | no       | Audit-log reason string                              |
+| Field            | Type   | Required | Description                                          |
+|------------------|--------|----------|------------------------------------------------------|
+| `new_public_jwk` | object | yes      | New public key in JWK format (EC P-256, RSA, or OKP) |
+| `reason`         | string | no       | Audit-log reason string                              |
 
 ### Response (200 OK)
 
@@ -74,21 +74,21 @@ Rotates the DPoP keypair binding for an agent. The caller supplies the new publi
 }
 ```
 
-| Field                | Type    | Description                                           |
-|----------------------|---------|-------------------------------------------------------|
-| `old_jkt`            | string  | RFC 7638 SHA-256 thumbprint of the replaced key (empty if none was stored) |
-| `new_jkt`            | string  | RFC 7638 SHA-256 thumbprint of the new key            |
-| `revoked_token_count`| integer | Number of tokens revoked (bound to the old key)       |
-| `audit_event_id`     | string  | ID of the emitted `agent.dpop_key_rotated` audit event |
+| Field                 | Type    | Description                                                                |
+|-----------------------|---------|----------------------------------------------------------------------------|
+| `old_jkt`             | string  | RFC 7638 SHA-256 thumbprint of the replaced key (empty if none was stored) |
+| `new_jkt`             | string  | RFC 7638 SHA-256 thumbprint of the new key                                 |
+| `revoked_token_count` | integer | Number of tokens revoked (bound to the old key)                            |
+| `audit_event_id`      | string  | ID of the emitted `agent.dpop_key_rotated` audit event                     |
 
 ### Error responses
 
-| Status | Error code     | Meaning                              |
-|--------|----------------|--------------------------------------|
-| 400    | `invalid_request` | Missing or malformed JSON body     |
-| 400    | `invalid_jwk`  | `new_public_jwk` is not a valid JWK  |
-| 401    | —              | Missing or invalid admin API key     |
-| 404    | `not_found`    | Agent not found                      |
+| Status | Error code        | Meaning                             |
+|--------|-------------------|-------------------------------------|
+| 400    | `invalid_request` | Missing or malformed JSON body      |
+| 400    | `invalid_jwk`     | `new_public_jwk` is not a valid JWK |
+| 401    | —                 | Missing or invalid admin API key    |
+| 404    | `not_found`       | Agent not found                     |
 
 ### Audit event
 

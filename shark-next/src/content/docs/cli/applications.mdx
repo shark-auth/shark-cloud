@@ -24,8 +24,8 @@ shark app list [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description        |
+|----------|------|---------|--------------------|
 | `--json` | bool | `false` | Emit JSON response |
 
 ### Examples
@@ -53,13 +53,13 @@ shark app create --name <name> [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--name` | string | _(required)_ | Application name |
-| `--callback` | string[] | _(none)_ | Allowed callback URL (repeatable) |
-| `--logout` | string[] | _(none)_ | Allowed logout URL (repeatable) |
-| `--origin` | string[] | _(none)_ | Allowed CORS origin (repeatable) |
-| `--json` | bool | `false` | Emit created app as JSON |
+| Flag         | Type     | Default      | Description                       |
+|--------------|----------|--------------|-----------------------------------|
+| `--name`     | string   | _(required)_ | Application name                  |
+| `--callback` | string[] | _(none)_     | Allowed callback URL (repeatable) |
+| `--logout`   | string[] | _(none)_     | Allowed logout URL (repeatable)   |
+| `--origin`   | string[] | _(none)_     | Allowed CORS origin (repeatable)  |
+| `--json`     | bool     | `false`      | Emit created app as JSON          |
 
 URL validation rejects dangerous schemes (`javascript:`, `file:`, `data:`, `vbscript:`). Both `https://` and custom mobile app schemes (e.g. `myapp://`) are accepted.
 
@@ -111,8 +111,8 @@ shark app show <id-or-client-id> [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description                          |
+|----------|------|---------|--------------------------------------|
 | `--json` | bool | `false` | Emit full application object as JSON |
 
 ### Examples
@@ -140,15 +140,15 @@ shark app update <id-or-client-id> [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--name` | string | _(none)_ | New application name |
-| `--add-callback` | string[] | _(none)_ | Add a callback URL |
+| Flag                | Type     | Default  | Description           |
+|---------------------|----------|----------|-----------------------|
+| `--name`            | string   | _(none)_ | New application name  |
+| `--add-callback`    | string[] | _(none)_ | Add a callback URL    |
 | `--remove-callback` | string[] | _(none)_ | Remove a callback URL |
-| `--add-logout` | string[] | _(none)_ | Add a logout URL |
-| `--remove-logout` | string[] | _(none)_ | Remove a logout URL |
-| `--add-origin` | string[] | _(none)_ | Add an origin |
-| `--remove-origin` | string[] | _(none)_ | Remove an origin |
+| `--add-logout`      | string[] | _(none)_ | Add a logout URL      |
+| `--remove-logout`   | string[] | _(none)_ | Remove a logout URL   |
+| `--add-origin`      | string[] | _(none)_ | Add an origin         |
+| `--remove-origin`   | string[] | _(none)_ | Remove an origin      |
 
 ### Examples
 
@@ -186,8 +186,8 @@ shark app delete <id-or-client-id> [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag    | Type | Default | Description              |
+|---------|------|---------|--------------------------|
 | `--yes` | bool | `false` | Skip confirmation prompt |
 
 ### Examples
@@ -217,8 +217,8 @@ shark app rotate-secret <id-or-client-id> [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description                                                  |
+|----------|------|---------|--------------------------------------------------------------|
 | `--json` | bool | `false` | Emit `{"client_id":"...","secret":"...","rotated_at":"..."}` |
 
 ### Examples

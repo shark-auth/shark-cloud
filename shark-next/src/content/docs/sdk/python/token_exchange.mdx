@@ -36,16 +36,16 @@ def token_exchange(
 
 ## Parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `subject_token` | `str` | required | The existing access token to exchange (e.g. `token.access_token`). |
-| `dpop_prover` | `DPoPProver` | required | Same prover used for the original token. Key binding is preserved — `cnf.jkt` will match in the child token. |
-| `scope` | `str \| None` | `None` | Narrower space-separated scopes to downscope to (e.g. `"mcp:read"`). Omitting leaves scope up to the server. |
-| `audience` | `str \| None` | `None` | Restrict the new token to a specific resource server URL. |
-| `actor_token` | `str \| None` | `None` | Optional `act`-claim parent token (the agent performing the delegation). When provided, `actor_token_type` is automatically added. |
-| `subject_token_type` | `str` | `"urn:ietf:params:oauth:token-type:access_token"` | RFC 8693 type URI for `subject_token`. |
-| `requested_token_type` | `str` | `"urn:ietf:params:oauth:token-type:access_token"` | RFC 8693 type URI for the token to be issued. |
-| `**extra` | `Any` | — | Any additional form fields forwarded to the token endpoint. |
+| Parameter              | Type         | Default                                           | Description                                                                                                  |                                                                                                                                    |
+|------------------------|--------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| `subject_token`        | `str`        | required                                          | The existing access token to exchange (e.g. `token.access_token`).                                           |                                                                                                                                    |
+| `dpop_prover`          | `DPoPProver` | required                                          | Same prover used for the original token. Key binding is preserved — `cnf.jkt` will match in the child token. |                                                                                                                                    |
+| `scope`                | `str \       | None`                                             | `None`                                                                                                       | Narrower space-separated scopes to downscope to (e.g. `"mcp:read"`). Omitting leaves scope up to the server.                       |
+| `audience`             | `str \       | None`                                             | `None`                                                                                                       | Restrict the new token to a specific resource server URL.                                                                          |
+| `actor_token`          | `str \       | None`                                             | `None`                                                                                                       | Optional `act`-claim parent token (the agent performing the delegation). When provided, `actor_token_type` is automatically added. |
+| `subject_token_type`   | `str`        | `"urn:ietf:params:oauth:token-type:access_token"` | RFC 8693 type URI for `subject_token`.                                                                       |                                                                                                                                    |
+| `requested_token_type` | `str`        | `"urn:ietf:params:oauth:token-type:access_token"` | RFC 8693 type URI for the token to be issued.                                                                |                                                                                                                                    |
+| `**extra`              | `Any`        | —                                                 | Any additional form fields forwarded to the token endpoint.                                                  |                                                                                                                                    |
 
 ---
 
@@ -53,24 +53,24 @@ def token_exchange(
 
 A `Token` dataclass with:
 
-| Field | Notes |
-|---|---|
-| `access_token` | New child access token string. |
-| `token_type` | Usually `"DPoP"`. |
-| `expires_in` | Lifetime in seconds, or `None`. |
-| `scope` | Granted scope (may be narrower than `subject_token`'s scope). |
-| `cnf_jkt` | **Unchanged from parent** — same keypair is bound. Token theft alone is still useless. |
-| `raw` | Full server JSON response. |
+| Field          | Notes                                                                                  |
+|----------------|----------------------------------------------------------------------------------------|
+| `access_token` | New child access token string.                                                         |
+| `token_type`   | Usually `"DPoP"`.                                                                      |
+| `expires_in`   | Lifetime in seconds, or `None`.                                                        |
+| `scope`        | Granted scope (may be narrower than `subject_token`'s scope).                          |
+| `cnf_jkt`      | **Unchanged from parent** — same keypair is bound. Token theft alone is still useless. |
+| `raw`          | Full server JSON response.                                                             |
 
 ---
 
 ## Raises
 
-| Error | Status | Cause | Fix |
-|---|---|---|---|
-| `OAuthError(error="invalid_token")` | 401 | `subject_token` is expired or revoked. | Obtain a fresh parent token via `get_token_with_dpop()` before exchanging. |
-| `OAuthError(error="invalid_scope")` | 400 | Requested scope exceeds the parent token's grant. | Use a scope that is a strict subset of the parent's granted scope. |
-| `OAuthError(error="invalid_request")` | 400 | Missing required field or malformed body. | Check that `subject_token` and `dpop_prover` are non-empty and valid. |
+| Error                                 | Status | Cause                                             | Fix                                                                        |
+|---------------------------------------|--------|---------------------------------------------------|----------------------------------------------------------------------------|
+| `OAuthError(error="invalid_token")`   | 401    | `subject_token` is expired or revoked.            | Obtain a fresh parent token via `get_token_with_dpop()` before exchanging. |
+| `OAuthError(error="invalid_scope")`   | 400    | Requested scope exceeds the parent token's grant. | Use a scope that is a strict subset of the parent's granted scope.         |
+| `OAuthError(error="invalid_request")` | 400    | Missing required field or malformed body.         | Check that `subject_token` and `dpop_prover` are non-empty and valid.      |
 
 ---
 

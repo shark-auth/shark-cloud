@@ -61,11 +61,11 @@ supported:
 
 Each node:
 
-| Field   | Required | Description                                    |
-|---------|----------|------------------------------------------------|
-| `sub`   | yes      | Opaque subject identifier (agent ID or user ID)|
-| `label` | no       | Human-readable display name                    |
-| `jkt`   | no       | JWK thumbprint of the DPoP key (first 4 chars shown)|
+| Field   | Required | Description                                          |
+|---------|----------|------------------------------------------------------|
+| `sub`   | yes      | Opaque subject identifier (agent ID or user ID)      |
+| `label` | no       | Human-readable display name                          |
+| `jkt`   | no       | JWK thumbprint of the DPoP key (first 4 chars shown) |
 
 ### Legacy — `oauth.act` single-hop
 
@@ -115,13 +115,13 @@ Fields the backend has not populated are shown as an em-dash placeholder:
 
 Specifically:
 
-| Field        | Source                                   | If absent |
-|--------------|------------------------------------------|-----------|
-| `request_id` | `event._raw.request_id` (DB column)      | `—`        |
-| `session_id` | `event._raw.session_id` (DB column)      | `—`        |
-| `act_chain`  | `parseMeta(event._raw).act_chain` (JSON) | section hidden |
-| `may_act_rule` | `parseMeta(event._raw).may_act_rule`   | row hidden |
-| `oauth.*`    | `parseMeta(event._raw).oauth.*`          | `—`        |
+| Field          | Source                                   | If absent      |
+|----------------|------------------------------------------|----------------|
+| `request_id`   | `event._raw.request_id` (DB column)      | `—`            |
+| `session_id`   | `event._raw.session_id` (DB column)      | `—`            |
+| `act_chain`    | `parseMeta(event._raw).act_chain` (JSON) | section hidden |
+| `may_act_rule` | `parseMeta(event._raw).may_act_rule`     | row hidden     |
+| `oauth.*`      | `parseMeta(event._raw).oauth.*`          | `—`            |
 
 `parseMeta()` safely parses the `metadata` TEXT column (stored as a JSON
 string by the backend). All sub-field access goes through this helper.

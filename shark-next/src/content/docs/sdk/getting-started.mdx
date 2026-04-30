@@ -21,12 +21,12 @@ The TypeScript build is ESM-first with CJS fallback. It runs in browsers (Web Cr
 
 The SDKs do not read environment variables themselves — pass everything explicitly. Conventional names if you wire your own loader:
 
-| Variable               | Used for                                |
-| ---------------------- | --------------------------------------- |
-| `SHARK_AUTH_URL`       | Base URL of your SharkAuth instance     |
-| `SHARK_ADMIN_KEY`      | `sk_live_...` admin key                 |
-| `SHARK_AGENT_CLIENT_ID`| `shark_agent_...` for an agent          |
-| `SHARK_AGENT_SECRET`   | Agent client secret                     |
+| Variable                | Used for                            |
+|-------------------------|-------------------------------------|
+| `SHARK_AUTH_URL`        | Base URL of your SharkAuth instance |
+| `SHARK_ADMIN_KEY`       | `sk_live_...` admin key             |
+| `SHARK_AGENT_CLIENT_ID` | `shark_agent_...` for an agent      |
+| `SHARK_AGENT_SECRET`    | Agent client secret                 |
 
 ## First call — admin client
 
@@ -99,11 +99,11 @@ import { AgentsClient, AuditClient } from "@sharkauth/sdk";
 
 ## Two auth modes
 
-| Mode             | Python                    | TypeScript                 | When                         |
-| ---------------- | ------------------------- | -------------------------- | ---------------------------- |
-| Admin API key    | `Client(url, "sk_live_")` | `new SharkClient({...})`   | Server-side automation       |
-| User session     | `AuthClient(url)`         | `new AuthClient(url)`      | Acting as an end user        |
-| Agent + DPoP     | `OAuthClient` + `DPoPProver` | `OAuthClient` + `DPoPProver` | Machine-to-machine, MCP, delegation |
+| Mode          | Python                       | TypeScript                   | When                                |
+|---------------|------------------------------|------------------------------|-------------------------------------|
+| Admin API key | `Client(url, "sk_live_")`    | `new SharkClient({...})`     | Server-side automation              |
+| User session  | `AuthClient(url)`            | `new AuthClient(url)`        | Acting as an end user               |
+| Agent + DPoP  | `OAuthClient` + `DPoPProver` | `OAuthClient` + `DPoPProver` | Machine-to-machine, MCP, delegation |
 
 For the agent path, see [Delegation and agents](./delegation-and-agents.md).
 

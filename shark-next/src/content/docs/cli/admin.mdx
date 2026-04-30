@@ -24,8 +24,8 @@ shark admin config dump [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description                                     |
+|----------|------|---------|-------------------------------------------------|
 | `--json` | bool | `false` | Included for consistency; output is always JSON |
 
 The command always emits indented JSON — config is inherently structured and has no useful human-readable representation.
@@ -62,9 +62,9 @@ shark auth config show [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--json` | bool | `false` | Emit JSON |
+| Flag     | Type | Default | Description |
+|----------|------|---------|-------------|
+| `--json` | bool | `false` | Emit JSON   |
 
 ### Examples
 
@@ -87,14 +87,14 @@ shark branding get <slug> [flags]
 
 ### Arguments
 
-| Argument | Description |
-|---|---|
+| Argument | Description                                                              |
+|----------|--------------------------------------------------------------------------|
 | `<slug>` | App slug (currently global; slug is reserved for future per-app scoping) |
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description                       |
+|----------|------|---------|-----------------------------------|
 | `--json` | bool | `false` | Emit JSON (output is always JSON) |
 
 ### Examples
@@ -121,16 +121,16 @@ shark branding set <slug> [flags]
 ### Arguments
 
 | Argument | Description |
-|---|---|
-| `<slug>` | App slug |
+|----------|-------------|
+| `<slug>` | App slug    |
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--token` | string[] | _(none)_ | Design token as `key=value` (repeatable) |
-| `--from-file` | string | _(none)_ | Path to a JSON file containing design tokens |
-| `--json` | bool | `false` | Emit updated branding as JSON |
+| Flag          | Type     | Default  | Description                                  |
+|---------------|----------|----------|----------------------------------------------|
+| `--token`     | string[] | _(none)_ | Design token as `key=value` (repeatable)     |
+| `--from-file` | string   | _(none)_ | Path to a JSON file containing design tokens |
+| `--json`      | bool     | `false`  | Emit updated branding as JSON                |
 
 Exactly one of `--token` or `--from-file` must be provided.
 
@@ -181,10 +181,10 @@ shark keys generate-jwt [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag       | Type | Default | Description                                                         |
+|------------|------|---------|---------------------------------------------------------------------|
 | `--rotate` | bool | `false` | Accepted for compatibility; the endpoint always generates a new key |
-| `--json` | bool | `false` | Emit `{"kid":"...","algorithm":"...","status":"..."}` |
+| `--json`   | bool | `false` | Emit `{"kid":"...","algorithm":"...","status":"..."}`               |
 
 ### Examples
 
@@ -218,11 +218,11 @@ shark whoami [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--json` | bool | `false` | Emit identity JSON |
+| Flag      | Type   | Default | Description                                           |
+|-----------|--------|---------|-------------------------------------------------------|
+| `--json`  | bool   | `false` | Emit identity JSON                                    |
 | `--token` | string | _(env)_ | Token to introspect (defaults to `SHARK_ADMIN_TOKEN`) |
-| `--url` | string | _(env)_ | Server URL |
+| `--url`   | string | _(env)_ | Server URL                                            |
 
 ### Behavior
 
@@ -276,7 +276,7 @@ shark cli
 
 ## Deprecated / Removed Commands
 
-| Command | Status | Notes |
-|---|---|---|
-| `shark init` | **Removed** | YAML-based init was removed in W17. All config is now DB-backed. First boot is automatic via `shark serve`. |
-| Device flow commands | **Disabled** | OAuth device authorization flow is disabled in v0.1. |
+| Command              | Status       | Notes                                                                                                       |
+|----------------------|--------------|-------------------------------------------------------------------------------------------------------------|
+| `shark init`         | **Removed**  | YAML-based init was removed in W17. All config is now DB-backed. First boot is automatic via `shark serve`. |
+| Device flow commands | **Disabled** | OAuth device authorization flow is disabled in v0.1.                                                        |

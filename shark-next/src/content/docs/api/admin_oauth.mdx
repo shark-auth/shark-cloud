@@ -33,10 +33,10 @@ Content-Type: application/json
 }
 ```
 
-| Field               | Type   | Required | Description                                                        |
-|---------------------|--------|----------|--------------------------------------------------------------------|
-| `client_id_pattern` | string | yes      | SQLite GLOB pattern. `*` = any sequence, `?` = single character.   |
-| `reason`            | string | no       | Human-readable reason recorded in the audit log.                   |
+| Field               | Type   | Required | Description                                                      |
+|---------------------|--------|----------|------------------------------------------------------------------|
+| `client_id_pattern` | string | yes      | SQLite GLOB pattern. `*` = any sequence, `?` = single character. |
+| `reason`            | string | no       | Human-readable reason recorded in the audit log.                 |
 
 ### Response — 200 OK
 
@@ -48,19 +48,19 @@ Content-Type: application/json
 }
 ```
 
-| Field             | Type    | Description                                              |
-|-------------------|---------|----------------------------------------------------------|
-| `revoked_count`   | integer | Number of token rows updated (0 if no tokens matched).   |
-| `audit_event_id`  | string  | ID of the audit log entry written for this operation.    |
-| `pattern_matched` | string  | Echo of the submitted pattern (for idempotency checks).  |
+| Field             | Type    | Description                                             |
+|-------------------|---------|---------------------------------------------------------|
+| `revoked_count`   | integer | Number of token rows updated (0 if no tokens matched).  |
+| `audit_event_id`  | string  | ID of the audit log entry written for this operation.   |
+| `pattern_matched` | string  | Echo of the submitted pattern (for idempotency checks). |
 
 ### Error responses
 
-| Status | `error`           | Cause                                    |
-|--------|-------------------|------------------------------------------|
-| 400    | `invalid_request` | `client_id_pattern` missing or empty.    |
-| 401    | `unauthorized`    | Missing or invalid admin key.            |
-| 500    | `internal_error`  | Database error during UPDATE.            |
+| Status | `error`           | Cause                                 |
+|--------|-------------------|---------------------------------------|
+| 400    | `invalid_request` | `client_id_pattern` missing or empty. |
+| 401    | `unauthorized`    | Missing or invalid admin key.         |
+| 500    | `internal_error`  | Database error during UPDATE.         |
 
 ### Audit event
 
@@ -73,13 +73,13 @@ A row is written to the audit log with:
 
 ### GLOB pattern reference
 
-| Pattern          | Matches                                          |
-|------------------|--------------------------------------------------|
-| `*`              | All client IDs                                   |
-| `agent_*`        | Any client_id starting with `agent_`             |
-| `*_v3.2_*`       | Any client_id containing `_v3.2_`                |
-| `agent_????`     | `agent_` followed by exactly 4 characters        |
-| `*abc123*`       | Any client_id containing `abc123`                |
+| Pattern      | Matches                                   |
+|--------------|-------------------------------------------|
+| `*`          | All client IDs                            |
+| `agent_*`    | Any client_id starting with `agent_`      |
+| `*_v3.2_*`   | Any client_id containing `_v3.2_`         |
+| `agent_????` | `agent_` followed by exactly 4 characters |
+| `*abc123*`   | Any client_id containing `abc123`         |
 
 > **Note:** GLOB is case-sensitive in SQLite. Use `*` wildcards liberally to
 > avoid accidentally matching zero tokens.

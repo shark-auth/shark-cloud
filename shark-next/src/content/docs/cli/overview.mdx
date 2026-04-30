@@ -9,10 +9,10 @@ The `shark` binary is the operator's single interface for managing the SharkAuth
 
 Most commands that call the admin API require two things:
 
-| What | Flag | Environment variable | Default |
-|---|---|---|---|
-| Server URL | `--url` | `SHARK_URL` | `http://localhost:8080` |
-| Admin token | `--token` | `SHARK_ADMIN_TOKEN` | _(none — required)_ |
+| What        | Flag      | Environment variable | Default                 |
+|-------------|-----------|----------------------|-------------------------|
+| Server URL  | `--url`   | `SHARK_URL`          | `http://localhost:8080` |
+| Admin token | `--token` | `SHARK_ADMIN_TOKEN`  | _(none — required)_     |
 
 The first-boot admin API key is written to `admin.key.firstboot` beside the database file. Set it as `SHARK_ADMIN_TOKEN` before running any management command.
 
@@ -25,11 +25,11 @@ export SHARK_URL=http://localhost:8080
 
 These flags are available on every command:
 
-| Flag | Default | Description |
-|---|---|---|
-| `--url` | `http://localhost:8080` | Base URL of the running shark instance |
-| `--token` | _(env)_ | Admin API token |
-| `--verbose` / `-v` | `false` | Enable debug-level logging to stderr |
+| Flag               | Default                 | Description                            |
+|--------------------|-------------------------|----------------------------------------|
+| `--url`            | `http://localhost:8080` | Base URL of the running shark instance |
+| `--token`          | _(env)_                 | Admin API token                        |
+| `--verbose` / `-v` | `false`                 | Enable debug-level logging to stderr   |
 
 ## Output Modes
 
@@ -52,16 +52,16 @@ shark audit export --since 2026-01-01 --output audit.csv
 
 ## Command Groups
 
-| Group | Commands |
-|---|---|
-| **Server** | `serve`, `health`, `version`, `doctor`, `mode`, `reset` |
-| **Debug** | `debug decode-jwt` |
-| **Identity** | `user`, `agent`, `api-key`, `consents` |
-| **Applications** | `app` |
-| **Audit** | `audit` |
-| **Demo** | `demo` |
-| **Admin** | `admin`, `branding`, `auth`, `keys`, `whoami` |
-| **Utility** | `cli`, `completion` |
+| Group            | Commands                                                |
+|------------------|---------------------------------------------------------|
+| **Server**       | `serve`, `health`, `version`, `doctor`, `mode`, `reset` |
+| **Debug**        | `debug decode-jwt`                                      |
+| **Identity**     | `user`, `agent`, `api-key`, `consents`                  |
+| **Applications** | `app`                                                   |
+| **Audit**        | `audit`                                                 |
+| **Demo**         | `demo`                                                  |
+| **Admin**        | `admin`, `branding`, `auth`, `keys`, `whoami`           |
+| **Utility**      | `cli`, `completion`                                     |
 
 ## Quick Reference
 

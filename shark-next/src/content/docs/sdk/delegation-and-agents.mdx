@@ -70,12 +70,12 @@ const agent = await c.agents.registerAgent({
 console.log(agent.client_id, agent.client_secret);
 ```
 
-| Field         | Notes                                           |
-| ------------- | ----------------------------------------------- |
-| `name`        | Required                                        |
-| `scopes`      | Maximum scope set the agent can ever request    |
-| `metadata`    | Free-form dict; conventionally include `app_id` |
-| `client_secret` | Returned exactly once at creation             |
+| Field           | Notes                                                 |
+|-----------------|-------------------------------------------------------|
+| `name`          | Required                                              |
+| `scopes`        | Maximum scope set the agent can ever request          |
+| `metadata`      | Free-form dict; conventionally include `app_id`       |
+| `client_secret` | Returned exactly once at creation                     |
 | `redirect_uris` | Optional — needed for non-`client_credentials` grants |
 
 ## Generating a DPoP keypair
@@ -158,14 +158,14 @@ const child = await exchangeToken({
 });
 ```
 
-| Param               | Required | Notes                                                  |
-| ------------------- | -------- | ------------------------------------------------------ |
-| `subject_token`     | yes      | The token being exchanged                              |
-| `dpop_prover`       | yes (Python) / optional (TS) | Same keypair as parent for binding |
-| `scope`             | no       | Narrower than parent — server rejects scope expansion  |
-| `audience`          | no       | Restricts the new token to a single resource server    |
-| `actor_token`       | no       | Adds `act` claim documenting who delegated             |
-| `subject_token_type`| no       | Default `urn:ietf:params:oauth:token-type:access_token`|
+| Param                | Required                     | Notes                                                   |
+|----------------------|------------------------------|---------------------------------------------------------|
+| `subject_token`      | yes                          | The token being exchanged                               |
+| `dpop_prover`        | yes (Python) / optional (TS) | Same keypair as parent for binding                      |
+| `scope`              | no                           | Narrower than parent — server rejects scope expansion   |
+| `audience`           | no                           | Restricts the new token to a single resource server     |
+| `actor_token`        | no                           | Adds `act` claim documenting who delegated              |
+| `subject_token_type` | no                           | Default `urn:ietf:params:oauth:token-type:access_token` |
 
 Server raises `OAuthError` (Python) / `TokenError` (TS) on `invalid_scope` (asked for more than parent has) or `invalid_token` (parent revoked).
 
@@ -203,13 +203,13 @@ The chain is returned outermost-first (most recent actor) → innermost (origina
 
 Defense-in-depth. Five SDK methods you'll reach for on the bad day:
 
-| Layer | Action                                  | Method                                                       |
-| ----- | --------------------------------------- | ------------------------------------------------------------ |
-| 1     | Revoke a single token                   | `OAuthClient.revoke_token()`                                 |
-| 2     | Revoke all tokens for one agent         | `AgentsClient.revoke_all(agent_id)`                          |
+| Layer | Action                                  | Method                                                                |
+|-------|-----------------------------------------|-----------------------------------------------------------------------|
+| 1     | Revoke a single token                   | `OAuthClient.revoke_token()`                                          |
+| 2     | Revoke all tokens for one agent         | `AgentsClient.revoke_all(agent_id)`                                   |
 | 3     | Cascade-revoke all agents owned by user | `UsersClient.revokeUserAgents(user_id)` (TS) / `revoke_agents()` (Py) |
-| 4     | Bulk revoke by client_id GLOB pattern   | `OAuthClient.bulk_revoke_by_pattern("shark_agent_v3.2_*")`   |
-| 5     | Disconnect vault → cascade agent tokens | `VaultClient.disconnect(connection_id, cascade_to_agents=True)` |
+| 4     | Bulk revoke by client_id GLOB pattern   | `OAuthClient.bulk_revoke_by_pattern("shark_agent_v3.2_*")`            |
+| 5     | Disconnect vault → cascade agent tokens | `VaultClient.disconnect(connection_id, cascade_to_agents=True)`       |
 
 ```python
 # Layer 3 — user lost their device

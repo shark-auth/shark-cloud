@@ -46,14 +46,14 @@ const reg = await dcr.register({
 });
 ```
 
-| Field                         | Type     | Required |
-| ----------------------------- | -------- | -------- |
-| `client_name`                 | string   | yes      |
-| `redirect_uris`               | string[] | for code grants |
-| `grant_types`                 | string[] | no, server defaults |
-| `response_types`              | string[] | no       |
-| `scope`                       | string   | no       |
-| `token_endpoint_auth_method`  | string   | no, defaults to `client_secret_basic` |
+| Field                        | Type     | Required                              |
+|------------------------------|----------|---------------------------------------|
+| `client_name`                | string   | yes                                   |
+| `redirect_uris`              | string[] | for code grants                       |
+| `grant_types`                | string[] | no, server defaults                   |
+| `response_types`             | string[] | no                                    |
+| `scope`                      | string   | no                                    |
+| `token_endpoint_auth_method` | string   | no, defaults to `client_secret_basic` |
 
 Response includes everything sent plus `client_id`, `client_secret` (confidential clients only), `registration_access_token`, `registration_client_uri`.
 

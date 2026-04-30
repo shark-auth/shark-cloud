@@ -8,26 +8,26 @@ SharkAuth exposes a unified authentication platform API combining OAuth 2.1 auth
 
 ## Authentication Mechanisms
 
-| Mechanism | Header | Used For |
-|---|---|---|
-| Admin API Key | `Authorization: Bearer sk_live_<random>` | All `/api/v1/*` admin endpoints |
-| DPoP-bound access token | `Authorization: DPoP <token>` + `DPoP: <proof-jwt>` | Agent endpoints requiring RFC 9449 binding |
-| OAuth 2.1 Bearer token | `Authorization: Bearer <access-token>` | OAuth resource endpoints (UserInfo, Vault token retrieval) |
-| Session cookie | `shark_session=<id>` (HttpOnly) | User-facing auth flows, magic links, passkeys |
+| Mechanism               | Header                                              | Used For                                                   |
+|-------------------------|-----------------------------------------------------|------------------------------------------------------------|
+| Admin API Key           | `Authorization: Bearer sk_live_<random>`            | All `/api/v1/*` admin endpoints                            |
+| DPoP-bound access token | `Authorization: DPoP <token>` + `DPoP: <proof-jwt>` | Agent endpoints requiring RFC 9449 binding                 |
+| OAuth 2.1 Bearer token  | `Authorization: Bearer <access-token>`              | OAuth resource endpoints (UserInfo, Vault token retrieval) |
+| Session cookie          | `shark_session=<id>` (HttpOnly)                     | User-facing auth flows, magic links, passkeys              |
 
 The admin API key is issued at first boot and stored at `data/admin.key.firstboot`. It can also be retrieved via `GET /api/v1/admin/firstboot/key` before the first admin account is bootstrapped (returns 404 afterward).
 
 ## Base URL Conventions
 
-| Prefix | Surface |
-|---|---|
-| `/api/v1/*` | Admin REST API (users, agents, apps, audit, webhooks, vault, flows, system) |
-| `/oauth/*` | OAuth 2.1 flows (token, authorize, DCR, introspect, revoke, device) |
-| `/.well-known/*` | Discovery — authorization server metadata + JWKS |
-| `/api/v1/auth/*` | User-facing auth flows (signup, login, MFA, passkeys, magic links, SSO) |
-| `/api/v1/organizations/*` | Organization management (session-cookie auth) |
-| `/admin/*` | Admin dashboard SPA (embedded React bundle) |
-| `/api/docs` | Interactive Scalar UI (OpenAPI 3.1) |
+| Prefix                    | Surface                                                                     |
+|---------------------------|-----------------------------------------------------------------------------|
+| `/api/v1/*`               | Admin REST API (users, agents, apps, audit, webhooks, vault, flows, system) |
+| `/oauth/*`                | OAuth 2.1 flows (token, authorize, DCR, introspect, revoke, device)         |
+| `/.well-known/*`          | Discovery — authorization server metadata + JWKS                            |
+| `/api/v1/auth/*`          | User-facing auth flows (signup, login, MFA, passkeys, magic links, SSO)     |
+| `/api/v1/organizations/*` | Organization management (session-cookie auth)                               |
+| `/admin/*`                | Admin dashboard SPA (embedded React bundle)                                 |
+| `/api/docs`               | Interactive Scalar UI (OpenAPI 3.1)                                         |
 
 ## Error Format
 

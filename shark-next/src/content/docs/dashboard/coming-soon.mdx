@@ -10,11 +10,11 @@ implementations.
 
 ## Surfaces
 
-| Surface | Nav label | Component | Real impl preserved? |
-|---------|-----------|-----------|----------------------|
-| Proxy | "Proxy" | `proxy_config.tsx` | ✅ behind `VITE_FEATURE_PROXY=true`, real impl is `proxy_config_real.tsx` |
-| Compliance → Exporting logs | "Exporting logs" | `compliance.tsx` | ❌ git history only |
-| Branding | "Branding" | `branding.tsx` | ❌ git history only |
+| Surface                     | Nav label        | Component          | Real impl preserved?                                                     |
+|-----------------------------|------------------|--------------------|--------------------------------------------------------------------------|
+| Proxy                       | "Proxy"          | `proxy_config.tsx` | ✅ behind `VITE_FEATURE_PROXY=true`, real impl is `proxy_config_real.tsx` |
+| Compliance → Exporting logs | "Exporting logs" | `compliance.tsx`   | ❌ git history only                                                       |
+| Branding                    | "Branding"       | `branding.tsx`     | ❌ git history only                                                       |
 
 ## Enabling the real Proxy implementation
 

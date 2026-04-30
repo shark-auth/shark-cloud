@@ -9,13 +9,13 @@ SharkAuth implements a five-layer security model for agent credential risk manag
 
 ## Security Layers
 
-| Layer | Mechanism | Scope |
-|-------|-----------|-------|
-| 1 | Per-token revocation (`POST /oauth/revoke`) | Single token |
-| 2 | Per-agent token revocation (`POST /api/v1/agents/{id}/tokens/revoke-all`) | All tokens for one agent |
-| **3** | **Cascade revoke (`POST /api/v1/users/{id}/revoke-agents`)** | **All agents + consents for a user** |
-| 4 | User session termination (`DELETE /api/v1/users/{id}/sessions`) | All user sessions |
-| 5 | User deletion (`DELETE /api/v1/users/{id}`) | Full account removal with cascade |
+| Layer | Mechanism                                                                 | Scope                                |
+|-------|---------------------------------------------------------------------------|--------------------------------------|
+| 1     | Per-token revocation (`POST /oauth/revoke`)                               | Single token                         |
+| 2     | Per-agent token revocation (`POST /api/v1/agents/{id}/tokens/revoke-all`) | All tokens for one agent             |
+| **3** | **Cascade revoke (`POST /api/v1/users/{id}/revoke-agents`)**              | **All agents + consents for a user** |
+| 4     | User session termination (`DELETE /api/v1/users/{id}/sessions`)           | All user sessions                    |
+| 5     | User deletion (`DELETE /api/v1/users/{id}`)                               | Full account removal with cascade    |
 
 ## When to Use Cascade Revoke
 

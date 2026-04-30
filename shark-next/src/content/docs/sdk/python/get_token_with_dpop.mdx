@@ -26,14 +26,14 @@ def get_token_with_dpop(
 
 ## Parameters
 
-| Parameter | Type | Required | Description |
-|---|---|---|---|
-| `grant_type` | `str` | Yes | OAuth 2.1 grant type. One of `"client_credentials"`, `"authorization_code"`, `"refresh_token"`. |
-| `dpop_prover` | `DPoPProver` | Yes | Holds the P-256 keypair used to sign the DPoP proof JWT. Generate with `DPoPProver.generate()`. |
-| `client_id` | `str` | Yes | The client / agent identifier registered with SharkAuth. |
-| `client_secret` | `str \| None` | No | Client secret. Omit for public clients. |
-| `scope` | `str \| None` | No | Space-separated scopes to request. Omits the `scope` parameter when `None`. |
-| `**extra` | `Any` | No | Additional form fields forwarded verbatim to the token endpoint (e.g. `code`, `redirect_uri`, `refresh_token`). |
+| Parameter       | Type         | Required | Description                                                                                                     |                                                                             |
+|-----------------|--------------|----------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `grant_type`    | `str`        | Yes      | OAuth 2.1 grant type. One of `"client_credentials"`, `"authorization_code"`, `"refresh_token"`.                 |                                                                             |
+| `dpop_prover`   | `DPoPProver` | Yes      | Holds the P-256 keypair used to sign the DPoP proof JWT. Generate with `DPoPProver.generate()`.                 |                                                                             |
+| `client_id`     | `str`        | Yes      | The client / agent identifier registered with SharkAuth.                                                        |                                                                             |
+| `client_secret` | `str \       | None`    | No                                                                                                              | Client secret. Omit for public clients.                                     |
+| `scope`         | `str \       | None`    | No                                                                                                              | Space-separated scopes to request. Omits the `scope` parameter when `None`. |
+| `**extra`       | `Any`        | No       | Additional form fields forwarded verbatim to the token endpoint (e.g. `code`, `redirect_uri`, `refresh_token`). |                                                                             |
 
 ---
 
@@ -117,8 +117,8 @@ except OAuthError as e:
 
 ### `OAuthError` fields
 
-| Field | Type | Description |
-|---|---|---|
-| `error` | `str` | RFC 6749 error code, e.g. `"invalid_client"`, `"invalid_grant"`, `"server_error"`. |
-| `error_description` | `str \| None` | Human-readable description from the server. |
-| `status_code` | `int \| None` | HTTP status code (401, 400, 500, …). |
+| Field               | Type   | Description                                                                        |                                             |
+|---------------------|--------|------------------------------------------------------------------------------------|---------------------------------------------|
+| `error`             | `str`  | RFC 6749 error code, e.g. `"invalid_client"`, `"invalid_grant"`, `"server_error"`. |                                             |
+| `error_description` | `str \ | None`                                                                              | Human-readable description from the server. |
+| `status_code`       | `int \ | None`                                                                              | HTTP status code (401, 400, 500, …).        |

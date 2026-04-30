@@ -19,11 +19,11 @@ shark serve [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag               | Type   | Default  | Description                                                               |
+|--------------------|--------|----------|---------------------------------------------------------------------------|
 | `--proxy-upstream` | string | _(none)_ | Mount a reverse proxy to this upstream URL (e.g. `http://localhost:3000`) |
-| `--no-prompt` | bool | `false` | Skip the first-boot browser-open prompt (for CI / headless environments) |
-| `--verbose` / `-v` | bool | `false` | Enable debug-level logging to stderr |
+| `--no-prompt`      | bool   | `false`  | Skip the first-boot browser-open prompt (for CI / headless environments)  |
+| `--verbose` / `-v` | bool   | `false`  | Enable debug-level logging to stderr                                      |
 
 ### First-boot behavior (F4)
 
@@ -73,31 +73,31 @@ shark doctor [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description                                                 |
+|----------|------|---------|-------------------------------------------------------------|
 | `--json` | bool | `false` | Emit one JSON object per check to stdout (machine-readable) |
 
 ### Checks performed
 
-| Check | What it verifies |
-|---|---|
-| `config` | Config loads without error; prints base_url, port, db path |
-| `db_writability` | SQLite database opens and accepts a write transaction |
-| `migrations` | All goose migrations are applied (no pending) |
-| `jwt_keys` | At least one active RS256 signing key exists; warns if >90 days old |
-| `port_bind` | Configured port is free (server is not already running) |
-| `base_url` | `GET <base_url>/api/v1/health` returns HTTP 200 |
-| `admin_key` | `admin.key.firstboot` file exists OR at least one `api_keys` row in DB |
-| `smtp` | If SMTP is configured, TCP connectivity (and TLS for port 465) is verified |
-| `vault` | `server.secret` is set and AES-256-GCM round-trip works |
+| Check            | What it verifies                                                           |
+|------------------|----------------------------------------------------------------------------|
+| `config`         | Config loads without error; prints base_url, port, db path                 |
+| `db_writability` | SQLite database opens and accepts a write transaction                      |
+| `migrations`     | All goose migrations are applied (no pending)                              |
+| `jwt_keys`       | At least one active RS256 signing key exists; warns if >90 days old        |
+| `port_bind`      | Configured port is free (server is not already running)                    |
+| `base_url`       | `GET <base_url>/api/v1/health` returns HTTP 200                            |
+| `admin_key`      | `admin.key.firstboot` file exists OR at least one `api_keys` row in DB     |
+| `smtp`           | If SMTP is configured, TCP connectivity (and TLS for port 465) is verified |
+| `vault`          | `server.secret` is set and AES-256-GCM round-trip works                    |
 
 ### Exit codes
 
-| Code | Meaning |
-|---|---|
-| `0` | All checks passed |
-| `1` | One or more checks failed |
-| `2` | Config could not be loaded (fatal — no checks run) |
+| Code | Meaning                                            |
+|------|----------------------------------------------------|
+| `0`  | All checks passed                                  |
+| `1`  | One or more checks failed                          |
+| `2`  | Config could not be loaded (fatal — no checks run) |
 
 ### Examples
 
@@ -138,10 +138,10 @@ shark health [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--url` | string | `http://localhost:8080` | Base URL of the running instance |
-| `--json` | bool | `false` | Emit JSON response |
+| Flag     | Type   | Default                 | Description                      |
+|----------|--------|-------------------------|----------------------------------|
+| `--url`  | string | `http://localhost:8080` | Base URL of the running instance |
+| `--json` | bool   | `false`                 | Emit JSON response               |
 
 ### Examples
 
@@ -190,8 +190,8 @@ shark mode [dev|prod] [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description                     |
+|----------|------|---------|---------------------------------|
 | `--json` | bool | `false` | Output as JSON `{"mode":"dev"}` |
 
 ### Behavior
@@ -226,19 +226,19 @@ shark reset <dev|prod|key> [flags]
 
 ### Arguments
 
-| Argument | Effect |
-|---|---|
-| `dev` | Wipe `dev.db`, regenerate all secrets (no confirmation) |
-| `prod` | Wipe `shark.db`, regenerate secrets — **requires typing** `RESET PROD` |
-| `key` | Rotate the admin API key only (no data loss) |
+| Argument | Effect                                                                 |
+|----------|------------------------------------------------------------------------|
+| `dev`    | Wipe `dev.db`, regenerate all secrets (no confirmation)                |
+| `prod`   | Wipe `shark.db`, regenerate secrets — **requires typing** `RESET PROD` |
+| `key`    | Rotate the admin API key only (no data loss)                           |
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--url` | string | `http://localhost:8080` | SharkAuth server base URL |
-| `--key` | string | _(env)_ | Admin API key (or `SHARK_ADMIN_KEY`) |
-| `--json` | bool | `false` | Print JSON response |
+| Flag     | Type   | Default                 | Description                          |
+|----------|--------|-------------------------|--------------------------------------|
+| `--url`  | string | `http://localhost:8080` | SharkAuth server base URL            |
+| `--key`  | string | _(env)_                 | Admin API key (or `SHARK_ADMIN_KEY`) |
+| `--json` | bool   | `false`                 | Print JSON response                  |
 
 ### Examples
 
@@ -275,14 +275,14 @@ shark debug decode-jwt <token> [flags]
 
 ### Arguments
 
-| Argument | Description |
-|---|---|
+| Argument  | Description                                 |
+|-----------|---------------------------------------------|
 | `<token>` | The JWT string to decode (3-part base64url) |
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
+| Flag     | Type | Default | Description                                     |
+|----------|------|---------|-------------------------------------------------|
 | `--json` | bool | `false` | Emit `{"header":{...},"payload":{...}}` as JSON |
 
 ### Examples

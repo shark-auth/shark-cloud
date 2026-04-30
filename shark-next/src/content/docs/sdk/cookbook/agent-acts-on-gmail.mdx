@@ -132,13 +132,13 @@ If the Shark agent token itself expires (default lifetime is server-configured),
 
 ## Failure modes
 
-| What happens                  | Cause                             | Action                                  |
-| ----------------------------- | --------------------------------- | --------------------------------------- |
-| `VaultError 401`              | Shark token expired or revoked    | Re-run step 3                           |
-| `VaultError 403`              | Agent token missing `vault:read`  | Bug — fix scope at registration         |
-| `VaultError 404`              | User has not connected Gmail      | Prompt: "connect your Gmail account"    |
-| Gmail returns 401             | Google token expired              | Re-run step 4                           |
-| Gmail returns 403             | User revoked Gmail access at Google | Re-run user-facing connect flow       |
+| What happens      | Cause                               | Action                               |
+|-------------------|-------------------------------------|--------------------------------------|
+| `VaultError 401`  | Shark token expired or revoked      | Re-run step 3                        |
+| `VaultError 403`  | Agent token missing `vault:read`    | Bug — fix scope at registration      |
+| `VaultError 404`  | User has not connected Gmail        | Prompt: "connect your Gmail account" |
+| Gmail returns 401 | Google token expired                | Re-run step 4                        |
+| Gmail returns 403 | User revoked Gmail access at Google | Re-run user-facing connect flow      |
 
 ## Revoking access
 

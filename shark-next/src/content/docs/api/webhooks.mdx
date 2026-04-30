@@ -72,19 +72,19 @@ curl http://localhost:8080/api/v1/webhooks/events \
 }
 ```
 
-| Event | Fires When |
-|---|---|
-| `user.created` | A new user account is created (signup, admin create, SSO first login) |
-| `user.updated` | User profile or metadata is updated |
-| `user.deleted` | User account is deleted |
-| `session.created` | A new user session is established |
-| `session.revoked` | A session is revoked (logout, admin revoke, expiry cascade) |
-| `mfa.enabled` | A user enables TOTP MFA |
-| `org.created` | A new organization is created |
-| `org.deleted` | An organization is deleted |
-| `org.member.added` | A member joins an organization |
-| `system.audit_log` | An audit log event is emitted (fan-out for audit integrations) |
-| `webhook.test` | Synthetic test event fired from `POST /api/v1/webhooks/{id}/test` |
+| Event              | Fires When                                                            |
+|--------------------|-----------------------------------------------------------------------|
+| `user.created`     | A new user account is created (signup, admin create, SSO first login) |
+| `user.updated`     | User profile or metadata is updated                                   |
+| `user.deleted`     | User account is deleted                                               |
+| `session.created`  | A new user session is established                                     |
+| `session.revoked`  | A session is revoked (logout, admin revoke, expiry cascade)           |
+| `mfa.enabled`      | A user enables TOTP MFA                                               |
+| `org.created`      | A new organization is created                                         |
+| `org.deleted`      | An organization is deleted                                            |
+| `org.member.added` | A member joins an organization                                        |
+| `system.audit_log` | An audit log event is emitted (fan-out for audit integrations)        |
+| `webhook.test`     | Synthetic test event fired from `POST /api/v1/webhooks/{id}/test`     |
 
 ---
 

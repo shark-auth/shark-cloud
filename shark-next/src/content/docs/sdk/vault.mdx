@@ -101,11 +101,11 @@ const vault = new VaultClient({
 
 The Python signature is the canonical one. The TypeScript SDK's `fetchToken(referenceToken)` currently uses an older shape — close-but-not-identical. Track the parity gap in `sdk/HANDOFF.md`.
 
-| Param          | Notes                                              |
-| -------------- | -------------------------------------------------- |
-| `provider`     | Provider slug (e.g. `google_gmail`, `slack`)       |
-| `bearer_token` | Agent's DPoP-bound Shark access token              |
-| `prover`       | The keypair whose JWK matches token's `cnf.jkt`    |
+| Param          | Notes                                           |
+|----------------|-------------------------------------------------|
+| `provider`     | Provider slug (e.g. `google_gmail`, `slack`)    |
+| `bearer_token` | Agent's DPoP-bound Shark access token           |
+| `prover`       | The keypair whose JWK matches token's `cnf.jkt` |
 
 Returns `VaultTokenResult` with `access_token`, `token_type`, `expires_at`, `provider`.
 
@@ -128,16 +128,16 @@ Pass `cascade_to_agents=False` to silently disconnect without revoking agent tok
 
 ## Common providers
 
-| Provider slug    | Notes                                  |
-| ---------------- | -------------------------------------- |
-| `google_gmail`   | Read/send Gmail                        |
-| `google_calendar`| Calendar API                           |
-| `google_drive`   | Drive API                              |
-| `microsoft`      | M365 unified                           |
-| `slack`          | Slack workspace                        |
-| `linear`         | Linear API                             |
-| `jira`           | Atlassian Jira                         |
-| `notion`         | Notion API                             |
+| Provider slug     | Notes           |
+|-------------------|-----------------|
+| `google_gmail`    | Read/send Gmail |
+| `google_calendar` | Calendar API    |
+| `google_drive`    | Drive API       |
+| `microsoft`       | M365 unified    |
+| `slack`           | Slack workspace |
+| `linear`          | Linear API      |
+| `jira`            | Atlassian Jira  |
+| `notion`          | Notion API      |
 
 For a custom OAuth provider, the dashboard can register a template — but the SDK does not yet expose programmatic CRUD for provider templates (P1 backlog).
 

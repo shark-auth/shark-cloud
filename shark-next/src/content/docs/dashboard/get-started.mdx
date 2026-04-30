@@ -13,10 +13,10 @@ State (per-task completion status + active tab) persists in `localStorage` under
 
 ## Tabs
 
-| Tab | Task list | Description |
-|-----|-----------|-------------|
-| Proxy + hosted UI | `PROXY_TASKS` | SharkAuth as a reverse proxy; no SDK required |
-| SDK | `SDK_TASKS` + `AGENT_TASKS` | Embed auth in your own UI; agent M2M onboarding |
+| Tab               | Task list                   | Description                                     |
+|-------------------|-----------------------------|-------------------------------------------------|
+| Proxy + hosted UI | `PROXY_TASKS`               | SharkAuth as a reverse proxy; no SDK required   |
+| SDK               | `SDK_TASKS` + `AGENT_TASKS` | Embed auth in your own UI; agent M2M onboarding |
 
 ---
 
@@ -58,12 +58,12 @@ Task IDs share the same `tasks` map in localStorage so completion persists acros
 
 ### Checklist items
 
-| # | Task ID | Title | Key snippet / link |
-|---|---------|-------|--------------------|
-| 1 | `agent.register` | Create an agent | `shark agent register --name my-agent` · links to `/agents/new` |
-| 2 | `agent.dpop` | Generate a DPoP keypair | `prover = DPoPProver.generate()` + curl alternative |
-| 3 | `agent.delegation` | Exchange token via delegation (RFC 8693) | Python `client.oauth.token_exchange(...)` (Wave 2) + curl |
-| 4 | `agent.audit` | Verify audit trail shows `act` claim + delegation chain | links to `/audit?delegation=true` |
+| #   | Task ID            | Title                                                   | Key snippet / link                                              |
+|-----|--------------------|---------------------------------------------------------|-----------------------------------------------------------------|
+| 1   | `agent.register`   | Create an agent                                         | `shark agent register --name my-agent` · links to `/agents/new` |
+| 2   | `agent.dpop`       | Generate a DPoP keypair                                 | `prover = DPoPProver.generate()` + curl alternative             |
+| 3   | `agent.delegation` | Exchange token via delegation (RFC 8693)                | Python `client.oauth.token_exchange(...)` (Wave 2) + curl       |
+| 4   | `agent.audit`      | Verify audit trail shows `act` claim + delegation chain | links to `/audit?delegation=true`                               |
 
 ### Copy-paste snippets
 

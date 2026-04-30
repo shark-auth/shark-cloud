@@ -5,10 +5,10 @@ category: "sdk"
 ---
 Official SharkAuth client libraries. Two languages, identical surface. Honest endpoint coverage: 56% of all SDK-callable backend routes, ~85% of the launch-critical agent-platform + OAuth core path. See [Coverage](#coverage) below.
 
-| Language   | Package                | Import                           |
-| ---------- | ---------------------- | -------------------------------- |
-| Python     | `shark-auth`           | `from shark_auth import Client`  |
-| TypeScript | `@sharkauth/sdk`       | `import { SharkClient } from '@sharkauth/sdk'` |
+| Language   | Package          | Import                                         |
+|------------|------------------|------------------------------------------------|
+| Python     | `shark-auth`     | `from shark_auth import Client`                |
+| TypeScript | `@sharkauth/sdk` | `import { SharkClient } from '@sharkauth/sdk'` |
 
 Both wrap the same HTTP API. If a method exists in one, it exists in the other under the camelCase / snake_case equivalent.
 
@@ -62,7 +62,7 @@ The backend exposes 236 total routes, but not all are SDK-callable. Excluding `/
 Against that denominator:
 
 | SDK        | Endpoints wrapped | Raw coverage |
-| ---------- | ----------------- | ------------ |
+|------------|-------------------|--------------|
 | Python     | 73 / 130          | **56%**      |
 | TypeScript | 71 / 130          | **55%**      |
 
@@ -72,23 +72,23 @@ If you exclude the ~40 endpoints that are admin-panel-only (driven exclusively b
 
 Of the launch-critical path (agent platform plus OAuth core), coverage is **~85%**. That is the wedge. Everything an agent author or OAuth integrator needs on day one is wrapped. Admin-panel parity, flow builder authoring, and SSO connection management lag and are explicitly post-launch.
 
-| Area                  | Python | TypeScript | Status   |
-| --------------------- | ------ | ---------- | -------- |
-| Auth (signup / login / sessions / password / magic link) | 100% | 100% | Y        |
-| OAuth core (token, revoke, introspect, refresh, PKCE, DCR, device flow, token exchange) | ~95% | ~95% | Y        |
-| Agents (register, list, rotate, revoke)                  | 100% | 100% | Y        |
-| Delegation (`may_act`, `act` chain, DPoP-bound tokens)   | 100% | 100% | Y        |
-| Vault (broker tokens, list, refresh)                     | ~70% | ~70% | Partial  |
-| Audit (query, export, purge)                             | 100% | 100% | Y        |
-| Webhooks (register, verify, replay)                      | 100% | 100% | Y        |
-| Admin Apps (CRUD)                                        | ~80% | ~80% | Y        |
-| RBAC (roles, permissions, assignments)                   | 100% | 100% | Y        |
-| Orgs (CRUD, members, invitations)                        | 100% | 100% | Y        |
-| Proxy (admin proxy config + policy)                      | ~60% | ~60% | Partial  |
-| Email / Templates                                        | ~50% | ~50% | Partial  |
-| SSO (connection management)                              | 0%   | 0%   | N        |
-| Passkeys (WebAuthn registration / auth)                  | 0%   | 0%   | N        |
-| Flow Builder (CRUD)                                      | 0%   | 0%   | N        |
+| Area                                                                                    | Python | TypeScript | Status  |
+|-----------------------------------------------------------------------------------------|--------|------------|---------|
+| Auth (signup / login / sessions / password / magic link)                                | 100%   | 100%       | Y       |
+| OAuth core (token, revoke, introspect, refresh, PKCE, DCR, device flow, token exchange) | ~95%   | ~95%       | Y       |
+| Agents (register, list, rotate, revoke)                                                 | 100%   | 100%       | Y       |
+| Delegation (`may_act`, `act` chain, DPoP-bound tokens)                                  | 100%   | 100%       | Y       |
+| Vault (broker tokens, list, refresh)                                                    | ~70%   | ~70%       | Partial |
+| Audit (query, export, purge)                                                            | 100%   | 100%       | Y       |
+| Webhooks (register, verify, replay)                                                     | 100%   | 100%       | Y       |
+| Admin Apps (CRUD)                                                                       | ~80%   | ~80%       | Y       |
+| RBAC (roles, permissions, assignments)                                                  | 100%   | 100%       | Y       |
+| Orgs (CRUD, members, invitations)                                                       | 100%   | 100%       | Y       |
+| Proxy (admin proxy config + policy)                                                     | ~60%   | ~60%       | Partial |
+| Email / Templates                                                                       | ~50%   | ~50%       | Partial |
+| SSO (connection management)                                                             | 0%     | 0%         | N       |
+| Passkeys (WebAuthn registration / auth)                                                 | 0%     | 0%         | N       |
+| Flow Builder (CRUD)                                                                     | 0%     | 0%         | N       |
 
 ### Roadmap to 90%+
 
@@ -103,13 +103,13 @@ Tracking and the full post-launch backlog live in `sdk/HANDOFF.md`. Other notabl
 
 ## How the two SDKs relate
 
-| Concern              | Python                       | TypeScript                         |
-| -------------------- | ---------------------------- | ---------------------------------- |
-| Top-level client     | `Client(base_url, token)`    | `new SharkClient({ baseUrl, adminKey })` |
-| Naming               | `snake_case`                 | `camelCase`                        |
-| HTTP backend         | `requests`                   | global `fetch`                     |
-| Crypto               | `cryptography`, `PyJWT`      | `globalThis.crypto.subtle`, `jose` |
-| Token exchange       | `OAuthClient.token_exchange` | `exchangeToken(...)` (free fn)     |
-| Webhook signature    | `verify_signature`           | `verifySignature` (async)          |
-| JWT verify           | `decode_agent_token` (full)  | `decodeAgentToken` (decode only)   |
-| Browser-safe         | n/a                          | yes, except DPoP key PEM round-trip |
+| Concern           | Python                       | TypeScript                               |
+|-------------------|------------------------------|------------------------------------------|
+| Top-level client  | `Client(base_url, token)`    | `new SharkClient({ baseUrl, adminKey })` |
+| Naming            | `snake_case`                 | `camelCase`                              |
+| HTTP backend      | `requests`                   | global `fetch`                           |
+| Crypto            | `cryptography`, `PyJWT`      | `globalThis.crypto.subtle`, `jose`       |
+| Token exchange    | `OAuthClient.token_exchange` | `exchangeToken(...)` (free fn)           |
+| Webhook signature | `verify_signature`           | `verifySignature` (async)                |
+| JWT verify        | `decode_agent_token` (full)  | `decodeAgentToken` (decode only)         |
+| Browser-safe      | n/a                          | yes, except DPoP key PEM round-trip      |

@@ -83,18 +83,18 @@ The SDKs do **not** retry automatically (except `VaultClient.exchange` / `fetch_
 
 ### What to retry
 
-| Status      | Retry?            | How                                |
-| ----------- | ----------------- | ---------------------------------- |
-| 200 / 2xx   | n/a               | -                                  |
-| 400         | No                | Caller bug                         |
-| 401         | Yes (once)        | Refresh token, retry               |
-| 403         | No                | Missing scope / wrong principal    |
-| 404         | No                | Resource gone                      |
-| 409         | Maybe             | Idempotent operation? Re-fetch state |
-| 422         | No                | Validation error                   |
-| 429         | Yes (with backoff)| Honor `Retry-After`                |
-| 5xx         | Yes (with backoff)| Exponential, capped at ~3 attempts |
-| Network     | Yes (with backoff)| Same                               |
+| Status    | Retry?             | How                                  |
+|-----------|--------------------|--------------------------------------|
+| 200 / 2xx | n/a                | -                                    |
+| 400       | No                 | Caller bug                           |
+| 401       | Yes (once)         | Refresh token, retry                 |
+| 403       | No                 | Missing scope / wrong principal      |
+| 404       | No                 | Resource gone                        |
+| 409       | Maybe              | Idempotent operation? Re-fetch state |
+| 422       | No                 | Validation error                     |
+| 429       | Yes (with backoff) | Honor `Retry-After`                  |
+| 5xx       | Yes (with backoff) | Exponential, capped at ~3 attempts   |
+| Network   | Yes (with backoff) | Same                                 |
 
 ### Backoff
 

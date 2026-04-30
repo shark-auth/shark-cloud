@@ -260,13 +260,13 @@ Expected audit log entry (v0.2):
 
 ## Summary: when to use each layer
 
-| Layer | Trigger | Blast radius | SDK call |
-|---|---|---|---|
-| L1 | One session killed / token stolen | 1 token | `oauth.revoke_token()` |
-| L2 | Agent compromised or decommissioned | All tokens for 1 agent | `agents.revoke_all()` or `agents.rotate_dpop_key()` |
-| L3 | Customer cancels / account suspended | All agents + tokens for 1 user | `users.revoke_agents()` |
-| L4 | Agent version compromised (v0.2) | All matching agents across all users | `oauth.bulk_revoke_by_pattern()` |
-| L5 | 3rd-party OAuth revoked at provider (v0.2) | All agents that touched a vault connection | `vault.disconnect()` |
+| Layer | Trigger                                    | Blast radius                               | SDK call                                            |
+|-------|--------------------------------------------|--------------------------------------------|-----------------------------------------------------|
+| L1    | One session killed / token stolen          | 1 token                                    | `oauth.revoke_token()`                              |
+| L2    | Agent compromised or decommissioned        | All tokens for 1 agent                     | `agents.revoke_all()` or `agents.rotate_dpop_key()` |
+| L3    | Customer cancels / account suspended       | All agents + tokens for 1 user             | `users.revoke_agents()`                             |
+| L4    | Agent version compromised (v0.2)           | All matching agents across all users       | `oauth.bulk_revoke_by_pattern()`                    |
+| L5    | 3rd-party OAuth revoked at provider (v0.2) | All agents that touched a vault connection | `vault.disconnect()`                                |
 
 ## Related
 

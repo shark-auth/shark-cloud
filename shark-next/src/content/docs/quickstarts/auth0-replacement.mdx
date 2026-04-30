@@ -9,15 +9,15 @@ SharkAuth is a 30 MB single-binary auth server. No containers, no SaaS dependenc
 
 ### Human authentication
 
-| Feature | SharkAuth | Auth0 |
-|---|---|---|
-| Email + password signup/login | ✓ | ✓ |
-| Magic link sign-in | ✓ | ✓ (paid) |
-| Password reset | ✓ | ✓ |
-| Email verification | ✓ | ✓ |
-| Session management | ✓ | ✓ |
-| MFA (TOTP) | planned v0.2 | ✓ |
-| Social login (Google, GitHub) | planned v0.2 | ✓ |
+| Feature                       | SharkAuth    | Auth0    |
+|-------------------------------|--------------|----------|
+| Email + password signup/login | ✓            | ✓        |
+| Magic link sign-in            | ✓            | ✓ (paid) |
+| Password reset                | ✓            | ✓        |
+| Email verification            | ✓            | ✓        |
+| Session management            | ✓            | ✓        |
+| MFA (TOTP)                    | planned v0.2 | ✓        |
+| Social login (Google, GitHub) | planned v0.2 | ✓        |
 
 ### OAuth provider
 
@@ -33,13 +33,13 @@ SharkAuth acts as an OAuth 2.1 authorization server for your applications:
 
 ### Agent-native primitives (Auth0 cannot match)
 
-| Feature | SharkAuth | Auth0 |
-|---|---|---|
-| DPoP (RFC 9449) — token bound to keypair | ✓ | ✗ |
-| Token exchange (RFC 8693) — delegation chains | ✓ | ✗ |
-| Five-layer revocation model | ✓ | ✗ (one layer) |
-| Per-agent audit trail with `act` chain | ✓ | ✗ |
-| Cascade revoke entire customer fleet in one call | ✓ | ✗ |
+| Feature                                          | SharkAuth | Auth0         |
+|--------------------------------------------------|-----------|---------------|
+| DPoP (RFC 9449) — token bound to keypair         | ✓         | ✗             |
+| Token exchange (RFC 8693) — delegation chains    | ✓         | ✗             |
+| Five-layer revocation model                      | ✓         | ✗ (one layer) |
+| Per-agent audit trail with `act` chain           | ✓         | ✗             |
+| Cascade revoke entire customer fleet in one call | ✓         | ✗             |
 
 ## Step 1 — Install and start
 

@@ -27,8 +27,8 @@ list represents one delegation chain with all its hops collapsed into a compact 
 
 The page fetches two audit-log queries in parallel:
 
-| Query | Purpose |
-|---|---|
+| Query                                                          | Purpose                                      |
+|----------------------------------------------------------------|----------------------------------------------|
 | `GET /api/v1/audit-logs?action=oauth.token.exchanged&limit=50` | Token exchange events — core delegation hops |
 | `GET /api/v1/audit-logs?action=vault.token.retrieved&limit=50` | Terminal vault-retrieval events — final hops |
 

@@ -11,42 +11,42 @@ endpoint; admins manage providers and connections via the admin sub-tree.
 
 ## Providers
 
-| Method | Path | Auth |
-|--------|------|------|
-| `POST` | `/api/v1/vault/providers` | admin key |
-| `GET` | `/api/v1/vault/providers` | admin key |
-| `GET` | `/api/v1/vault/providers/{id}` | admin key |
-| `PATCH` | `/api/v1/vault/providers/{id}` | admin key |
+| Method   | Path                           | Auth      |
+|----------|--------------------------------|-----------|
+| `POST`   | `/api/v1/vault/providers`      | admin key |
+| `GET`    | `/api/v1/vault/providers`      | admin key |
+| `GET`    | `/api/v1/vault/providers/{id}` | admin key |
+| `PATCH`  | `/api/v1/vault/providers/{id}` | admin key |
 | `DELETE` | `/api/v1/vault/providers/{id}` | admin key |
-| `GET` | `/api/v1/vault/templates` | admin key |
+| `GET`    | `/api/v1/vault/templates`      | admin key |
 
 ---
 
 ## Connections (user-facing)
 
-| Method | Path | Auth |
-|--------|------|------|
-| `GET` | `/api/v1/vault/connect/{provider}` | session cookie |
-| `GET` | `/api/v1/vault/callback/{provider}` | session cookie |
-| `GET` | `/api/v1/vault/connections` | session cookie |
-| `DELETE` | `/api/v1/vault/connections/{id}` | session cookie |
+| Method   | Path                                | Auth           |
+|----------|-------------------------------------|----------------|
+| `GET`    | `/api/v1/vault/connect/{provider}`  | session cookie |
+| `GET`    | `/api/v1/vault/callback/{provider}` | session cookie |
+| `GET`    | `/api/v1/vault/connections`         | session cookie |
+| `DELETE` | `/api/v1/vault/connections/{id}`    | session cookie |
 
 ---
 
 ## Connections (admin)
 
-| Method | Path | Auth |
-|--------|------|------|
-| `GET` | `/api/v1/admin/vault/connections` | admin key |
+| Method   | Path                                   | Auth      |
+|----------|----------------------------------------|-----------|
+| `GET`    | `/api/v1/admin/vault/connections`      | admin key |
 | `DELETE` | `/api/v1/admin/vault/connections/{id}` | admin key |
 
 ---
 
 ## Agent Token Retrieval
 
-| Method | Path | Auth |
-|--------|------|------|
-| `GET` | `/api/v1/vault/{provider}/token` | OAuth Bearer token (scope: `vault:read`) |
+| Method | Path                             | Auth                                     |
+|--------|----------------------------------|------------------------------------------|
+| `GET`  | `/api/v1/vault/{provider}/token` | OAuth Bearer token (scope: `vault:read`) |
 
 Returns a fresh access token for the authenticated user bound to the bearer
 token. The token must carry a `user_id` delegation binding.
@@ -82,12 +82,12 @@ exchange tokens on behalf of the revoked user account.
 }
 ```
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `disconnected` | bool | Always `true` on success |
-| `connection_id` | string | ID of the vault connection that was deleted |
-| `revoked_agent_ids` | string[] | IDs of agents that had at least one token revoked |
-| `revoked_token_count` | integer | Total number of OAuth tokens revoked across all agents |
+| Field                 | Type     | Description                                            |
+|-----------------------|----------|--------------------------------------------------------|
+| `disconnected`        | bool     | Always `true` on success                               |
+| `connection_id`       | string   | ID of the vault connection that was deleted            |
+| `revoked_agent_ids`   | string[] | IDs of agents that had at least one token revoked      |
+| `revoked_token_count` | integer  | Total number of OAuth tokens revoked across all agents |
 
 > Note: if no agent ever fetched from this connection, `revoked_agent_ids` is
 > `[]` and `revoked_token_count` is `0`. The response is still `200 OK`.
@@ -96,9 +96,9 @@ exchange tokens on behalf of the revoked user account.
 
 Two audit events are written for every successful admin disconnect:
 
-| Action | Description |
-|--------|-------------|
-| `vault.disconnected` | The vault connection was deleted. Metadata includes `provider_id` and `user_id`. |
+| Action                     | Description                                                                                                          |
+|----------------------------|----------------------------------------------------------------------------------------------------------------------|
+| `vault.disconnected`       | The vault connection was deleted. Metadata includes `provider_id` and `user_id`.                                     |
 | `vault.disconnect_cascade` | Cascade revocation summary. Metadata includes `vault_connection_id`, `revoked_agent_ids`, and `revoked_token_count`. |
 
 Both events have `actor_type = "admin"` and `target_type = "vault_connection"`.

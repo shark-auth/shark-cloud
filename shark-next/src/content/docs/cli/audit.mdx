@@ -26,11 +26,11 @@ shark audit export [flags]
 
 ### Flags
 
-| Flag | Type | Default | Description |
-|---|---|---|---|
-| `--since` | string | _(none)_ | Start date, RFC3339 or `YYYY-MM-DD` (maps to `from` in the API) |
-| `--until` | string | _(none)_ | End date, RFC3339 or `YYYY-MM-DD` (maps to `to` in the API) |
-| `--output` / `-o` | string | _(stdout)_ | Write CSV to this file path instead of stdout |
+| Flag              | Type   | Default    | Description                                                     |
+|-------------------|--------|------------|-----------------------------------------------------------------|
+| `--since`         | string | _(none)_   | Start date, RFC3339 or `YYYY-MM-DD` (maps to `from` in the API) |
+| `--until`         | string | _(none)_   | End date, RFC3339 or `YYYY-MM-DD` (maps to `to` in the API)     |
+| `--output` / `-o` | string | _(stdout)_ | Write CSV to this file path instead of stdout                   |
 
 The server returns CSV by default. The command streams the response body directly to stdout or the output file — no buffering.
 

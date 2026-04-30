@@ -118,12 +118,12 @@ app.post("/hooks", async (req, res) => {
 });
 ```
 
-| Param                | Default | Notes                                          |
-| -------------------- | ------- | ---------------------------------------------- |
-| `payload`            | -       | Raw bytes — must match what the server signed  |
-| `header_signature`   | -       | Verbatim header value                          |
-| `secret`             | -       | Same value passed to `register(secret=...)`    |
-| `tolerance_seconds`  | 300     | Replay window for the timestamped form         |
+| Param               | Default | Notes                                         |
+|---------------------|---------|-----------------------------------------------|
+| `payload`           | -       | Raw bytes — must match what the server signed |
+| `header_signature`  | -       | Verbatim header value                         |
+| `secret`            | -       | Same value passed to `register(secret=...)`   |
+| `tolerance_seconds` | 300     | Replay window for the timestamped form        |
 
 The TS implementation uses `globalThis.crypto.subtle` and works in browser + Node 18+ without dependencies.
 

@@ -106,14 +106,14 @@ curl -H "Authorization: Bearer sk_live_..." \
 
 Event types relevant to compliance:
 
-| Event | Meaning |
-|---|---|
-| `oauth.token_issued` | New token minted — includes `scope`, `jkt`, `audience` |
-| `oauth.token_exchanged` | RFC 8693 exchange — includes `actor_id`, `subject_id`, new scope |
-| `oauth.token_revoked` | Individual token revoked |
-| `agent.tokens_revoked_all` | All tokens for an agent nuked |
-| `user.agents_revoked` | Cascade: all user's agents and tokens revoked |
-| `agent.dpop_key_rotated` | DPoP key rotation — old key tokens gone |
+| Event                      | Meaning                                                          |
+|----------------------------|------------------------------------------------------------------|
+| `oauth.token_issued`       | New token minted — includes `scope`, `jkt`, `audience`           |
+| `oauth.token_exchanged`    | RFC 8693 exchange — includes `actor_id`, `subject_id`, new scope |
+| `oauth.token_revoked`      | Individual token revoked                                         |
+| `agent.tokens_revoked_all` | All tokens for an agent nuked                                    |
+| `user.agents_revoked`      | Cascade: all user's agents and tokens revoked                    |
+| `agent.dpop_key_rotated`   | DPoP key rotation — old key tokens gone                          |
 
 See [`/documentation/api/audit-logs.md`](/audit-logs.md) for the full event schema.
 

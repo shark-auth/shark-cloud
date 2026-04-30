@@ -9,11 +9,11 @@ The Dev Email surface captures all outgoing mail when `email.provider` is set to
 
 ## Backend Endpoints
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/api/v1/admin/dev/emails` | List all captured emails |
-| `GET` | `/api/v1/admin/dev/emails/{id}` | Fetch a single email with full body |
-| `DELETE` | `/api/v1/admin/dev/emails` | Clear all captured emails |
+| Method   | Path                            | Description                         |
+|----------|---------------------------------|-------------------------------------|
+| `GET`    | `/api/v1/admin/dev/emails`      | List all captured emails            |
+| `GET`    | `/api/v1/admin/dev/emails/{id}` | Fetch a single email with full body |
+| `DELETE` | `/api/v1/admin/dev/emails`      | Clear all captured emails           |
 
 All endpoints require admin authentication (401 without credentials). If the server is not in dev mode, endpoints return 404 and the UI shows a "not dev mode" placeholder instead of the inbox.
 
@@ -30,13 +30,13 @@ All endpoints require admin authentication (401 without credentials). If the ser
 
 Each item must include:
 
-| Field | Aliases | Required by |
-|-------|---------|-------------|
-| `id` | — | row key, detail fetch |
-| `to` | `to_addr`, `recipient` | banner "last received" display |
-| `subject` | — | table, type detection |
-| `created_at` | `received_at`, `timestamp` | banner sort, relative time |
-| `html_body` | `html`, `body_html`, `body` | slide-over preview |
+| Field        | Aliases                     | Required by                    |
+|--------------|-----------------------------|--------------------------------|
+| `id`         | —                           | row key, detail fetch          |
+| `to`         | `to_addr`, `recipient`      | banner "last received" display |
+| `subject`    | —                           | table, type detection          |
+| `created_at` | `received_at`, `timestamp`  | banner sort, relative time     |
+| `html_body`  | `html`, `body_html`, `body` | slide-over preview             |
 
 ## Banner State Contract
 

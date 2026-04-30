@@ -112,12 +112,12 @@ print(resp.json())  # {"sub": "agt_abc123", ...}
 
 ## When to Use This Helper vs Raw `requests`/`httpx`
 
-| Situation | Use |
-|---|---|
-| Calling a SharkAuth DPoP-protected endpoint | `client.http.get_with_dpop(...)` |
-| Calling the SharkAuth **admin** API (plain bearer) | `client.proxy_rules`, `client.agents`, etc. |
-| Calling a **third-party** API with no DPoP requirement | Raw `requests.get(...)` |
-| Constructing a custom DPoP proof with a nonce | `DPoPProver.make_proof(htm=..., htu=..., nonce=...)` directly |
+| Situation                                              | Use                                                           |
+|--------------------------------------------------------|---------------------------------------------------------------|
+| Calling a SharkAuth DPoP-protected endpoint            | `client.http.get_with_dpop(...)`                              |
+| Calling the SharkAuth **admin** API (plain bearer)     | `client.proxy_rules`, `client.agents`, etc.                   |
+| Calling a **third-party** API with no DPoP requirement | Raw `requests.get(...)`                                       |
+| Constructing a custom DPoP proof with a nonce          | `DPoPProver.make_proof(htm=..., htu=..., nonce=...)` directly |
 
 The helper exists precisely for the first case — shark-protected resources that
 validate both the `Authorization: DPoP` header and the per-request proof.  For
