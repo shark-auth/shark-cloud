@@ -2,8 +2,21 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-const DOCS_PATH = path.join(process.cwd(), 'src/content/docs');
-const BLOGS_PATH = path.join(process.cwd(), 'src/content/blogs');
+const getSafePath = (relativePath: string) => {
+  const cwd = process.cwd();
+  const pathsToTry = [
+    path.join(cwd, relativePath),
+    path.join(cwd, 'shark-next', relativePath),
+  ];
+
+  for (const p of pathsToTry) {
+    if (fs.existsSync(p)) return p;
+  }
+  return path.join(cwd, relativePath);
+};
+
+const DOCS_PATH = getSafePath('src/content/docs');
+const BLOGS_PATH = getSafePath('src/content/blogs');
 
 export interface DocItem {
   type: 'file' | 'directory';
@@ -26,6 +39,7 @@ export interface BlogItem {
 
 function getMetadata(filePath: string, defaultName: string) {
   try {
+    if (!fs.existsSync(filePath)) return { title: defaultName, order: 99 };
     const content = fs.readFileSync(filePath, 'utf8');
     const { data } = matter(content);
     return {
@@ -38,60 +52,73 @@ function getMetadata(filePath: string, defaultName: string) {
 }
 
 export function getDocsTree(dir: string = DOCS_PATH, baseSlug: string = ''): DocItem[] {
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  
-  const items: DocItem[] = entries.map(entry => {
-    const fullPath = path.join(dir, entry.name);
-    const relativeSlug = entry.name.replace(/\.mdx$/, '');
-    const currentSlug = baseSlug ? `${baseSlug}/${relativeSlug}` : relativeSlug;
+  try {
+    if (!fs.existsSync(dir)) return [];
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    
+    const items: DocItem[] = entries.map(entry => {
+      const fullPath = path.join(dir, entry.name);
+      const relativeSlug = entry.name.replace(/\.mdx$/, '');
+      const currentSlug = baseSlug ? `${baseSlug}/${relativeSlug}` : relativeSlug;
 
-    if (entry.isDirectory()) {
-      const children = getDocsTree(fullPath, currentSlug);
-      const indexPath = path.join(fullPath, 'index.mdx');
-      const meta = fs.existsSync(indexPath) ? getMetadata(indexPath, entry.name) : { title: entry.name, order: 99 };
-      
-      return {
-        type: 'directory',
-        name: entry.name,
-        slug: currentSlug,
-        title: meta.title,
-        order: meta.order,
-        children: children.sort((a, b) => a.order - b.order)
-      };
-    } else {
-      if (!entry.name.endsWith('.mdx') || entry.name === 'index.mdx') return null;
-      const meta = getMetadata(fullPath, relativeSlug);
-      
-      return {
-        type: 'file',
-        name: entry.name,
-        slug: currentSlug,
-        title: meta.title,
-        order: meta.order,
-      };
-    }
-  }).filter(Boolean) as DocItem[];
+      if (entry.isDirectory()) {
+        const children = getDocsTree(fullPath, currentSlug);
+        const indexPath = path.join(fullPath, 'index.mdx');
+        const meta = getMetadata(indexPath, entry.name);
+        
+        return {
+          type: 'directory',
+          name: entry.name,
+          slug: currentSlug,
+          title: meta.title,
+          order: meta.order,
+          children: children.sort((a, b) => a.order - b.order)
+        };
+      } else {
+        if (!entry.name.endsWith('.mdx') || entry.name === 'index.mdx') return null;
+        const meta = getMetadata(fullPath, relativeSlug);
+        
+        return {
+          type: 'file',
+          name: entry.name,
+          slug: currentSlug,
+          title: meta.title,
+          order: meta.order,
+        };
+      }
+    }).filter(Boolean) as DocItem[];
 
-  return items.sort((a, b) => a.order - b.order);
+    return items.sort((a, b) => a.order - b.order);
+  } catch (error) {
+    console.error(`Error generating docs tree for ${dir}:`, error);
+    return [];
+  }
 }
 
 export async function getDocBySlug(slug: string) {
-  let fullPath = path.join(DOCS_PATH, `${slug}.mdx`);
-  
-  if (!fs.existsSync(fullPath)) {
-    fullPath = path.join(DOCS_PATH, slug, 'index.mdx');
-  }
+  try {
+    if (!slug) return null;
+    
+    let fullPath = path.join(DOCS_PATH, `${slug}.mdx`);
+    
+    if (!fs.existsSync(fullPath)) {
+      fullPath = path.join(DOCS_PATH, slug, 'index.mdx');
+    }
 
-  if (!fs.existsSync(fullPath)) return null;
-  
-  const source = fs.readFileSync(fullPath, 'utf8');
-  const { content, data } = matter(source);
-  
-  return {
-    content,
-    frontmatter: data,
-    slug
-  };
+    if (!fs.existsSync(fullPath)) return null;
+    
+    const source = fs.readFileSync(fullPath, 'utf8');
+    const { content, data } = matter(source);
+    
+    return {
+      content,
+      frontmatter: data,
+      slug
+    };
+  } catch (error) {
+    console.error(`Error getting doc by slug ${slug}:`, error);
+    return null;
+  }
 }
 
 export function getAllBlogs(): BlogItem[] {
