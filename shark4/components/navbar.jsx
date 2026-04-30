@@ -46,7 +46,7 @@ function Navbar() {
         </div>
 
         <div style={{ display:'flex', alignItems:'center', gap: 8 }}>
-          <a href="https://discord.gg/sharkauth" className="btn btn-ghost hide-sm" style={{ height: 36, padding: '0 12px' }} aria-label="Discord">
+          <a href="https://discord.gg/zq9t6VSt5r" className="btn btn-ghost hide-sm" style={{ height: 36, padding: '0 12px' }} aria-label="Discord">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M19.6 4.6A18 18 0 0 0 15.5 3.3l-.2.4c1.5.4 2.8 1 4 1.7-2.5-1.2-5.5-1.6-8.4-1.2-2.4.3-4.6 1-6.6 2 .8-.4 1.7-.8 2.6-1.1l-.2-.4A18 18 0 0 0 2.4 6c-1.6 4.5-2.4 9-2 13.4 1.7 1.3 3.7 2.3 5.7 2.9.5-.7 1-1.5 1.3-2.3-.8-.3-1.6-.7-2.3-1.2l.6-.4c4.5 2.1 9.4 2.1 13.9 0l.6.4c-.7.4-1.5.8-2.3 1.2.4.8.8 1.6 1.3 2.3 2-.6 4-1.6 5.7-2.9.4-5.1-.6-10-2.3-13.4ZM9.3 16.5c-1.1 0-2-1-2-2.3 0-1.3.9-2.3 2-2.3 1.1 0 2 1 2 2.3 0 1.3-.9 2.3-2 2.3Zm5.4 0c-1.1 0-2-1-2-2.3 0-1.3.9-2.3 2-2.3 1.1 0 2 1 2 2.3 0 1.3-.9 2.3-2 2.3Z"/></svg>
             <span className="mono" style={{ color:'hsl(0 0% 60%)', fontSize: 12 }}>1.8k</span>
           </a>
