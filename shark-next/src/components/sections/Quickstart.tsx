@@ -3,22 +3,27 @@ import React from 'react';
 export function Quickstart() {
   const cliText = `shark ❯ shark serve  main    
 
-  ▄▄▄▄▄  
-   ██▀▀▀▀█▄ █▄  
-   ▀██▄ ▄▀ ██ ▄ ▄▄  
-   ▀██▄▄ ████▄ ▄▀▀█▄ ████▄ ██ ▄█▀  
-   ▄ ▀██▄ ██ ██ ▄█▀██ ██ ████  
-   ▀██████▀▄██ ██▄▀█▄██▄█▀ ▄██ ▀█▄
-
+  ▄▄▄▄▄                             
+ ██▀▀▀▀█▄ █▄                          
+ ▀██▄  ▄▀ ██          ▄     ▄▄      
+   ▀██▄▄  ████▄ ▄▀▀█▄ ████▄ ██ ▄█▀  
+ ▄   ▀██▄ ██ ██ ▄█▀██ ██    ████    
+ ▀██████▀▄██ ██▄▀█▄██▄█▀   ▄██ ▀█▄  
+                                    
+                                                                                                       
 SharkAuth — Open Source Auth for Agents and Humans
 Binary: 29 MB · Version: 0.1.0
-Docs: https://sharkauth.com/docs
-Repo: https://github.com/shark-auth/shark
-13:17:42 INFO database schema up to date
-13:17:42 INFO email: provider=dev â€” using in-db dev inbox for capture
-13:17:42 INFO oauth: loaded existing ES256 signing key kid=uLHp-sa54BeWehkO
+Docs:   https://sharkauth.com/docs
+Repo:   https://github.com/shark-auth/shark
+13:17:42 INFO  database schema up to date
+13:17:42 INFO  email: provider=dev — using in-db dev inbox for capture
+13:17:42 INFO  oauth: loaded existing ES256 signing key  kid=uLHp-sa54BeWehkO
 
-Dashboard http://localhost:8080/admin`;
+  Dashboard   http://localhost:8080/admin
+
+13:17:42 INFO  SharkAuth starting  addr=:8080  dev_mode=false
+13:17:42 INFO  admin dashboard  url=http://localhost:8080/admin
+13:17:42 INFO  health check  url=http://localhost:8080/healthz`;
 
   return (
     <section id="install" style={{ padding: 'clamp(60px, 9vw, 120px) clamp(20px, 4vw, 56px)' }}>
