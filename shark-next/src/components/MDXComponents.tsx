@@ -18,7 +18,9 @@ export const MDXComponents = {
     return (
       <div className="liquid-glass" style={{ margin: '2rem 0', padding: '24px', borderRadius: '14px', border: '1px solid var(--border)', background: 'var(--surface)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-          <Icon.terminal size={14} style={{ color: 'var(--muted-2)' }} />
+          <span style={{ display: 'flex', alignItems: 'center', color: 'var(--muted-2)' }}>
+            <Icon.terminal size={14} />
+          </span>
           <span className="mono" style={{ fontSize: 11, color: 'var(--muted-2)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{lang || 'bash'}</span>
         </div>
         <pre className="mono" style={{ fontSize: 14, color: 'white', overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all', margin: 0 }}>
