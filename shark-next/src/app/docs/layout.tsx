@@ -29,7 +29,7 @@ export default async function DocsLayout({
       }}>
         {/* Left sidebar */}
         <aside className="docs-sidebar" style={{ position: 'sticky', top: 120, alignSelf: 'start', height: 'calc(100vh - 160px)' }}>
-          <DocsSearch searchIndex={searchIndex} tree={tree} />
+          <DocsSearch searchIndex={searchIndex} />
           <div className="docs-scroll" style={{ marginTop: 24, height: 'calc(100vh - 260px)', overflowY: 'auto', paddingRight: 16 }}>
             <DocsSidebar tree={tree} />
           </div>

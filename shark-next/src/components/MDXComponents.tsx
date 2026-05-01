@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { DocCallout } from './DocsCallout';
 import { DocsCodeBlock } from './DocsCodeBlock';
@@ -40,11 +38,7 @@ function HeadingWithSlug({ level, children, ...props }: { level: number; childre
     return (
       <h1
         id={id}
-        style={{
-          fontSize: 38, fontWeight: 600, letterSpacing: '-0.035em',
-          color: 'var(--docs-fg-heading)',
-          marginBottom: 24, marginTop: 0, lineHeight: 1.2,
-        }}
+        className="mdx-h1"
         {...props}
       >
         {children}
@@ -56,13 +50,7 @@ function HeadingWithSlug({ level, children, ...props }: { level: number; childre
     return (
       <h2
         id={id}
-        style={{
-          fontSize: 26, fontWeight: 600, letterSpacing: '-0.025em',
-          color: 'var(--docs-fg-heading)',
-          marginTop: 48, marginBottom: 16,
-          paddingBottom: 14,
-          borderBottom: '1px solid var(--docs-border)',
-        }}
+        className="mdx-h2"
         {...props}
       >
         {children}
@@ -74,11 +62,7 @@ function HeadingWithSlug({ level, children, ...props }: { level: number; childre
     return (
       <h3
         id={id}
-        style={{
-          fontSize: 18, fontWeight: 600, letterSpacing: '-0.015em',
-          color: 'var(--docs-fg-heading)',
-          marginTop: 32, marginBottom: 12,
-        }}
+        className="mdx-h3"
         {...props}
       >
         {children}
@@ -86,42 +70,25 @@ function HeadingWithSlug({ level, children, ...props }: { level: number; childre
     );
   }
 
-  return <h4 id={id} {...props}>{children}</h4>;
+  return <h4 id={id} className="mdx-h4" {...props}>{children}</h4>;
 }
 
 export const MDXComponents = {
   h1: (props: any) => <HeadingWithSlug level={1} {...props} />,
   h2: (props: any) => <HeadingWithSlug level={2} {...props} />,
   h3: (props: any) => <HeadingWithSlug level={3} {...props} />,
-  h4: (props: any) => <h4 style={{ fontSize: 16, fontWeight: 600, marginTop: 24, marginBottom: 8, color: 'var(--docs-fg-heading)' }} {...props} />,
+  h4: (props: any) => <h4 className="mdx-h4" {...props} />,
 
-  p: (props: any) => (
-    <p style={{
-      fontSize: 15.5, lineHeight: 1.75,
-      color: 'var(--docs-fg)',
-      marginBottom: 16,
-    }} {...props} />
-  ),
+  p: (props: any) => <p className="mdx-p" {...props} />,
 
   a: (props: any) => {
     const href = props.href || '';
     const isExternal = href.startsWith('http') || href.startsWith('https');
     return (
-      <a
-        {...props}
-        style={{
-          color: 'var(--docs-fg-heading)',
-          textDecoration: 'underline',
-          textDecorationColor: 'var(--docs-border)',
-          textUnderlineOffset: '3px',
-          transition: 'text-decoration-color .2s',
-        }}
-        onMouseEnter={e => { e.currentTarget.style.textDecorationColor = 'var(--docs-fg-muted)'; }}
-        onMouseLeave={e => { e.currentTarget.style.textDecorationColor = 'var(--docs-border)'; }}
-      >
+      <a {...props} className="mdx-a">
         {props.children}
         {isExternal && (
-          <span style={{ marginLeft: 3, display: 'inline-flex', alignItems: 'center', opacity: 0.5 }}>
+          <span className="mdx-external-icon">
             <ExternalIcon />
           </span>
         )}
@@ -129,115 +96,36 @@ export const MDXComponents = {
     );
   },
 
-  ul: (props: any) => (
-    <ul style={{
-      marginBottom: 16, paddingLeft: 24,
-      color: 'var(--docs-fg)',
-    }} {...props} />
-  ),
+  ul: (props: any) => <ul className="mdx-ul" {...props} />,
+  ol: (props: any) => <ol className="mdx-ol" {...props} />,
+  li: (props: any) => <li className="mdx-li" {...props} />,
 
-  ol: (props: any) => (
-    <ol style={{
-      marginBottom: 16, paddingLeft: 24,
-      color: 'var(--docs-fg)',
-    }} {...props} />
-  ),
+  hr: () => <hr className="mdx-hr" />,
 
-  li: (props: any) => (
-    <li style={{ marginBottom: 8, lineHeight: 1.7, color: 'var(--docs-fg)' }} {...props} />
-  ),
-
-  hr: () => (
-    <hr style={{
-      border: 'none', height: 1,
-      background: 'var(--docs-border)',
-      margin: '40px 0',
-    }} />
-  ),
-
-  blockquote: (props: any) => (
-    <blockquote style={{
-      margin: '24px 0',
-      paddingLeft: 20,
-      borderLeft: '3px solid var(--docs-fg-muted)',
-      color: 'var(--docs-fg-muted)',
-      fontStyle: 'italic',
-      lineHeight: 1.7,
-    }} {...props} />
-  ),
+  blockquote: (props: any) => <blockquote className="mdx-blockquote" {...props} />,
 
   table: (props: any) => (
-    <div style={{ overflowX: 'auto', marginBottom: 24, borderRadius: 10, border: '1px solid var(--docs-border)' }}>
-      <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0 }} {...props} />
+    <div className="mdx-table-wrap">
+      <table className="mdx-table" {...props} />
     </div>
   ),
 
-  thead: (props: any) => (
-    <thead style={{ background: 'var(--docs-surface)' }} {...props} />
-  ),
-
+  thead: (props: any) => <thead className="mdx-thead" {...props} />,
   tbody: (props: any) => <tbody {...props} />,
-
-  tr: (props: any) => (
-    <tr style={{ transition: 'background .15s' }}
-      onMouseEnter={e => (e.currentTarget.style.background = 'var(--docs-surface)')}
-      onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-      {...props}
-    />
-  ),
-
-  th: (props: any) => (
-    <th style={{
-      padding: '14px 18px',
-      textAlign: 'left',
-      fontSize: 12, fontWeight: 600,
-      color: 'var(--docs-fg-muted)',
-      textTransform: 'uppercase',
-      letterSpacing: '0.05em',
-      borderBottom: '1px solid var(--docs-border)',
-    }} {...props} />
-  ),
-
-  td: (props: any) => (
-    <td style={{
-      padding: '14px 18px',
-      textAlign: 'left',
-      fontSize: 14,
-      color: 'var(--docs-fg)',
-      borderBottom: '1px solid var(--docs-border)',
-      lineHeight: 1.6,
-    }} {...props} />
-  ),
+  tr: (props: any) => <tr className="mdx-tr" {...props} />,
+  th: (props: any) => <th className="mdx-th" {...props} />,
+  td: (props: any) => <td className="mdx-td" {...props} />,
 
   pre: ({ children }: any) => <>{children}</>,
 
   code: ({ children, className }: any) => {
     const isInline = !className;
     if (isInline) {
-      return (
-        <code style={{
-          background: 'var(--docs-surface)',
-          padding: '2px 6px',
-          borderRadius: 5,
-          fontSize: '0.9em',
-          color: 'var(--docs-fg-heading)',
-          fontFamily: 'var(--font-mono), ui-monospace, monospace',
-          border: '1px solid var(--docs-border)',
-        }}>
-          {children}
-        </code>
-      );
+      return <code className="mdx-code-inline">{children}</code>;
     }
-
     const lang = className.replace('language-', '') || 'bash';
     const code = typeof children === 'string' ? children.trim() : String(children).trim();
-
-    return (
-      <DocsCodeBlock
-        lang={lang}
-        code={code}
-      />
-    );
+    return <DocsCodeBlock lang={lang} code={code} />;
   },
 
   // Callout components usable in MDX

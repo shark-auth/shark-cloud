@@ -2,34 +2,44 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import { DocItem, SearchItem } from '@/lib/content';
+import { SearchItem } from '@/lib/content';
 
 interface DocsSearchProps {
   searchIndex: SearchItem[];
-  tree: DocItem[];
 }
 
-export function DocsSearch({ searchIndex, tree }: DocsSearchProps) {
+export function DocsSearch({ searchIndex }: DocsSearchProps) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         inputRef.current?.focus();
-        setIsOpen(true);
       }
       if (e.key === 'Escape') {
         setQuery('');
         setIsOpen(false);
+        setResults([]);
         inputRef.current?.blur();
       }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
+  }, []);
+
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
   }, []);
 
   const handleInput = useCallback((value: string) => {
@@ -52,27 +62,37 @@ export function DocsSearch({ searchIndex, tree }: DocsSearchProps) {
   }, [searchIndex]);
 
   return (
-    <div style={{ position: 'relative' }}>
-      <div
-        onClick={() => inputRef.current?.focus()}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          padding: '9px 14px',
-          background: 'var(--docs-surface)',
-          border: '1px solid var(--docs-border)',
-          borderRadius: 999,
-          cursor: 'text',
-          transition: 'border-color .2s',
-        }}
-      >
+    <div ref={containerRef} style={{ position: 'relative' }}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        padding: '9px 14px',
+        background: 'var(--docs-surface)',
+        border: '1px solid var(--docs-border)',
+        borderRadius: 999,
+        transition: 'border-color .2s',
+      }}>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--docs-fg-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
         </svg>
-        <span style={{ flex: 1, fontSize: 13.5, color: 'var(--docs-fg-muted)' }}>
-          Search docs...
-        </span>
+        <input
+          ref={inputRef}
+          value={query}
+          onChange={e => handleInput(e.target.value)}
+          onFocus={() => query.trim().length >= 2 && setIsOpen(true)}
+          placeholder="Search docs..."
+          aria-label="Search documentation"
+          style={{
+            flex: 1,
+            background: 'none',
+            border: 'none',
+            outline: 'none',
+            fontSize: 13.5,
+            color: 'var(--docs-fg)',
+            fontFamily: 'inherit',
+          }}
+        />
         <span style={{
           fontSize: 11, color: 'var(--docs-fg-muted)',
           background: 'var(--docs-surface-2)',
@@ -83,21 +103,6 @@ export function DocsSearch({ searchIndex, tree }: DocsSearchProps) {
           ⌘K
         </span>
       </div>
-
-      <input
-        ref={inputRef}
-        value={query}
-        onChange={e => handleInput(e.target.value)}
-        onFocus={() => query.trim().length >= 2 && setIsOpen(true)}
-        placeholder="Search docs..."
-        aria-label="Search documentation"
-        style={{
-          position: 'absolute', inset: 0,
-          opacity: 0, cursor: 'text', width: '100%',
-          background: 'transparent', border: 'none', outline: 'none',
-          padding: '9px 14px',
-        }}
-      />
 
       {isOpen && results.length > 0 && (
         <div
@@ -115,7 +120,7 @@ export function DocsSearch({ searchIndex, tree }: DocsSearchProps) {
             <Link
               key={item.slug}
               href={`/docs/${item.slug}`}
-              onClick={() => { setQuery(''); setIsOpen(false); }}
+              onClick={() => { setQuery(''); setIsOpen(false); setResults([]); }}
               style={{
                 display: 'flex', flexDirection: 'column', gap: 2,
                 padding: '12px 16px',
