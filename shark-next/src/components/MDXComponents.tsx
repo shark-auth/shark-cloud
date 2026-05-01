@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { DocCallout } from './DocsCallout';
 import { DocsCodeBlock } from './DocsCodeBlock';
@@ -11,20 +13,15 @@ function slugify(text: string): string {
     .trim();
 }
 
-function ChevronIcon({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M6 9l6 6 6-6" />
-    </svg>
-  );
-}
-
-function TerminalIcon({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4 17l5-5-5-5M12 19h8" />
-    </svg>
-  );
+function getTextContent(node: React.ReactNode): string {
+  if (typeof node === 'string') return node;
+  if (typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(getTextContent).join('');
+  if (React.isValidElement(node)) {
+    const el = node as React.ReactElement<{ children?: React.ReactNode }>;
+    return getTextContent(el.props.children);
+  }
+  return '';
 }
 
 function ExternalIcon() {
@@ -36,8 +33,8 @@ function ExternalIcon() {
 }
 
 function HeadingWithSlug({ level, children, ...props }: { level: number; children: React.ReactNode; [key: string]: unknown }) {
-  const text = typeof children === 'string' ? children : '';
-  const id = slugify(text);
+  const text = getTextContent(children);
+  const id = slugify(text) || `heading-${level}`;
 
   if (level === 1) {
     return (
@@ -211,6 +208,8 @@ export const MDXComponents = {
       lineHeight: 1.6,
     }} {...props} />
   ),
+
+  pre: ({ children }: any) => <>{children}</>,
 
   code: ({ children, className }: any) => {
     const isInline = !className;
