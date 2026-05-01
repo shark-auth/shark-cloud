@@ -8,7 +8,6 @@ const getSafePath = (relativePath: string) => {
     path.join(cwd, relativePath),
     path.join(cwd, 'shark-next', relativePath),
   ];
-
   for (const p of pathsToTry) {
     if (fs.existsSync(p)) return p;
   }
@@ -22,6 +21,19 @@ export interface DocItem {
   title: string;
   order: number;
   children?: DocItem[];
+}
+
+export interface Heading {
+  level: number;
+  text: string;
+  id: string;
+}
+
+export interface DocContent {
+  slug: string;
+  content: string;
+  frontmatter: Record<string, unknown>;
+  headings: Heading[];
 }
 
 export interface BlogItem {
@@ -53,7 +65,7 @@ export function getDocsTree(dir?: string, baseSlug: string = ''): DocItem[] {
     const targetDir = dir || getSafePath('src/content/docs');
     if (!fs.existsSync(targetDir)) return [];
     const entries = fs.readdirSync(targetDir, { withFileTypes: true });
-    
+
     const items: DocItem[] = entries.map(entry => {
       const fullPath = path.join(targetDir, entry.name);
       const relativeSlug = entry.name.replace(/\.mdx$/, '');
@@ -63,19 +75,19 @@ export function getDocsTree(dir?: string, baseSlug: string = ''): DocItem[] {
         const children = getDocsTree(fullPath, currentSlug);
         const indexPath = path.join(fullPath, 'index.mdx');
         const meta = getMetadata(indexPath, entry.name);
-        
+
         return {
           type: 'directory',
           name: entry.name,
           slug: currentSlug,
           title: meta.title,
           order: meta.order,
-          children: children.sort((a, b) => a.order - b.order)
+          children: children.sort((a, b) => a.order - b.order),
         };
       } else {
         if (!entry.name.endsWith('.mdx') || entry.name === 'index.mdx') return null;
         const meta = getMetadata(fullPath, relativeSlug);
-        
+
         return {
           type: 'file',
           name: entry.name,
@@ -93,18 +105,24 @@ export function getDocsTree(dir?: string, baseSlug: string = ''): DocItem[] {
   }
 }
 
-export async function getDocBySlug(slug: string) {
+function slugifyHeading(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
+
+export function getDocBySlug(slug: string): DocContent | null {
   try {
     if (!slug) return null;
-    
-    // Normalize slug to prevent directory traversal
     const safeSlug = slug.replace(/\.+/g, '.').replace(/^\/+/, '');
     const cwd = process.cwd();
-    
-    // Check both standard root and shark-next subdirectory (for Vercel monorepo setups)
+
     const basePaths = [
       path.join(cwd, 'src/content/docs'),
-      path.join(cwd, 'shark-next/src/content/docs')
+      path.join(cwd, 'shark-next/src/content/docs'),
     ];
 
     let fullPath = '';
@@ -114,52 +132,119 @@ export async function getDocBySlug(slug: string) {
       const fileAttempt = path.join(base, `${safeSlug}.mdx`);
       const indexAttempt = path.join(base, safeSlug, 'index.mdx');
 
-      if (fs.existsSync(fileAttempt)) {
-        fullPath = fileAttempt;
-        found = true;
-        break;
-      }
-      if (fs.existsSync(indexAttempt)) {
-        fullPath = indexAttempt;
-        found = true;
-        break;
-      }
+      if (fs.existsSync(fileAttempt)) { fullPath = fileAttempt; found = true; break; }
+      if (fs.existsSync(indexAttempt)) { fullPath = indexAttempt; found = true; break; }
     }
 
     if (!found) return null;
-    
+
     const source = fs.readFileSync(fullPath, 'utf8');
     const { content, data } = matter(source);
-    
-    return {
-      content,
-      frontmatter: data,
-      slug
-    };
+
+    const headings: Heading[] = [];
+    const headingRegex = /^(#{2,3})\s+(.+)$/gm;
+    let match;
+    while ((match = headingRegex.exec(source)) !== null) {
+      const text = match[2].replace(/[*_`]/g, '').trim();
+      headings.push({
+        level: match[1].length,
+        text,
+        id: slugifyHeading(text),
+      });
+    }
+
+    return { content, frontmatter: data, slug, headings };
   } catch (error) {
     console.error(`Error getting doc by slug ${slug}:`, error);
     return null;
   }
 }
 
+export function getAdjacentDocs(slug: string): { prev: DocItem | null; next: DocItem | null } {
+  const flat = flattenDocsTree(getDocsTree());
+  const idx = flat.findIndex(d => d.slug === slug);
+  return {
+    prev: idx > 0 ? flat[idx - 1] : null,
+    next: idx < flat.length - 1 ? flat[idx + 1] : null,
+  };
+}
+
+function flattenDocsTree(tree: DocItem[]): DocItem[] {
+  const result: DocItem[] = [];
+  for (const item of tree) {
+    if (item.type === 'file') result.push(item);
+    if (item.children) result.push(...flattenDocsTree(item.children));
+  }
+  return result;
+}
+
+export interface SearchItem {
+  title: string;
+  slug: string;
+  category: string;
+  excerpt: string;
+  content?: string;
+}
+
+export function generateSearchIndex(): SearchItem[] {
+  const docsDir = getSafePath('src/content/docs');
+  if (!fs.existsSync(docsDir)) return [];
+
+  const items: SearchItem[] = [];
+  const walkDir = (dir: string) => {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walkDir(fullPath);
+      } else if (entry.name.endsWith('.mdx') && entry.name !== 'index.mdx') {
+        try {
+          const source = fs.readFileSync(fullPath, 'utf8');
+          const { data, content } = matter(source);
+          const slug = entry.name.replace('.mdx', '');
+          const relative = path.relative(docsDir, fullPath).replace(/\\/g, '/').replace('.mdx', '').replace(/index$/, '');
+          const stripped = content
+            .replace(/```[\s\S]*?```/g, '')
+            .replace(/`[^`]*`/g, '')
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+            .replace(/[#*_~>`]/g, '')
+            .replace(/\n+/g, ' ')
+            .trim();
+          const excerpt = stripped.slice(0, 200);
+          const searchContent = stripped.slice(0, 2000);
+          items.push({
+            title: data.title || slug,
+            slug: relative,
+            category: data.category || '',
+            excerpt,
+            content: searchContent,
+          });
+        } catch { /* skip bad files */ }
+      }
+    }
+  };
+  walkDir(docsDir);
+  return items;
+}
+
 export function getAllBlogs(): BlogItem[] {
   const blogsPath = getSafePath('src/content/blogs');
   if (!fs.existsSync(blogsPath)) return [];
   const files = fs.readdirSync(blogsPath);
-  
+
   return files
     .filter(file => file.endsWith('.mdx'))
     .map(file => {
       const source = fs.readFileSync(path.join(blogsPath, file), 'utf8');
       const { data, content } = matter(source);
-      return { 
-        slug: file.replace('.mdx', ''), 
+      return {
+        slug: file.replace('.mdx', ''),
         title: data.title || 'Untitled Post',
         date: data.date || '2026-04-01',
         tag: data.tag || 'ENGINEERING',
         description: data.description || '',
         author: data.author || 'SharkAuth Team',
-        content
+        content,
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -169,10 +254,10 @@ export async function getBlogBySlug(slug: string): Promise<BlogItem | null> {
   const blogsPath = getSafePath('src/content/blogs');
   const fullPath = path.join(blogsPath, `${slug}.mdx`);
   if (!fs.existsSync(fullPath)) return null;
-  
+
   const source = fs.readFileSync(fullPath, 'utf8');
   const { content, data } = matter(source);
-  
+
   return {
     slug,
     title: data.title || 'Untitled Post',
@@ -180,6 +265,6 @@ export async function getBlogBySlug(slug: string): Promise<BlogItem | null> {
     tag: data.tag || 'ENGINEERING',
     description: data.description || '',
     author: data.author || 'SharkAuth Team',
-    content
+    content,
   };
 }

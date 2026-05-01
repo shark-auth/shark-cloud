@@ -266,6 +266,97 @@ h1 { letter-spacing: -0.04em; }
 .text-muted { color: var(--muted); }
 .text-muted-2 { color: var(--muted-2); }
 
+/* === DOCS THEME === */
+.docs-theme {
+  --docs-bg: hsl(0 0% 2%);
+  --docs-surface: hsl(0 0% 5%);
+  --docs-surface-2: hsl(0 0% 8%);
+  --docs-fg: hsl(0 0% 92%);
+  --docs-fg-heading: hsl(0 0% 98%);
+  --docs-fg-muted: hsl(0 0% 52%);
+  --docs-border: hsl(0 0% 14%);
+  --docs-code-bg: hsl(0 0% 6%);
+  --docs-code-header: hsl(0 0% 10%);
+  --docs-active: hsl(0 0% 95%);
+
+  background: var(--docs-bg);
+  color: var(--docs-fg);
+  min-height: 100vh;
+}
+
+/* Docs layout */
+.docs-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.docs-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--docs-border) transparent;
+}
+.docs-scroll::-webkit-scrollbar { width: 4px; }
+.docs-scroll::-webkit-scrollbar-track { background: transparent; }
+.docs-scroll::-webkit-scrollbar-thumb { background: var(--docs-border); border-radius: 99px; }
+
+.docs-content {
+  min-width: 0;
+  max-width: 720px;
+}
+
+/* Hide TOC on smaller viewports */
+@media (max-width: 1100px) {
+  .docs-toc { display: none !important; }
+}
+@media (max-width: 900px) {
+  .docs-sidebar { display: none !important; }
+}
+
+/* Doc index links */
+.docs-content a:not([class]) {
+  color: var(--docs-fg);
+  text-decoration: none;
+  transition: color .15s;
+}
+.docs-content a:not([class]):hover {
+  color: var(--docs-fg-heading);
+}
+
+/* MDX content links */
+.mdx-content a {
+  color: var(--docs-fg-heading);
+  text-decoration: underline;
+  text-decoration-color: var(--docs-border);
+  text-underline-offset: 3px;
+  transition: text-decoration-color .2s;
+}
+.mdx-content a:hover {
+  text-decoration-color: var(--docs-fg-muted);
+}
+
+/* Docs prev/next */
+.prevnext a {
+  color: var(--docs-fg);
+  transition: color .2s;
+}
+.prevnext a:hover {
+  color: var(--docs-fg-heading);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .scroll-hint { display: none !important; }
+  .marquee-track { animation: none !important; }
+  .shimmer-line::before { animation: none !important; }
+  .diff-card, .vlog-card, .narrative-row {
+    transition: none !important;
+  }
+}
+
 .divider-x {
   height: 1px; background: linear-gradient(90deg, transparent, var(--border-2), transparent);
 }

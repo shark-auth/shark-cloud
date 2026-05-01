@@ -9,18 +9,22 @@ import { Icon } from '../Icons';
 const INSTALL_CMD = 'curl -fsSL sharkauth.com/get | sh';
 
 export function Hero() {
-  const [revoked, setRevoked] = useState('none');
   const [scrollY, setScrollY] = useState(0);
   const [vh, setVh] = useState(typeof window !== 'undefined' ? window.innerHeight : 800);
   const stageRef = useRef<HTMLDivElement>(null);
   const [stageP, setStageP] = useState(0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mq.addEventListener?.('change', onChange);
+
     const onScroll = () => {
       setScrollY(window.scrollY);
       if (stageRef.current) {
         const r = stageRef.current.getBoundingClientRect();
-        // 0 when stage top reaches viewport bottom, 1 when stage center reaches viewport center
         const vh2 = window.innerHeight;
         const raw = (vh2 - r.top) / (vh2 + r.height * 0.5);
         setStageP(Math.min(1, Math.max(0, raw)));
@@ -31,6 +35,7 @@ export function Hero() {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize);
     return () => {
+      mq.removeEventListener?.('change', onChange);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
     };
@@ -38,27 +43,24 @@ export function Hero() {
 
   const ease = (t: number) => 1 - Math.pow(1 - t, 3);
 
-  // ---- Text block scroll progress (only while in viewport) ----
   const textP = Math.min(1, scrollY / (vh * 0.6));
-  const tE = ease(textP);
-  const titleY = -tE * 30;
-  const titleScale = 1 - tE * 0.04;
-  const titleBlur = tE > 0.7 ? (tE - 0.7) * 4 : 0;
+  const tE = prefersReducedMotion ? 0 : ease(textP);
+  const titleY = prefersReducedMotion ? 0 : -tE * 30;
+  const titleScale = prefersReducedMotion ? 1 : 1 - tE * 0.04;
+  const titleBlur = prefersReducedMotion ? 0 : (tE > 0.7 ? (tE - 0.7) * 4 : 0);
 
-  // Background ambient
-  const lightY = -tE * 100;
-  const lightScale = 1 + tE * 0.3;
-  const glyphRot = -8 + tE * 14;
-  const glyphY = -scrollY * 0.05;
-  const glyphOpacity = 0.05 + tE * 0.04;
-  const auroraX = Math.sin(scrollY * 0.002) * 80;
+  const lightY = prefersReducedMotion ? 0 : -tE * 100;
+  const lightScale = prefersReducedMotion ? 1 : 1 + tE * 0.3;
+  const glyphRot = prefersReducedMotion ? -8 : -8 + tE * 14;
+  const glyphY = prefersReducedMotion ? 0 : -scrollY * 0.05;
+  const glyphOpacity = prefersReducedMotion ? 0.05 : 0.05 + tE * 0.04;
+  const auroraX = prefersReducedMotion ? 0 : Math.sin(scrollY * 0.002) * 80;
 
-  // ---- Canvas stage scroll progress (separate, drives the canvas morph) ----
-  const cE = ease(stageP);
-  const canvasY = (1 - cE) * 120;
-  const canvasRotX = (1 - cE) * 18;
-  const canvasScale = 0.92 + cE * 0.08;
-  const canvasOpacity = Math.min(1, 0.3 + cE * 1.4);
+  const cE = prefersReducedMotion ? 1 : ease(stageP);
+  const canvasY = prefersReducedMotion ? 0 : (1 - cE) * 120;
+  const canvasRotX = prefersReducedMotion ? 0 : (1 - cE) * 18;
+  const canvasScale = prefersReducedMotion ? 1 : 0.92 + cE * 0.08;
+  const canvasOpacity = prefersReducedMotion ? 1 : Math.min(1, 0.3 + cE * 1.4);
 
   return (
     <section id="top" style={{ position: 'relative', overflow: 'visible' }}>
@@ -69,7 +71,7 @@ export function Hero() {
         {/* Background ambient */}
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
           <div className="grid-overlay" style={{
-            position: 'absolute', inset: 0, opacity: 0.55 - tE * 0.2,
+            position: 'absolute', inset: 0, opacity: prefersReducedMotion ? 0.35 : 0.55 - tE * 0.2,
             maskImage: 'radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent 75%)',
             WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent 75%)',
           }} />
@@ -81,7 +83,7 @@ export function Hero() {
             filter: 'blur(20px)',
           }} />
           <div style={{
-            position: 'absolute', inset: 0, opacity: 0.5 + tE * 0.4,
+            position: 'absolute', inset: 0, opacity: prefersReducedMotion ? 0.3 : 0.5 + tE * 0.4,
             background:
               `conic-gradient(from ${180 + tE * 120}deg at 50% 60%,
                  transparent 0deg, hsla(0,0%,100%,0.05) 30deg,
@@ -102,6 +104,7 @@ export function Hero() {
               width={720}
               height={720}
               style={{ width: '100%', height: 'auto' }}
+              priority
             />
           </div>
         </div>
@@ -114,7 +117,7 @@ export function Hero() {
           transform: `translateY(${titleY}px) scale(${titleScale})`,
           transformOrigin: '50% 0%',
           filter: titleBlur ? `blur(${titleBlur}px)` : 'none',
-          willChange: 'transform, filter',
+          willChange: prefersReducedMotion ? 'auto' : 'transform, filter',
         }}>
           <div className="reveal" style={{ transitionDelay: '50ms' }}>
             <Pill live>v0.1.0 · Now Shipping · Open Source · Self-hosted</Pill>
@@ -174,7 +177,7 @@ export function Hero() {
         </div>
 
         {/* Scroll hint */}
-        <div className="scroll-hint" style={{ opacity: 1 - tE * 2.5 }}>
+        <div className="scroll-hint" style={{ opacity: prefersReducedMotion ? 0 : 1 - tE * 2.5 }}>
           <span style={{ width: 22, height: 1, background: 'hsl(0 0% 35%)' }} />
           Scroll
           <span style={{ width: 22, height: 1, background: 'hsl(0 0% 35%)' }} />
@@ -192,11 +195,17 @@ export function Hero() {
           transform: `translateY(${canvasY}px) perspective(1400px) rotateX(${canvasRotX}deg) scale(${canvasScale})`,
           transformOrigin: '50% 0%',
           opacity: canvasOpacity,
-          willChange: 'transform, opacity',
+          willChange: prefersReducedMotion ? 'auto' : 'transform, opacity',
           transition: 'opacity .2s linear',
         }}>
           <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', background: 'hsl(0 0% 4%)', borderRadius: 16, border: '1px solid var(--border)', overflow: 'hidden' }}>
-            <img src="/dashboard.png" alt="SharkAuth Dashboard" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <Image
+              src="/dashboard.png"
+              alt="SharkAuth Dashboard"
+              fill
+              style={{ objectFit: 'cover' }}
+              priority
+            />
           </div>
         </div>
       </div>

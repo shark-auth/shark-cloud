@@ -2,103 +2,106 @@
 
 import React from 'react';
 import { Icon } from '../Icons';
-
-const TIERS = [
-  {
-    name: 'Self-Host',
-    price: '$0',
-    desc: 'The complete engine, under your control.',
-    features: ['MIT Licensed', 'Unlimited Users', 'All Core Protocols', 'Community Support'],
-    cta: 'Get the Binary',
-    type: 'primary'
-  },
-  {
-    name: 'Cloud Free',
-    price: '$0',
-    desc: 'Managed by us. Built for experiments.',
-    features: ['10k MAU Included', 'Shared Infrastructure', 'Standard Audit Logs', 'Waitlist only'],
-    cta: 'Join Waitlist',
-    type: 'ghost',
-    tag: 'WAITLIST'
-  },
-  {
-    name: 'Pro',
-    price: '$99',
-    desc: 'For scaling agentic applications.',
-    features: ['50k MAU Included', 'Dedicated Instances', 'Advanced DPoP support', 'Priority Support'],
-    cta: 'Join Waitlist',
-    type: 'ghost',
-    tag: 'WAITLIST'
-  },
-  {
-    name: 'Enterprise',
-    price: 'Custom',
-    desc: 'Absolute authority and compliance.',
-    features: ['Unlimited MAU', 'Custom SLA', 'White-glove Migration', 'Compliance (SOC2/GDPR)'],
-    cta: 'Contact Sales',
-    type: 'ghost'
-  }
-];
+import { CopyCmd } from '../Primitives';
 
 export function Pricing() {
   return (
     <section id="pricing" style={{ padding: 'clamp(80px, 12vw, 160px) clamp(20px, 4vw, 56px)', borderTop: '1px solid var(--border)' }}>
       <div style={{ maxWidth: 1240, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 80 }}>
-          <div className="eyebrow reveal" style={{ marginBottom: 12 }}>Pricing</div>
-          <h2 className="display reveal" style={{ fontSize: 'clamp(40px, 6vw, 64px)', marginBottom: 24 }}>Simple. <span className="serif-italic">Transparent.</span></h2>
-          <p className="text-muted reveal" style={{ fontSize: 18, maxWidth: 600, margin: '0 auto' }}>
-            Choose the right power level for your infrastructure. 
-            Open source by default, managed by experts when you need it.
-          </p>
+        <div style={{ marginBottom: 80 }}>
+          <span className="eyebrow reveal">Pricing</span>
+          <h2 className="reveal" style={{ fontSize: 'clamp(34px, 4.6vw, 60px)', lineHeight: 1.05, marginTop: 16, maxWidth: 720 }}>
+            Self-host is the product. <br />
+            <span className="serif" style={{ color: 'hsl(0 0% 70%)' }}>Cloud is a convenience.</span>
+          </h2>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
-          {TIERS.map((tier, idx) => (
-            <div 
-              key={tier.name} 
-              className="reveal liquid-glass" 
-              style={{ 
-                padding: 40, 
-                borderRadius: 14, 
-                border: '1px solid var(--border)', 
-                background: 'var(--surface)',
-                display: 'flex',
-                flexDirection: 'column',
-                animationDelay: `${idx * 0.1}s`
-              }}
-            >
-              {tier.tag && (
-                <div className="mono" style={{ fontSize: 10, color: 'white', background: 'hsl(0 0% 15%)', padding: '4px 8px', borderRadius: 4, alignSelf: 'flex-start', marginBottom: 16 }}>
-                  {tier.tag}
-                </div>
-              )}
-              <h3 className="mono" style={{ fontSize: 14, color: 'hsl(0 0% 60%)', marginBottom: 8, textTransform: 'uppercase' }}>{tier.name}</h3>
-              <div style={{ fontSize: 40, fontWeight: 500, marginBottom: 16 }}>
-                {tier.price}<span style={{ fontSize: 16, color: 'hsl(0 0% 40%)' }}>{tier.price !== 'Custom' ? '/mo' : ''}</span>
+        <div className="reveal" style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: 1, background: 'hsl(0 0% 12%)', border: '1px solid hsl(0 0% 12%)', borderRadius: 20, overflow: 'hidden' }}>
+          {/* Self-Host — dominant */}
+          <div style={{
+            background: 'hsl(0 0% 2.5%)',
+            padding: 'clamp(40px, 5vw, 64px)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 32,
+          }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24 }}>
+                <span className="mono" style={{ fontSize: 13, color: 'hsl(0 0% 60%)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Self-Host</span>
+                <span className="tok yes" style={{ fontSize: 11 }}>Recommended</span>
               </div>
-              <p className="text-muted" style={{ fontSize: 14, lineHeight: 1.5, marginBottom: 32, minHeight: 42 }}>
-                {tier.desc}
+              <div style={{ fontSize: 'clamp(52px, 6vw, 80px)', fontWeight: 500, lineHeight: 1, letterSpacing: '-0.04em' }}>
+                $0<span style={{ fontSize: 20, color: 'hsl(0 0% 45%)', marginLeft: 8, fontWeight: 400 }}>forever</span>
+              </div>
+              <p className="text-muted" style={{ marginTop: 14, fontSize: 15.5, lineHeight: 1.6, maxWidth: 480 }}>
+                The complete engine. MIT licensed. No telemetry, no vendor lock-in, no "free until we change our mind."
               </p>
-              
-              <div style={{ flex: 1, marginBottom: 40 }}>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 14 }}>
-                  {tier.features.map(f => (
-                    <li key={f} style={{ fontSize: 14, display: 'flex', alignItems: 'center', gap: 10, color: 'hsl(0 0% 80%)' }}>
-                      <Icon.check size={10} />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            </div>
 
-              <a href={tier.name === 'Cloud Free' || tier.name === 'Pro' ? '/waitlist' : '#'} className={`btn btn-${tier.type}`} style={{ width: '100%', justifyContent: 'center' }}>
-                {tier.cta}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+              <CopyCmd cmd="curl -fsSL sharkauth.com/get | sh" label="Get the Binary" />
+              <a href="https://github.com/shark-auth/shark" className="btn btn-ghost" style={{ height: 44 }}>
+                <Icon.github size={14} /> View source
               </a>
             </div>
-          ))}
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+              gap: '14px 24px',
+              paddingTop: 28,
+              borderTop: '1px solid hsl(0 0% 10%)',
+            }}>
+              {[
+                { label: 'Binary size', val: '~29 MB' },
+                { label: 'License', val: 'MIT' },
+                { label: 'Protocols', val: 'OAuth 2.1 · OIDC' },
+                { label: 'Token exchange', val: 'RFC 8693' },
+                { label: 'Key binding', val: 'RFC 9449 DPoP' },
+                { label: 'Database', val: 'SQLite WAL' },
+                { label: 'Deployment', val: 'Raspberry Pi +' },
+                { label: 'Support', val: 'Community / GitHub' },
+              ].map(spec => (
+                <div key={spec.label} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <span className="mono" style={{ fontSize: 11, color: 'hsl(0 0% 45%)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{spec.label}</span>
+                  <span style={{ fontSize: 14, fontWeight: 500, color: 'hsl(0 0% 90%)' }}>{spec.val}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Managed — minimal teaser */}
+          <div style={{
+            background: 'hsl(0 0% 3%)',
+            padding: 'clamp(40px, 5vw, 64px)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            gap: 32,
+          }}>
+            <div>
+              <span className="mono" style={{ fontSize: 13, color: 'hsl(0 0% 60%)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Shark Cloud</span>
+              <p className="text-muted" style={{ marginTop: 18, fontSize: 15, lineHeight: 1.6 }}>
+                Managed infrastructure for teams that don't want to run their own issuer. Same binary, same spec compliance, zero ops.
+              </p>
+            </div>
+            <div>
+              <div style={{ fontSize: 32, fontWeight: 500, letterSpacing: '-0.03em' }}>Coming 2026</div>
+              <a href="/waitlist" className="btn btn-ghost" style={{ marginTop: 20, width: '100%', justifyContent: 'center' }}>
+                Join Waitlist <Icon.arrow size={12} />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          #pricing > div > div:last-child {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

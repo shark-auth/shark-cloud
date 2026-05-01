@@ -5,68 +5,73 @@ import Link from 'next/link';
 import { DocItem } from '@/lib/content';
 import { usePathname } from 'next/navigation';
 
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
+
 interface SidebarItemProps {
   item: DocItem;
   depth?: number;
 }
 
-const SidebarItem: React.FC<SidebarItemProps> = ({ item, depth = 0 }) => {
+function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(true);
-  const isActive = pathname === `/docs/${item.slug}`;
+  const isActive = pathname === `/docs/${item.slug}` || pathname === `/docs/${item.slug}/`;
   const isDirectory = item.type === 'directory';
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ marginBottom: depth === 0 ? 20 : 0 }}>
       {isDirectory ? (
-        <div style={{ marginBottom: 12 }}>
+        <div>
           <button
             onClick={() => setIsOpen(!isOpen)}
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 10,
+              gap: 6,
               width: '100%',
-              padding: '10px 0',
+              padding: '6px 0',
               background: 'none',
               border: 'none',
               cursor: 'pointer',
               textAlign: 'left',
-              color: 'var(--fg)',
-              fontFamily: 'var(--font-mono), monospace',
-              fontSize: 11,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              fontWeight: 600,
-              opacity: 0.9,
-              transition: 'opacity 0.2s ease'
+              fontFamily: 'inherit',
+              fontSize: 12,
+              fontWeight: 500,
+              color: 'var(--docs-fg-muted)',
+              letterSpacing: '0.02em',
+              transition: 'color .2s',
             }}
-            onMouseEnter={e => e.currentTarget.style.opacity = '1'}
-            onMouseLeave={e => e.currentTarget.style.opacity = '0.9'}
+            onMouseEnter={e => { if (!isActive) e.currentTarget.style.color = 'var(--docs-fg)'; }}
+            onMouseLeave={e => { if (!isActive) e.currentTarget.style.color = 'var(--docs-fg-muted)'; }}
           >
-            <span style={{ 
-              transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)', 
-              transition: 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
-              fontSize: 8,
-              display: 'inline-block',
-              color: 'var(--muted-2)'
-            }}>
-              ▶
-            </span>
+            <svg
+              width="8" height="8"
+              viewBox="0 0 8 8"
+              fill="none"
+              style={{
+                transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+                transition: 'transform .25s cubic-bezier(.2,.7,.2,1)',
+                flexShrink: 0,
+              }}
+            >
+              <path d="M2 1l4 3-4 3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
             {item.title}
           </button>
-          
-          <div style={{ 
-            height: isOpen ? 'auto' : 0,
+
+          <div style={{
             overflow: 'hidden',
-            opacity: isOpen ? 1 : 0,
-            transition: 'all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)',
-            paddingLeft: 14,
-            borderLeft: '1px solid var(--border)',
+            paddingLeft: depth === 0 ? 14 : 20,
+            marginTop: 4,
+            borderLeft: '1px solid var(--docs-border)',
             marginLeft: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2
           }}>
             {item.children?.map(child => (
               <SidebarItem key={child.slug} item={child} depth={depth + 1} />
@@ -79,36 +84,24 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item, depth = 0 }) => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            padding: '8px 0',
+            padding: '6px 0',
             fontSize: 14,
-            color: isActive ? 'var(--fg)' : 'var(--muted)',
+            color: isActive ? 'var(--docs-fg-heading)' : 'var(--docs-fg-muted)',
             textDecoration: 'none',
-            transition: 'all 0.3s ease',
             fontWeight: isActive ? 500 : 400,
-            transform: `translateX(${isActive ? '4px' : '0'})`,
-            position: 'relative'
+            transition: 'color .2s, transform .2s',
+            transform: isActive ? 'translateX(4px)' : 'none',
+            position: 'relative',
           }}
-          onMouseEnter={e => {
-            if (!isActive) {
-              e.currentTarget.style.color = 'var(--fg)';
-              e.currentTarget.style.transform = 'translateX(4px)';
-            }
-          }}
-          onMouseLeave={e => {
-            if (!isActive) {
-              e.currentTarget.style.color = 'var(--muted)';
-              e.currentTarget.style.transform = 'translateX(0)';
-            }
-          }}
+          onMouseEnter={e => { if (!isActive) { e.currentTarget.style.color = 'var(--docs-fg)'; e.currentTarget.style.transform = 'translateX(2px)'; } }}
+          onMouseLeave={e => { if (!isActive) { e.currentTarget.style.color = 'var(--docs-fg-muted)'; e.currentTarget.style.transform = 'none'; } }}
         >
           {isActive && (
             <span style={{
-              position: 'absolute',
-              left: -15,
-              width: 2,
-              height: 14,
-              background: 'var(--fg)',
-              borderRadius: 99
+              position: 'absolute', left: -13,
+              width: 2, height: 16,
+              background: 'white',
+              borderRadius: 99,
             }} />
           )}
           {item.title}
@@ -116,19 +109,16 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item, depth = 0 }) => {
       )}
     </div>
   );
-};
+}
 
-export const DocsSidebar: React.FC<{ tree: DocItem[] }> = ({ tree }) => {
+export function DocsSidebar({ tree }: { tree: DocItem[] }) {
   return (
-    <aside className="hide-md" style={{ position: 'sticky', top: 120, height: 'calc(100vh - 160px)', minWidth: 240 }}>
-      <div className="docs-scroll" style={{ height: '100%', overflowY: 'auto', paddingRight: '20px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {tree.map(item => (
-            <SidebarItem key={item.slug} item={item} />
-          ))}
-        </div>
+    <nav aria-label="Documentation navigation">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+        {tree.map(item => (
+          <SidebarItem key={item.slug} item={item} depth={0} />
+        ))}
       </div>
-    </aside>
+    </nav>
   );
-};
-
+}

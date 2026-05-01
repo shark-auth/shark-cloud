@@ -16,7 +16,7 @@ export function Differentiators() {
       icon: <Icon.key size={20} />,
       tag: 'RFC 9449 DPoP',
       title: 'Tokens bound to keys, not bearers.',
-      body: 'Every access token is cryptographically pinned to the agent\'s key. Steal the token, you get nothing. Steal the key on a TPM-protected device — also nothing.',
+      body: "Every access token is cryptographically pinned to the agent's key. Steal the token, you get nothing. Steal the key on a TPM-protected device — also nothing.",
       kicker: 'replay-resistant by default',
     },
     {
@@ -66,14 +66,22 @@ export function Differentiators() {
           display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
           gap: 1, background: 'hsl(0 0% 12%)', border: '1px solid hsl(0 0% 12%)', borderRadius: 18, overflow: 'hidden',
         }}>
-          {cards.map((c) => (
-            <article key={c.tag} style={{
-              background: 'hsl(0 0% 2.5%)',
-              padding: 28,
-              minHeight: 260,
-              display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-              position: 'relative',
-            }}>
+          {cards.map((c, idx) => (
+            <article
+              key={c.tag}
+              className="diff-card"
+              data-reveal-delay={`${idx * 80}ms`}
+              style={{
+                background: 'hsl(0 0% 2.5%)',
+                padding: 28,
+                minHeight: 260,
+                display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+                position: 'relative',
+                transition: 'transform .35s cubic-bezier(.2,.7,.2,1), border-color .35s ease',
+                border: '1px solid transparent',
+                borderRadius: 2,
+              }}
+            >
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <span style={{
@@ -88,13 +96,24 @@ export function Differentiators() {
                 </h3>
                 <p style={{ marginTop: 10, color: 'hsl(0 0% 65%)', fontSize: 14, lineHeight: 1.6 }}>{c.body}</p>
               </div>
-              <div className="mono" style={{ marginTop: 22, fontSize: 11.5, color: 'hsl(0 0% 45%)', letterSpacing: '0.04em' }}>
-                ◆ {c.kicker}
+              <div className="mono" style={{ marginTop: 22, fontSize: 11.5, color: 'hsl(0 0% 45%)', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'hsl(0 0% 35%)' }} />
+                {c.kicker}
               </div>
             </article>
           ))}
         </div>
       </div>
+
+      <style>{`
+        .diff-card:hover {
+          transform: translateY(-3px);
+          border-color: hsl(0 0% 18%) !important;
+        }
+        @media (max-width: 640px) {
+          .diff-card { min-height: auto !important; }
+        }
+      `}</style>
     </section>
   );
 }

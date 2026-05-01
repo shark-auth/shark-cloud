@@ -1,50 +1,69 @@
 import React from 'react';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/sections/Footer';
-import { getDocsTree, getDocBySlug } from '@/lib/content';
-import { DocsSidebar } from '@/components/DocsSidebar';
+import { getDocBySlug } from '@/lib/content';
 import { MDXComponents } from '@/components/MDXComponents';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import remarkGfm from 'remark-gfm';
+import { DocsPrevNext } from '@/components/DocsPrevNext';
 
 export default async function DocPage(props: { params: Promise<{ slug: string[] }> }) {
   const { slug: slugArray } = await props.params;
   const slug = slugArray.join('/');
-  const doc = await getDocBySlug(slug);
-  const tree = getDocsTree();
+  const doc = getDocBySlug(slug);
 
   if (!doc) {
     notFound();
   }
 
+  const githubEditUrl = `https://github.com/shark-auth/shark/edit/main/src/content/docs/${slug}.mdx`;
+
   return (
-    <div className="bg-void text-white min-h-screen">
-      <Navbar />
-      
-      <main style={{ maxWidth: 1440, margin: '0 auto', display: 'grid', gridTemplateColumns: '280px 1fr', gap: 64, padding: '120px 56px 80px' }}>
-        <DocsSidebar tree={tree} />
+    <article className="mdx-content">
+      <div className="eyebrow" style={{ marginBottom: 12, color: 'var(--docs-fg-muted)' }}>
+        {typeof doc.frontmatter.category === 'string' ? doc.frontmatter.category : 'Documentation'}
+      </div>
 
-        <article style={{ maxWidth: 800 }}>
-          <div className="eyebrow" style={{ marginBottom: 12 }}>
-            {doc.frontmatter.category || 'Documentation'}
-          </div>
-          
-          <div style={{ minHeight: '60vh' }}>
-            <MDXRemote 
-              source={doc.content} 
-              components={MDXComponents} 
-              options={{
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm],
-                }
-              }}
-            />
-          </div>
-        </article>
-      </main>
+      <MDXRemote
+        source={doc.content}
+        components={MDXComponents}
+        options={{
+          mdxOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        }}
+      />
 
-      <Footer />
-    </div>
+      <DocsPrevNext slug={slug} />
+
+      <div style={{
+        marginTop: 48,
+        paddingTop: 24,
+        borderTop: '1px solid var(--docs-border)',
+        fontSize: 13,
+        color: 'var(--docs-fg-muted)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+      }}>
+        <a
+          href={githubEditUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            color: 'var(--docs-fg-muted)',
+            textDecoration: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 5,
+            transition: 'color .15s',
+          }}
+        >
+          Edit this page
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+          </svg>
+        </a>
+      </div>
+    </article>
   );
 }

@@ -1,79 +1,119 @@
 import React from 'react';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/sections/Footer';
 import { getDocsTree } from '@/lib/content';
-import { DocsSidebar } from '@/components/DocsSidebar';
 import Link from 'next/link';
 
-export default async function DocsPage() {
+export default async function DocsIndexPage() {
   const tree = getDocsTree();
 
   return (
-    <div className="bg-void text-white min-h-screen">
-      <Navbar />
-      
-      <main style={{ maxWidth: 1440, margin: '0 auto', display: 'grid', gridTemplateColumns: '280px 1fr', gap: 64, padding: '120px 56px 80px' }}>
-        <DocsSidebar tree={tree} />
+    <article>
+      <div className="eyebrow" style={{ marginBottom: 12, color: 'var(--docs-fg-muted)' }}>Documentation</div>
+      <h1 style={{
+        fontSize: 'clamp(32px, 5vw, 48px)',
+        fontWeight: 600,
+        letterSpacing: '-0.04em',
+        color: 'var(--docs-fg-heading)',
+        marginBottom: 24,
+        lineHeight: 1.15,
+      }}>
+        SharkAuth Docs
+      </h1>
 
-        <article style={{ maxWidth: 800 }}>
-          <div className="eyebrow" style={{ marginBottom: 12 }}>Documentation</div>
-          <h1 style={{ fontSize: 'clamp(32px, 5vw, 64px)', fontWeight: 500, marginBottom: 32, letterSpacing: '-0.04em' }}>
-            Built for the <span className="serif" style={{ fontStyle: 'italic' }}>Agent Era</span>
-          </h1>
-          
-          <p className="text-muted" style={{ fontSize: 20, lineHeight: 1.6, marginBottom: 48 }}>
-            SharkAuth is the first authorization server designed from the ground up to handle 
-            agents-acting-on-behalf-of-users. High performance, invisible, and absolute.
-          </p>
+      <p style={{
+        fontSize: 17, lineHeight: 1.65,
+        color: 'var(--docs-fg)',
+        maxWidth: 600,
+        marginBottom: 56,
+      }}>
+        Everything you need to integrate SharkAuth into your application.
+        From installation to advanced delegation patterns.
+      </p>
 
-          <section style={{ marginBottom: 64 }}>
-            <h2 style={{ fontSize: 24, fontWeight: 500, marginBottom: 24, borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
-              Why SharkAuth?
-            </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 32 }}>
-              <div>
-                <h3 className="mono" style={{ fontSize: 13, color: 'white', marginBottom: 12 }}>TECHNICAL SUPREMACY</h3>
-                <p className="text-muted" style={{ fontSize: 15, lineHeight: 1.6 }}>
-                  Strict adherence to OAuth 2.1 and OIDC. No legacy baggage, just clean, modern protocol implementation.
-                </p>
-              </div>
-              <div>
-                <h3 className="mono" style={{ fontSize: 13, color: 'white', marginBottom: 12 }}>AGENT-FIRST DESIGN</h3>
-                <p className="text-muted" style={{ fontSize: 15, lineHeight: 1.6 }}>
-                  Native support for delegated agent permissions without compromising user security or visibility.
-                </p>
+      <section style={{ marginBottom: 56 }}>
+        <h2 style={{
+          fontSize: 20, fontWeight: 600,
+          color: 'var(--docs-fg-heading)',
+          marginBottom: 20,
+          paddingBottom: 14,
+          borderBottom: '1px solid var(--docs-border)',
+        }}>
+          Getting Started
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
+          {tree.slice(0, 3).map(section => (
+            <div key={section.slug} style={{
+              padding: 24,
+              background: 'var(--docs-surface)',
+              border: '1px solid var(--docs-border)',
+              borderRadius: 12,
+            }}>
+              <h3 style={{
+                fontSize: 13, fontWeight: 600,
+                color: 'var(--docs-fg-muted)',
+                textTransform: 'uppercase', letterSpacing: '0.08em',
+                marginBottom: 14,
+              }}>
+                {section.title}
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {section.children?.slice(0, 4).map(child => (
+                  <Link
+                    key={child.slug}
+                    href={`/docs/${child.slug}`}
+                    style={{
+                      fontSize: 14, color: 'var(--docs-fg)',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    {child.title}
+                  </Link>
+                ))}
               </div>
             </div>
-          </section>
+          ))}
+        </div>
+      </section>
 
-          <section style={{ marginBottom: 64 }}>
-            <h2 style={{ fontSize: 24, fontWeight: 500, marginBottom: 24, borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
-              Explore the Docs
-            </h2>
-            <div style={{ display: 'grid', gap: 16 }}>
-              {tree.map(section => (
-                <div key={section.slug} className="ring-soft" style={{ padding: 24, borderRadius: 16, border: '1px solid var(--border)', background: 'var(--surface)' }}>
-                  <h3 className="mono" style={{ fontSize: 14, color: 'white', marginBottom: 12, textTransform: 'uppercase' }}>{section.title}</h3>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-                    {section.children?.map(child => (
-                      <Link 
-                        key={child.slug} 
-                        href={`/docs/${child.slug}`}
-                        className="btn btn-ghost"
-                        style={{ padding: '6px 16px', fontSize: 13 }}
-                      >
-                        {child.title}
-                      </Link>
-                    ))}
-                  </div>
+      <section>
+        <h2 style={{
+          fontSize: 20, fontWeight: 600,
+          color: 'var(--docs-fg-heading)',
+          marginBottom: 20,
+          paddingBottom: 14,
+          borderBottom: '1px solid var(--docs-border)',
+        }}>
+          All Sections
+        </h2>
+        <div style={{ display: 'grid', gap: 12 }}>
+          {tree.map(section => (
+            <div key={section.slug} style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '16px 20px',
+              background: 'var(--docs-surface)',
+              border: '1px solid var(--docs-border)',
+              borderRadius: 10,
+            }}>
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 500, color: 'var(--docs-fg-heading)' }}>
+                  {section.title}
                 </div>
-              ))}
+                <div style={{ fontSize: 13, color: 'var(--docs-fg-muted)', marginTop: 2 }}>
+                  {section.children?.length || 0} pages
+                </div>
+              </div>
+              <Link
+                href={`/docs/${section.children?.[0]?.slug || section.slug}`}
+                className="btn btn-ghost"
+                style={{ height: 34, padding: '0 14px', fontSize: 13 }}
+              >
+                Browse
+              </Link>
             </div>
-          </section>
-        </article>
-      </main>
-
-      <Footer />
-    </div>
+          ))}
+        </div>
+      </section>
+    </article>
   );
 }
