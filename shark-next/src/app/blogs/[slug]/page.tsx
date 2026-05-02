@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/sections/Footer';
 import { getBlogBySlug } from '@/lib/content';
@@ -6,6 +7,27 @@ import { MDXComponents } from '@/components/MDXComponents';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await props.params;
+  const blog = await getBlogBySlug(slug);
+  if (!blog) return { title: 'Not Found — SharkAuth' };
+
+  return {
+    title: `${blog.title} — SharkAuth Engineering Journal`,
+    description: blog.description,
+    authors: [{ name: blog.author }],
+    alternates: { canonical: `https://sharkauth.com/blogs/${slug}` },
+    openGraph: {
+      title: blog.title,
+      description: blog.description,
+      url: `https://sharkauth.com/blogs/${slug}`,
+      type: 'article',
+      publishedTime: blog.date,
+      authors: [blog.author],
+    },
+  };
+}
 
 export default async function BlogPostPage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;

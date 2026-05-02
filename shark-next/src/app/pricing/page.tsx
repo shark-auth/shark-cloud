@@ -10,8 +10,8 @@ const TIERS = [
   {
     name: 'Self-Host',
     price: '$0',
-    desc: 'The complete engine, under your control.',
-    features: ['MIT Licensed', 'Unlimited Users', 'All Core Protocols', 'Community Support'],
+    desc: 'The complete engine, under your control. MIT licensed. No telemetry.',
+    features: ['Unlimited MAI', 'Unlimited vault connections', 'All core protocols', 'Community support'],
     cta: 'Get the Binary',
     type: 'primary'
   },
@@ -19,16 +19,25 @@ const TIERS = [
     name: 'Cloud Free',
     price: '$0',
     desc: 'Managed by us. Built for experiments.',
-    features: ['10k MAU Included', 'Shared Infrastructure', 'Standard Audit Logs', 'Waitlist only'],
+    features: ['20K MAI', '3 vault connections', '7-day audit retention', 'Waitlist only'],
     cta: 'Join Waitlist',
     type: 'ghost',
     tag: 'WAITLIST'
   },
   {
-    name: 'Pro',
-    price: '$99',
+    name: 'Cloud Pro',
+    price: '$49',
     desc: 'For scaling agentic applications.',
-    features: ['50k MAU Included', 'Dedicated Instances', 'Advanced DPoP support', 'Priority Support'],
+    features: ['50K MAI', '10 vault connections', '30-day audit retention', 'Priority support'],
+    cta: 'Join Waitlist',
+    type: 'ghost',
+    tag: 'WAITLIST'
+  },
+  {
+    name: 'Cloud Team',
+    price: '$199',
+    desc: 'For teams with serious agent infrastructure.',
+    features: ['200K MAI', '25 vault connections', '90-day audit retention', 'Priority + Slack'],
     cta: 'Join Waitlist',
     type: 'ghost',
     tag: 'WAITLIST'
@@ -37,7 +46,7 @@ const TIERS = [
     name: 'Enterprise',
     price: 'Custom',
     desc: 'Absolute authority and compliance.',
-    features: ['Unlimited MAU', 'Custom SLA', 'White-glove Migration', 'Compliance (SOC2/GDPR)'],
+    features: ['Unlimited MAI', 'Custom SLA', 'White-glove migration', 'Compliance (SOC2/GDPR)'],
     cta: 'Contact Sales',
     type: 'ghost'
   }

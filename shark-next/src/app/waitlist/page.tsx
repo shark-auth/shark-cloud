@@ -34,9 +34,9 @@ export default function WaitlistPage() {
       <section style={{ flex: 1, padding: '160px clamp(20px, 4vw, 56px) 100px', display: 'flex', alignItems: 'center' }}>
         <div style={{ maxWidth: 600, margin: '0 auto', textAlign: 'center' }}>
           <span className="eyebrow" style={{ justifyContent: 'center' }}>Waitlist · /waitlist</span>
-          <h2 style={{ fontSize: 'clamp(40px, 5vw, 64px)', marginTop: 24, lineHeight: 1.05 }}>
+          <h1 style={{ fontSize: 'clamp(40px, 5vw, 64px)', marginTop: 24, lineHeight: 1.05 }}>
             Join the <span className="serif" style={{ color: 'var(--muted)' }}>Cloud.</span>
-          </h2>
+          </h1>
           <p className="text-muted" style={{ marginTop: 24, fontSize: 18, lineHeight: 1.6 }}>
             SharkAuth Cloud is currently in early access. Request your spot to get global infrastructure with enterprise-grade auth.
           </p>

@@ -1,6 +1,18 @@
+import type { Metadata } from 'next';
 import React from 'react';
 import { getDocsTree } from '@/lib/content';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Documentation — SharkAuth',
+  description: 'Everything you need to integrate SharkAuth. Installation, OAuth 2.1, agent delegation, DPoP, and advanced patterns.',
+  alternates: { canonical: 'https://sharkauth.com/docs' },
+  openGraph: {
+    title: 'Documentation — SharkAuth',
+    description: 'Installation guides, protocol references, and agent delegation patterns.',
+    url: 'https://sharkauth.com/docs',
+  },
+};
 
 export default async function DocsIndexPage() {
   const tree = getDocsTree();

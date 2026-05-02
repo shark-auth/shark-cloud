@@ -1,8 +1,20 @@
+import type { Metadata } from 'next';
 import React from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/sections/Footer';
 import { getAllBlogs } from '@/lib/content';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Engineering Journal — SharkAuth',
+  description: 'Technical deep dives, protocol updates, and engineering logs on agent authentication, OAuth 2.1, and DPoP.',
+  alternates: { canonical: 'https://sharkauth.com/blogs' },
+  openGraph: {
+    title: 'Engineering Journal — SharkAuth',
+    description: 'Technical deep dives on agent auth, OAuth 2.1, and DPoP.',
+    url: 'https://sharkauth.com/blogs',
+  },
+};
 
 export default async function BlogsPage() {
   const blogs = getAllBlogs();
