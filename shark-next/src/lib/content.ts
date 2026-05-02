@@ -68,13 +68,16 @@ export function getDocsTree(dir?: string, baseSlug: string = ''): DocItem[] {
 
     const items: DocItem[] = entries.map(entry => {
       const fullPath = path.join(targetDir, entry.name);
-      const relativeSlug = entry.name.replace(/\.mdx$/, '');
+      const relativeSlug = entry.name.replace(/\.mdx?$/, '');
       const currentSlug = baseSlug ? `${baseSlug}/${relativeSlug}` : relativeSlug;
 
       if (entry.isDirectory()) {
         const children = getDocsTree(fullPath, currentSlug);
-        const indexPath = path.join(fullPath, 'index.mdx');
-        const meta = getMetadata(indexPath, entry.name);
+        const indexPathMdx = path.join(fullPath, 'index.mdx');
+        const indexPathMd = path.join(fullPath, 'index.md');
+        const meta = getMetadata(indexPathMdx, entry.name).order !== 99
+          ? getMetadata(indexPathMdx, entry.name)
+          : getMetadata(indexPathMd, entry.name);
 
         return {
           type: 'directory',
@@ -85,7 +88,7 @@ export function getDocsTree(dir?: string, baseSlug: string = ''): DocItem[] {
           children: children.sort((a, b) => a.order - b.order),
         };
       } else {
-        if (!entry.name.endsWith('.mdx') || entry.name === 'index.mdx') return null;
+        if (!/\.mdx?$/.test(entry.name) || /^index\.mdx?$/.test(entry.name)) return null;
         const meta = getMetadata(fullPath, relativeSlug);
 
         return {
@@ -129,11 +132,15 @@ export function getDocBySlug(slug: string): DocContent | null {
     let found = false;
 
     for (const base of basePaths) {
-      const fileAttempt = path.join(base, `${safeSlug}.mdx`);
-      const indexAttempt = path.join(base, safeSlug, 'index.mdx');
+      const fileAttemptMdx = path.join(base, `${safeSlug}.mdx`);
+      const fileAttemptMd = path.join(base, `${safeSlug}.md`);
+      const indexAttemptMdx = path.join(base, safeSlug, 'index.mdx');
+      const indexAttemptMd = path.join(base, safeSlug, 'index.md');
 
-      if (fs.existsSync(fileAttempt)) { fullPath = fileAttempt; found = true; break; }
-      if (fs.existsSync(indexAttempt)) { fullPath = indexAttempt; found = true; break; }
+      if (fs.existsSync(fileAttemptMdx)) { fullPath = fileAttemptMdx; found = true; break; }
+      if (fs.existsSync(fileAttemptMd)) { fullPath = fileAttemptMd; found = true; break; }
+      if (fs.existsSync(indexAttemptMdx)) { fullPath = indexAttemptMdx; found = true; break; }
+      if (fs.existsSync(indexAttemptMd)) { fullPath = indexAttemptMd; found = true; break; }
     }
 
     if (!found) return null;
@@ -197,12 +204,12 @@ export function generateSearchIndex(): SearchItem[] {
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) {
         walkDir(fullPath);
-      } else if (entry.name.endsWith('.mdx') && entry.name !== 'index.mdx') {
+      } else if (/\.mdx?$/.test(entry.name) && !/^index\.mdx?$/.test(entry.name)) {
         try {
           const source = fs.readFileSync(fullPath, 'utf8');
           const { data, content } = matter(source);
-          const slug = entry.name.replace('.mdx', '');
-          const relative = path.relative(docsDir, fullPath).replace(/\\/g, '/').replace('.mdx', '').replace(/index$/, '');
+          const slug = entry.name.replace(/\.mdx?$/, '');
+          const relative = path.relative(docsDir, fullPath).replace(/\\/g, '/').replace(/\.mdx?$/, '').replace(/index$/, '');
           const stripped = content
             .replace(/```[\s\S]*?```/g, '')
             .replace(/`[^`]*`/g, '')
