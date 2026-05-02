@@ -51,7 +51,7 @@ Repo:   https://github.com/shark-auth/shark
               <span className="mono" style={{ fontSize: 11.5, color: 'hsl(0 0% 55%)' }}>~/acme · zsh</span>
               <span style={{ width: 30 }} />
             </div>
-            <pre style={{ margin: 0, padding: '24px 32px', whiteSpace: 'pre-wrap', color: 'hsl(0 0% 88%)', fontSize: 14, lineHeight: 1.6 }}>
+            <pre className="cli-demo-pre" style={{ margin: 0, padding: '24px 32px', whiteSpace: 'pre', overflowX: 'auto', color: 'hsl(0 0% 88%)', fontSize: 14, lineHeight: 1.6, WebkitOverflowScrolling: 'touch' }}>
               {cliText}
             </pre>
           </div>

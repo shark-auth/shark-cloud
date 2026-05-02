@@ -86,6 +86,37 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
           />
         </article>
 
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              "headline": blog.title,
+              "description": blog.description,
+              "url": `https://sharkauth.com/blogs/${slug}`,
+              "datePublished": blog.date,
+              "dateModified": blog.date,
+              "author": {
+                "@type": "Person",
+                "name": blog.author
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "SharkAuth",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://sharkauth.com/assets/sharky-glyph.png"
+                }
+              },
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": `https://sharkauth.com/blogs/${slug}`
+              }
+            })
+          }}
+        />
+
         <div className="divider-x" style={{ margin: '80px 0' }} />
         
         <section style={{ textAlign: 'center' }}>

@@ -246,7 +246,7 @@ export function Comparison() {
 
         {/* CTAs */}
         <div className="reveal" style={{ marginTop: 24, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'flex-start' }}>
-          <a href="#install" className="btn btn-primary" style={{ height: 44 }}>
+          <a href="#pricing" className="btn btn-primary" style={{ height: 44 }}>
             Get the Binary <Icon.arrow size={12} />
           </a>
           <a href="/waitlist" className="btn btn-ghost" style={{ height: 44 }}>
@@ -272,6 +272,36 @@ export function Comparison() {
         {/* Footer */}
         <div className="reveal" style={{ marginTop: 16, fontSize: 12, color: 'hsl(0 0% 50%)', display: 'flex', alignItems: 'center', gap: 10 }}>
           <span className="dot" /> Comparison based on publicly documented product capabilities as of April 2026.
+        </div>
+
+        {/* Benchmarks teaser */}
+        <div className="reveal" style={{ marginTop: 40, maxWidth: 820 }}>
+          <div style={{
+            padding: '20px 24px',
+            borderRadius: 12,
+            border: '1px dashed hsl(0 0% 18%)',
+            background: 'transparent',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: 16,
+          }}>
+            <div>
+              <div className="mono" style={{ fontSize: 11, color: 'hsl(0 0% 45%)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 6 }}>
+                Benchmarks
+              </div>
+              <div style={{ fontSize: 15, color: 'hsl(0 0% 70%)', fontWeight: 500 }}>
+                Independent performance numbers are coming soon.
+              </div>
+              <div style={{ fontSize: 13, color: 'hsl(0 0% 45%)', marginTop: 4 }}>
+                Token issuance p99, introspection latency, revocation propagation, and memory footprint vs. Keycloak and Ory Hydra.
+              </div>
+            </div>
+            <a href="/waitlist" className="btn btn-ghost" style={{ height: 36, fontSize: 12, whiteSpace: 'nowrap' }}>
+              Get notified
+            </a>
+          </div>
         </div>
       </div>
     </section>
