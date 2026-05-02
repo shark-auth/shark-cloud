@@ -135,7 +135,7 @@ export function Hero() {
             Auth for the <span className="serif" style={{ color: 'hsl(0 0% 90%)' }}>Agent Era.</span>
             <br />
             <span className="serif" style={{ color: 'hsl(0 0% 60%)', fontSize: '0.62em', display: 'inline-block', marginTop: 14 }}>
-              Your agents already work. With Shark, they do it securely.
+              Your agents already work. With Shark, every action is provable and auditable.
             </span>
           </h1>
 
@@ -145,9 +145,9 @@ export function Hero() {
             lineHeight: 1.55, letterSpacing: '-0.005em',
             transitionDelay: '200ms',
           }}>
-            Real delegation. Real DPoP. Real audit. One ~29&nbsp;MB Go binary with embedded SQLite.
+            One ~29&nbsp;MB Go binary with embedded SQLite. OAuth&nbsp;2.1, OIDC, RFC&nbsp;8693 Token Exchange, and DPoP — all zero-config.
             <br className="hide-sm" />
-            Zero dependencies. Runs anywhere — even on a Raspberry&nbsp;Pi.
+            Deploy anywhere, from cloud to air-gapped edge.
           </p>
 
           <div className="reveal" style={{
@@ -156,7 +156,7 @@ export function Hero() {
           }}>
             <CopyCmd cmd={INSTALL_CMD} />
             <a href="#docs" className="btn btn-ghost" style={{ height: 44 }}>
-              Read the Docs <Icon.arrow size={12} />
+              Read Documentation <Icon.arrow size={12} />
             </a>
             <a href="/waitlist" className="btn btn-ghost" style={{ height: 44 }}>
               Join Cloud Waitlist <Icon.arrow size={12} />

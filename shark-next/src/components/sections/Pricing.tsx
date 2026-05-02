@@ -34,7 +34,7 @@ export function Pricing() {
                 $0<span style={{ fontSize: 20, color: 'hsl(0 0% 45%)', marginLeft: 8, fontWeight: 400 }}>forever</span>
               </div>
               <p className="text-muted" style={{ marginTop: 14, fontSize: 15.5, lineHeight: 1.6, maxWidth: 480 }}>
-                The complete engine. MIT licensed. No telemetry, no vendor lock-in, no "free until we change our mind."
+                The complete engine. MIT licensed. Unlimited MAI, unlimited depth, unlimited vaults. No telemetry, no vendor lock-in, no "free until we change our mind."
               </p>
             </div>
 
@@ -59,7 +59,9 @@ export function Pricing() {
                 { label: 'Token exchange', val: 'RFC 8693' },
                 { label: 'Key binding', val: 'RFC 9449 DPoP' },
                 { label: 'Database', val: 'SQLite WAL' },
-                { label: 'Deployment', val: 'Raspberry Pi +' },
+                { label: 'MAI limit', val: 'Unlimited' },
+                { label: 'Act chain depth', val: 'Unlimited' },
+                { label: 'Vaults', val: 'Unlimited' },
                 { label: 'Support', val: 'Community / GitHub' },
               ].map(spec => (
                 <div key={spec.label} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -70,7 +72,7 @@ export function Pricing() {
             </div>
           </div>
 
-          {/* Managed — minimal teaser */}
+          {/* Cloud tiers */}
           <div style={{
             background: 'hsl(0 0% 3%)',
             padding: 'clamp(40px, 5vw, 64px)',
@@ -82,15 +84,30 @@ export function Pricing() {
             <div>
               <span className="mono" style={{ fontSize: 13, color: 'hsl(0 0% 60%)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Shark Cloud</span>
               <p className="text-muted" style={{ marginTop: 18, fontSize: 15, lineHeight: 1.6 }}>
-                Managed infrastructure for teams that don't want to run their own issuer. Same binary, same spec compliance, zero ops.
+                Managed infrastructure for teams that prefer not to run their own issuer. Same binary, same spec compliance, zero ops. Pricing scales by MAI — Monthly Active Identities.
               </p>
             </div>
-            <div>
-              <div style={{ fontSize: 32, fontWeight: 500, letterSpacing: '-0.03em' }}>Coming 2026</div>
-              <a href="/waitlist" className="btn btn-ghost" style={{ marginTop: 20, width: '100%', justifyContent: 'center' }}>
-                Join Waitlist <Icon.arrow size={12} />
-              </a>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              {[
+                { name: 'Cloud Free', price: '$0/mo', specs: '20K MAI · depth 2 · 3 vaults' },
+                { name: 'Cloud Pro', price: '$49/mo', specs: '50K MAI · depth 4 · 10 vaults' },
+                { name: 'Cloud Team', price: '$199/mo', specs: '200K MAI · depth 7 · 25 vaults' },
+                { name: 'Enterprise', price: 'Custom', specs: 'Unlimited · SLA · from $25K/yr' },
+              ].map(tier => (
+                <div key={tier.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingBottom: 12, borderBottom: '1px solid hsl(0 0% 10%)' }}>
+                  <div>
+                    <div style={{ fontSize: 14, fontWeight: 500, color: 'hsl(0 0% 90%)' }}>{tier.name}</div>
+                    <div className="mono" style={{ fontSize: 11.5, color: 'hsl(0 0% 45%)', marginTop: 2 }}>{tier.specs}</div>
+                  </div>
+                  <div style={{ fontSize: 14, fontWeight: 500, color: 'hsl(0 0% 75%)', whiteSpace: 'nowrap', marginLeft: 12 }}>{tier.price}</div>
+                </div>
+              ))}
             </div>
+
+            <a href="/waitlist" className="btn btn-ghost" style={{ width: '100%', justifyContent: 'center' }}>
+              Join Cloud Waitlist <Icon.arrow size={12} />
+            </a>
           </div>
         </div>
       </div>

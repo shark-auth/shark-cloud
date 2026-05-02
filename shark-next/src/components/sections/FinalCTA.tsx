@@ -67,11 +67,11 @@ export function FinalCTA() {
           <a href="https://github.com/shark-auth/shark" className="btn btn-primary" style={{ height: 44 }}>
             <Icon.github size={14} /> Star on GitHub <span className="mono" style={{ color: 'hsl(0 0% 40%)', marginLeft: 4 }}>{stars}</span>
           </a>
-          <a href="https://discord.gg/zq9t6VSt5r" className="btn btn-ghost" style={{ height: 44 }}>
-            Join Discord
+          <a href="/waitlist" className="btn btn-ghost" style={{ height: 44 }}>
+            Join Cloud Waitlist
           </a>
-          <a href="/docs/api/oauth" className="btn btn-ghost" style={{ height: 44 }}>
-            Read the Specs <Icon.arrow size={12} />
+          <a href="/docs" className="btn btn-ghost" style={{ height: 44 }}>
+            Read Documentation <Icon.arrow size={12} />
           </a>
         </div>
       </div>

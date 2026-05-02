@@ -1,0 +1,44 @@
+# SharkAuth
+
+> Auth for the Agent Era.
+
+## What it is
+SharkAuth is an open-source identity platform built for the agentic/AI era. It ships as a single ~29 MB Go binary with embedded SQLite (WAL mode), requires zero dependencies and zero configuration, and runs anywhere — including Raspberry Pi and air-gapped environments.
+
+## Who it's for
+- Startups and scale-ups building AI agent systems
+- Enterprises needing audit-trail compliance for agent delegation
+- OSS SaaS projects that need embedded auth without vendor dependency
+- Organizations requiring edge or air-gapped deployments
+
+## Key protocols & standards
+- OAuth 2.1
+- OpenID Connect
+- RFC 8693 Token Exchange
+- RFC 9449 DPoP (Demonstrating Proof-of-Possession)
+
+## Key primitives
+- Agent as first-class identity
+- `may_act_grants` — delegation policy expressed as data
+- Full act / actor chain (depth observed up to 7)
+- Cascade revocation — revoke a grant and every downstream token dies with it (p99 < 12 ms)
+- Audit indexed by `grant_id` — structured JSON, hash-chained, append-only, streamable to SIEM
+
+## Key pages
+- Home: https://sharkauth.com/
+- Docs: https://sharkauth.com/docs
+- Pricing: https://sharkauth.com/pricing
+- GitHub: https://github.com/shark-auth/shark
+- Waitlist: https://sharkauth.com/waitlist
+
+## Pricing overview
+- Self-hosted OSS: Free forever (MIT license)
+- Cloud Free: $0/mo
+- Cloud Pro: $49/mo
+- Cloud Team: $199/mo
+- Enterprise: Custom, from $25K/yr
+
+See full pricing at https://sharkauth.com/pricing.md
+
+## License
+MIT — no telemetry, no vendor lock-in.
