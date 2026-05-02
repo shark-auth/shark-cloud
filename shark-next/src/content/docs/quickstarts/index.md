@@ -1,3 +1,8 @@
+---
+order: 2
+title: Quickstarts
+---
+
 # SharkAuth Quickstarts
 
 SharkAuth is a self-hosted auth server with RFC-correct agent-native primitives: DPoP (RFC 9449), token exchange (RFC 8693), MCP-native OAuth 2.1, and a five-layer revocation model. These guides are organized by use-case, not by feature — pick your path below.

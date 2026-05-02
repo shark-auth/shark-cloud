@@ -1,4 +1,9 @@
-﻿# Installation
+﻿---
+order: 1
+title: Installation
+---
+
+# Installation
 
 SharkAuth is distributed as a single, zero-dependency binary. It embeds the database engine (SQLite) and the admin dashboard, so you don't need to manage external services or separate frontend deployments.
 

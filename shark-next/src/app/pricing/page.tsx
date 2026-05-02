@@ -13,6 +13,7 @@ const TIERS = [
     desc: 'The complete engine, under your control. MIT licensed. No telemetry.',
     features: ['Unlimited MAI', 'Unlimited vault connections', 'All core protocols', 'Community support'],
     cta: 'Get the Binary',
+    href: '/get',
     type: 'primary'
   },
   {
@@ -21,6 +22,7 @@ const TIERS = [
     desc: 'Managed by us. Built for experiments.',
     features: ['20K MAI', '3 vault connections', '7-day audit retention', 'Waitlist only'],
     cta: 'Join Waitlist',
+    href: '/waitlist',
     type: 'ghost',
     tag: 'WAITLIST'
   },
@@ -30,6 +32,7 @@ const TIERS = [
     desc: 'For scaling agentic applications.',
     features: ['50K MAI', '10 vault connections', '30-day audit retention', 'Priority support'],
     cta: 'Join Waitlist',
+    href: '/waitlist',
     type: 'ghost',
     tag: 'WAITLIST'
   },
@@ -39,6 +42,7 @@ const TIERS = [
     desc: 'For teams with serious agent infrastructure.',
     features: ['200K MAI', '25 vault connections', '90-day audit retention', 'Priority + Slack'],
     cta: 'Join Waitlist',
+    href: '/waitlist',
     type: 'ghost',
     tag: 'WAITLIST'
   },
@@ -48,6 +52,7 @@ const TIERS = [
     desc: 'Absolute authority and compliance.',
     features: ['Unlimited MAI', 'Custom SLA', 'White-glove migration', 'Compliance (SOC2/GDPR)'],
     cta: 'Contact Sales',
+    href: '/waitlist',
     type: 'ghost'
   }
 ];
@@ -108,7 +113,7 @@ export default function PricingPage() {
                 </ul>
               </div>
 
-              <a href={tier.name === 'Cloud Free' || tier.name === 'Pro' ? '/waitlist' : '#'} className={`btn btn-${tier.type}`} style={{ width: '100%', justifyContent: 'center' }}>
+              <a href={tier.href || '#'} className={`btn btn-${tier.type}`} style={{ width: '100%', justifyContent: 'center' }}>
                 {tier.cta}
               </a>
             </div>

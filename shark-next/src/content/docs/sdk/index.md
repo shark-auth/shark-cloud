@@ -1,3 +1,8 @@
+---
+order: 3
+title: SDK
+---
+
 # SDKs
 
 Official SharkAuth client libraries. Two languages, identical surface. Honest endpoint coverage: 56% of all SDK-callable backend routes, ~85% of the launch-critical agent-platform + OAuth core path. See [Coverage](#coverage) below.
