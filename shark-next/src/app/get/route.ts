@@ -1,56 +1,127 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const script = `#!/bin/sh
-set -e
+  // Build the script using string concatenation to avoid template literal
+  // interpolation conflicts with shell ${} syntax.
+  const parts = [
+    '#!/bin/sh',
+    'set -e',
+    '',
+    'VERSION="' + '${SHARK_VERSION:-v0.1.0}' + '"',
+    'REPO="shark-auth/shark"',
+    'BIN_NAME="shark"',
+    '',
+    'say() {',
+    '  printf \'%s\\n\' "$*"',
+    '}',
+    '',
+    'err() {',
+    '  printf \'Error: %s\\n\' "$*" >&2',
+    '  exit 1',
+    '}',
+    '',
+    'need_cmd() {',
+    '  command -v "$1" >/dev/null 2>&1 || err "$1 is required"',
+    '}',
+    '',
+    'OS="$(uname -s | tr \'[:upper:]\' \'[:lower:]\')"',
+    'ARCH="$(uname -m)"',
+    '',
+    'case "$OS" in',
+    '  linux) OS="linux" ;;',
+    '  darwin) OS="darwin" ;;',
+    '  *) err "unsupported OS: $OS. Download manually from https://github.com/${REPO}/releases/${VERSION}" ;;',
+    'esac',
+    '',
+    'case "$ARCH" in',
+    '  x86_64|amd64) ARCH="x86_64" ;;',
+    '  arm64|aarch64) ARCH="arm64" ;;',
+    '  *) err "unsupported architecture: $ARCH" ;;',
+    'esac',
+    '',
+    'need_cmd curl',
+    'need_cmd tar',
+    '',
+    'ASSET="shark_${OS}_${ARCH}.tar.gz"',
+    'BASE_URL="https://github.com/${REPO}/releases/download/${VERSION}"',
+    'URL="${BASE_URL}/${ASSET}"',
+    'CHECKSUMS_URL="${BASE_URL}/checksums.txt"',
+    '',
+    'INSTALL_DIR="${SHARK_INSTALL_DIR:-/usr/local/bin}"',
+    'if [ ! -w "$INSTALL_DIR" ]; then',
+    '  if [ -d "$HOME/.local/bin" ]; then',
+    '    INSTALL_DIR="$HOME/.local/bin"',
+    '  else',
+    '    mkdir -p "$HOME/.local/bin"',
+    '    INSTALL_DIR="$HOME/.local/bin"',
+    '  fi',
+    'fi',
+    '',
+    'TMP_DIR="$(mktemp -d 2>/dev/null || mktemp -d -t shark)"',
+    'trap \'rm -rf "$TMP_DIR"\' EXIT INT TERM',
+    '',
+    'say "--- SharkAuth Installer ---"',
+    'say "Version: ${VERSION}"',
+    'say "System: ${OS}/${ARCH}"',
+    'say "Install dir: ${INSTALL_DIR}"',
+    'say ""',
+    '',
+    'say "Downloading ${ASSET}..."',
+    'curl -fL --retry 3 --retry-delay 2 --connect-timeout 10 -o "$TMP_DIR/$ASSET" "$URL"',
+    '',
+    'say "Downloading checksums..."',
+    'curl -fL --retry 3 --retry-delay 2 --connect-timeout 10 -o "$TMP_DIR/checksums.txt" "$CHECKSUMS_URL"',
+    '',
+    'say "Verifying checksum..."',
+    'EXPECTED="$(grep "  ${ASSET}$" "$TMP_DIR/checksums.txt" | awk \'{print $1}\')"',
+    '[ -n "$EXPECTED" ] || err "checksum for ${ASSET} not found"',
+    '',
+    'if command -v sha256sum >/dev/null 2>&1; then',
+    '  ACTUAL="$(sha256sum "$TMP_DIR/$ASSET" | awk \'{print $1}\')"',
+    'elif command -v shasum >/dev/null 2>&1; then',
+    '  ACTUAL="$(shasum -a 256 "$TMP_DIR/$ASSET" | awk \'{print $1}\')"',
+    'else',
+    '  err "sha256sum or shasum is required to verify the download"',
+    'fi',
+    '',
+    '[ "$EXPECTED" = "$ACTUAL" ] || err "checksum mismatch"',
+    '',
+    'say "Extracting..."',
+    'tar -xzf "$TMP_DIR/$ASSET" -C "$TMP_DIR"',
+    '',
+    'mkdir -p "$INSTALL_DIR"',
+    'cp "$TMP_DIR/$BIN_NAME" "$INSTALL_DIR/$BIN_NAME"',
+    'chmod +x "$INSTALL_DIR/$BIN_NAME"',
+    '',
+    'say ""',
+    'say "SharkAuth ${VERSION} installed successfully."',
+    'say "Binary: ${INSTALL_DIR}/${BIN_NAME}"',
+    'say ""',
+    '',
+    'case ":$PATH:" in',
+    '  *":$INSTALL_DIR:"*) ;;',
+    '  *)',
+    '    say "Note: ${INSTALL_DIR} is not on your PATH."',
+    '    say "Add it with:"',
+    '    say "  export PATH=\\"${INSTALL_DIR}:\\$PATH\\""',
+    '    say ""',
+    '    ;;',
+    'esac',
+    '',
+    'say "Start the server:"',
+    'say "  shark serve"',
+    'say ""',
+    'say "Show commands:"',
+    'say "  shark --help"',
+  ];
 
-# SharkAuth Installation Script
-# Version: 0.1.0
-
-OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-ARCH=$(uname -m)
-
-if [ "$ARCH" = "x86_64" ]; then
-  ARCH="amd64"
-elif [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
-  ARCH="arm64"
-fi
-
-# Determine download URL
-BINARY_URL="https://github.com/shark-auth/shark/releases/download/v0.1.0/shark-\${OS}-\${ARCH}"
-
-echo "--- SharkAuth Installer ---"
-echo "Detecting system: \${OS}/\${ARCH}"
-
-if ! command -v curl >/dev/null 2>&1; then
-    echo "Error: curl is required to install SharkAuth."
-    exit 1
-fi
-
-echo "Downloading binary from \${BINARY_URL}..."
-if curl -fsSL "\$BINARY_URL" -o shark; then
-    chmod +x shark
-    echo "Successfully downloaded shark binary."
-else
-    echo "Error: Failed to download binary. Please check your internet connection or the version."
-    exit 1
-fi
-
-echo ""
-echo "SharkAuth v0.1.0 installed successfully!"
-echo "----------------------------------------"
-echo "To start the server, run:"
-echo "  shark serve"
-echo ""
-echo "To see available commands:"
-echo "  shark --help"
-echo ""
-`;
+  const script = parts.join('\n') + '\n';
 
   return new NextResponse(script, {
     headers: {
-      'Content-Type': 'text/plain',
+      'Content-Type': 'text/plain; charset=utf-8',
       'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'X-Content-Type-Options': 'nosniff',
     },
   });
 }
