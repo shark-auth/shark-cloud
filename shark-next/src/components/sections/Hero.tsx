@@ -135,7 +135,7 @@ export function Hero() {
             Auth for the <span className="serif" style={{ color: 'hsl(0 0% 90%)' }}>Agent Era.</span>
             <br />
             <span className="serif" style={{ color: 'hsl(0 0% 60%)', fontSize: '0.62em', display: 'inline-block', marginTop: 14 }}>
-              Your agents already work. With Shark, every action is provable and auditable.
+              Your agents know tools and keys. Shark knows scopes and revocations.
             </span>
           </h1>
 
