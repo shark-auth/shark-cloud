@@ -60,12 +60,11 @@ export function Comparison() {
           <p className="text-muted" style={{ maxWidth: 420, fontSize: 15.5, lineHeight: 1.6 }}>
             Identity vendors were built for users clicking buttons. SharkAuth was built for
             agents calling agents calling APIs — with the same RFC-grade rigor.
-            <br /><br />
-            <em style={{ fontSize: 13, color: 'hsl(0 0% 45%)' }}>
-              Some competitors support adjacent pieces — token exchange, token vaults,
-              or machine identities. SharkAuth is the only system where agent delegation
-              is the core model, not a cloud add-on.
-            </em>
+          </p>
+          <p style={{ maxWidth: 420, fontSize: 13, lineHeight: 1.55, color: 'hsl(0 0% 45%)', marginTop: 12 }}>
+            Some competitors support adjacent pieces — token exchange, token vaults,
+            or machine identities. SharkAuth is the only system where agent delegation
+            is the core model.
           </p>
         </div>
 
@@ -125,7 +124,7 @@ export function Comparison() {
           </table>
         </div>
 
-        <div className="reveal" style={{ marginTop: 36, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+        <div className="reveal" style={{ marginTop: 24, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'flex-start' }}>
           <a href="#install" className="btn btn-primary" style={{ height: 44 }}>
             Get the Binary <Icon.arrow size={12} />
           </a>
@@ -137,8 +136,8 @@ export function Comparison() {
           </a>
         </div>
 
-        <div className="reveal" style={{ marginTop: 28, padding: '20px 24px', borderRadius: 12, border: '1px solid hsl(0 0% 14%)', background: 'hsl(0 0% 5%)', maxWidth: 820 }}>
-          <p style={{ fontSize: 13, lineHeight: 1.6, color: 'hsl(0 0% 55%)', margin: 0 }}>
+        <div className="reveal" style={{ marginTop: 16, padding: '16px 20px', borderRadius: 10, border: '1px solid hsl(0 0% 14%)', background: 'hsl(0 0% 5%)', maxWidth: 820 }}>
+          <p style={{ fontSize: 12.5, lineHeight: 1.55, color: 'hsl(0 0% 55%)', margin: 0 }}>
             <strong style={{ color: 'hsl(0 0% 75%)' }}>We don't have everything yet.</strong>{' '}
             SharkAuth v0.1.0 is a focused auth server for agents. We intentionally skipped enterprise baggage
             (LDAP, SCIM, FIPS, native mobile SDKs) to ship RFC-grade agent primitives first.
@@ -148,7 +147,7 @@ export function Comparison() {
           </p>
         </div>
 
-        <div className="reveal" style={{ marginTop: 22, fontSize: 12.5, color: 'hsl(0 0% 50%)', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div className="reveal" style={{ marginTop: 16, fontSize: 12, color: 'hsl(0 0% 50%)', display: 'flex', alignItems: 'center', gap: 10 }}>
           <span className="dot" /> Comparison based on publicly documented product capabilities as of April 2026.
         </div>
       </div>
