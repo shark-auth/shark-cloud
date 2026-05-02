@@ -72,6 +72,9 @@ function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
             marginTop: 4,
             borderLeft: '1px solid var(--docs-border)',
             marginLeft: 4,
+            maxHeight: isOpen ? 3000 : 0,
+            opacity: isOpen ? 1 : 0,
+            transition: 'max-height 0.3s cubic-bezier(.2,.7,.2,1), opacity 0.25s ease',
           }}>
             {item.children?.map(child => (
               <SidebarItem key={child.slug} item={child} depth={depth + 1} />
