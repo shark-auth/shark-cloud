@@ -200,7 +200,7 @@ export function Hero() {
         }}>
           <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', background: 'hsl(0 0% 4%)', borderRadius: 16, border: '1px solid var(--border)', overflow: 'hidden', padding: 'clamp(12px, 2vw, 32px)' }}>
             <Image
-              src="/assets/dashboard.png"
+              src="/assets/dashboard2.png"
               alt="SharkAuth Dashboard"
               fill
               style={{ objectFit: 'contain' }}
