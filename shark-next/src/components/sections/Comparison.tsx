@@ -51,7 +51,7 @@ export function Comparison() {
       <div style={{ maxWidth: 1240, margin: '0 auto' }}>
         <div className="reveal" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
           <div style={{ maxWidth: 720 }}>
-            <span className="eyebrow">Honest comparison</span>
+            <span className="eyebrow">Agent-auth comparison</span>
             <h2 style={{ fontSize: 'clamp(34px, 4.6vw, 60px)', lineHeight: 1.05, marginTop: 16 }}>
               Built for the world that <br />
               <span className="serif" style={{ color: 'hsl(0 0% 70%)' }}>actually exists in 2026.</span>
@@ -60,6 +60,12 @@ export function Comparison() {
           <p className="text-muted" style={{ maxWidth: 420, fontSize: 15.5, lineHeight: 1.6 }}>
             Identity vendors were built for users clicking buttons. SharkAuth was built for
             agents calling agents calling APIs — with the same RFC-grade rigor.
+            <br /><br />
+            <em style={{ fontSize: 13, color: 'hsl(0 0% 45%)' }}>
+              Some competitors support adjacent pieces — token exchange, token vaults,
+              or machine identities. SharkAuth is the only system where agent delegation
+              is the core model, not a cloud add-on.
+            </em>
           </p>
         </div>
 
@@ -131,18 +137,19 @@ export function Comparison() {
           </a>
         </div>
 
-        <div className="reveal" style={{ marginTop: 28, padding: '20px 24px', borderRadius: 12, border: '1px solid hsl(0 0% 14%)', background: 'hsl(0 0% 5%)', maxWidth: 780 }}>
+        <div className="reveal" style={{ marginTop: 28, padding: '20px 24px', borderRadius: 12, border: '1px solid hsl(0 0% 14%)', background: 'hsl(0 0% 5%)', maxWidth: 820 }}>
           <p style={{ fontSize: 13, lineHeight: 1.6, color: 'hsl(0 0% 55%)', margin: 0 }}>
             <strong style={{ color: 'hsl(0 0% 75%)' }}>We don't have everything yet.</strong>{' '}
             SharkAuth v0.1.0 is a focused auth server for agents. We intentionally skipped enterprise baggage
-            (LDAP, SCIM, FIPS, native mobile SDKs) to ship RFC-grade agent primitives first. If you need
-            Active Directory federation or Splunk connectors today, Keycloak or Auth0 is the safer choice.
-            If you need agent delegation chains, there is no alternative.
+            (LDAP, SCIM, FIPS, native mobile SDKs) to ship RFC-grade agent primitives first.
+            If you need Active Directory federation or Splunk connectors today, Keycloak or Auth0 is the safer choice.
+            If you need self-hosted agent delegation chains with RFC-native token exchange, DPoP binding,
+            grant_id audit, and cascade revocation in one binary, SharkAuth is purpose-built for that.
           </p>
         </div>
 
         <div className="reveal" style={{ marginTop: 22, fontSize: 12.5, color: 'hsl(0 0% 50%)', display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span className="dot" /> Comparison reflects publicly documented features as of April 2026.
+          <span className="dot" /> Comparison based on publicly documented product capabilities as of April 2026.
         </div>
       </div>
     </section>

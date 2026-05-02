@@ -90,9 +90,9 @@ export function Pricing() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               {[
-                { name: 'Cloud Free', price: '$0/mo', specs: '20K MAI · depth 2 · 3 vaults' },
-                { name: 'Cloud Pro', price: '$49/mo', specs: '50K MAI · depth 4 · 10 vaults' },
-                { name: 'Cloud Team', price: '$199/mo', specs: '200K MAI · depth 7 · 25 vaults' },
+                { name: 'Cloud Free', price: '$0/mo', specs: '20K MAI · 3 vault connections · 7-day audit' },
+                { name: 'Cloud Pro', price: '$49/mo', specs: '50K MAI · 10 vault connections · 30-day audit' },
+                { name: 'Cloud Team', price: '$199/mo', specs: '200K MAI · 25 vault connections · 90-day audit' },
                 { name: 'Enterprise', price: 'Custom', specs: 'Unlimited · SLA · from $25K/yr' },
               ].map(tier => (
                 <div key={tier.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingBottom: 12, borderBottom: '1px solid hsl(0 0% 10%)' }}>

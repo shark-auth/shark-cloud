@@ -56,7 +56,7 @@ export function Differentiators() {
           <div>
             <span className="eyebrow">What makes it different</span>
             <h2 style={{ fontSize: 'clamp(34px, 4.6vw, 60px)', marginTop: 16, lineHeight: 1.05, maxWidth: 760 }}>
-              Six primitives that nobody else <span className="serif" style={{ color: 'hsl(0 0% 70%)' }}>actually ships.</span>
+              Six primitives legacy auth stacks <span className="serif" style={{ color: 'hsl(0 0% 70%)' }}>were not designed around.</span>
             </h2>
           </div>
         </div>
