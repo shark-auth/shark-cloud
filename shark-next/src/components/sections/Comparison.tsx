@@ -5,32 +5,34 @@ import { Icon, LogoMark } from '../Icons';
 
 export function Comparison() {
   const rows = [
-    { group: 'Agent Era', feat: 'Agent as first-class identity', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
-    { group: 'Agent Era', feat: 'RFC 8693 Token Exchange (full)', shark: 'yes', auth0: 'partial', clerk: 'no', kc: 'partial' },
-    { group: 'Agent Era', feat: 'Act / actor chain (depth ≥ 4)', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
-    { group: 'Agent Era', feat: 'may_act_grants & granular policy', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
-    { group: 'Agent Era', feat: 'RFC 9449 DPoP key binding', shark: 'yes', auth0: 'partial', clerk: 'no', kc: 'no' },
-    { group: 'Agent Era', feat: 'Cascade revocation (< 12 ms)', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
-    { group: 'Agent Era', feat: 'Audit indexed by grant_id', shark: 'yes', auth0: 'partial', clerk: 'partial', kc: 'partial' },
-    { group: 'Standard Auth', feat: 'Passkeys / FIDO2', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes' },
-    { group: 'Standard Auth', feat: 'Magic links', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'no' },
-    { group: 'Standard Auth', feat: 'MFA / TOTP', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes' },
-    { group: 'Standard Auth', feat: 'Enterprise SSO (SAML 2.0, OIDC)', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes' },
-    { group: 'Standard Auth', feat: 'Multi-tenant organizations', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes' },
-    { group: 'Standard Auth', feat: 'Wildcard RBAC', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes' },
-    { group: 'Platform', feat: 'HMAC-signed webhooks', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'partial' },
-    { group: 'Platform', feat: 'Zero-config admin UI', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'no' },
-    { group: 'Deployment', feat: 'Single binary, zero deps', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
-    { group: 'Deployment', feat: 'Self-hostable & open-source', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'yes' },
-    { group: 'Deployment', feat: 'Runs on a $5 VPS', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
-    { group: 'Deployment', feat: 'Air-gapped / no outbound calls', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'yes' },
-    { group: 'Pricing', feat: 'Free tier self-host limit', shark: 'Unlimited', auth0: '25K MAU', clerk: '50K MRU', kc: 'Unlimited' },
-    { group: 'Pricing', feat: 'First paid tier', shark: '$49/mo (Cloud)', auth0: '$35/mo (B2C)', clerk: '$20/mo (Pro)', kc: 'Free' },
+    { group: 'Agent Era', feat: 'Agent as first-class identity', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no', ory: 'no', authelia: 'no', zitadel: 'no', authentik: 'no' },
+    { group: 'Agent Era', feat: 'RFC 8693 Token Exchange (full)', shark: 'yes', auth0: 'partial', clerk: 'no', kc: 'partial', ory: 'partial', authelia: 'no', zitadel: 'partial', authentik: 'no' },
+    { group: 'Agent Era', feat: 'Act / actor chain (depth ≥ 4)', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no', ory: 'no', authelia: 'no', zitadel: 'no', authentik: 'no' },
+    { group: 'Agent Era', feat: 'may_act_grants & granular policy', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no', ory: 'no', authelia: 'no', zitadel: 'no', authentik: 'no' },
+    { group: 'Agent Era', feat: 'RFC 9449 DPoP key binding', shark: 'yes', auth0: 'partial', clerk: 'no', kc: 'no', ory: 'no', authelia: 'no', zitadel: 'no', authentik: 'no' },
+    { group: 'Agent Era', feat: 'Cascade revocation (< 12 ms)', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no', ory: 'no', authelia: 'no', zitadel: 'no', authentik: 'no' },
+    { group: 'Agent Era', feat: 'Audit indexed by grant_id', shark: 'yes', auth0: 'partial', clerk: 'partial', kc: 'partial', ory: 'partial', authelia: 'no', zitadel: 'partial', authentik: 'partial' },
+    { group: 'Standard Auth', feat: 'Passkeys / FIDO2', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes', ory: 'partial', authelia: 'yes', zitadel: 'yes', authentik: 'yes' },
+    { group: 'Standard Auth', feat: 'Magic links', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'no', ory: 'partial', authelia: 'no', zitadel: 'no', authentik: 'no' },
+    { group: 'Standard Auth', feat: 'MFA / TOTP', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes', ory: 'partial', authelia: 'yes', zitadel: 'yes', authentik: 'yes' },
+    { group: 'Standard Auth', feat: 'Enterprise SSO (SAML 2.0, OIDC)', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes', ory: 'partial', authelia: 'yes', zitadel: 'yes', authentik: 'yes' },
+    { group: 'Standard Auth', feat: 'Multi-tenant organizations', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes', ory: 'partial', authelia: 'no', zitadel: 'yes', authentik: 'no' },
+    { group: 'Standard Auth', feat: 'Wildcard RBAC', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes', ory: 'partial', authelia: 'partial', zitadel: 'yes', authentik: 'yes' },
+    { group: 'Platform', feat: 'HMAC-signed webhooks', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'partial', ory: 'partial', authelia: 'no', zitadel: 'yes', authentik: 'yes' },
+    { group: 'Platform', feat: 'Zero-config admin UI', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'no', ory: 'no', authelia: 'partial', zitadel: 'yes', authentik: 'yes' },
+    { group: 'Deployment', feat: 'Single binary, zero deps', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no', ory: 'no', authelia: 'no', zitadel: 'no', authentik: 'no' },
+    { group: 'Deployment', feat: 'Self-hostable & open-source', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'yes', ory: 'yes', authelia: 'yes', zitadel: 'yes', authentik: 'yes' },
+    { group: 'Deployment', feat: 'Runs on a $5 VPS', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no', ory: 'partial', authelia: 'yes', zitadel: 'no', authentik: 'partial' },
+    { group: 'Deployment', feat: 'Air-gapped / no outbound calls', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'yes', ory: 'yes', authelia: 'yes', zitadel: 'yes', authentik: 'yes' },
+    { group: 'Pricing', feat: 'Free tier self-host limit', shark: 'Unlimited', auth0: '25K MAU', clerk: '50K MRU', kc: 'Unlimited', ory: 'Unlimited', authelia: 'Unlimited', zitadel: 'Unlimited', authentik: 'Unlimited' },
+    { group: 'Pricing', feat: 'First paid tier', shark: '$49/mo (Cloud)', auth0: '$35/mo (B2C)', clerk: '$20/mo (Pro)', kc: 'Free', ory: 'Free', authelia: 'Free', zitadel: 'Free', authentik: 'Free' },
   ];
   const Tok = ({ kind }: { kind: string }) => {
     if (kind === 'yes') return <span className="tok yes"><Icon.check size={11} /></span>;
     if (kind === 'no') return <span className="tok no"><Icon.x size={10} /></span>;
-    return <span className="tok partial">Partial</span>;
+    if (kind === 'partial') return <span className="tok partial">Partial</span>;
+    // Text values (pricing, limits, etc.)
+    return <span className="mono" style={{ fontSize: 12, color: 'hsl(0 0% 75%)' }}>{kind}</span>;
   };
 
   return (
@@ -63,6 +65,10 @@ export function Comparison() {
                 <th style={{ width: 140 }}>Auth0</th>
                 <th style={{ width: 140 }}>Clerk</th>
                 <th style={{ width: 140 }}>Keycloak</th>
+                <th style={{ width: 140 }}>Ory Hydra</th>
+                <th style={{ width: 140 }}>Authelia</th>
+                <th style={{ width: 140 }}>Zitadel</th>
+                <th style={{ width: 140 }}>Authentik</th>
               </tr>
             </thead>
             <tbody>
@@ -72,7 +78,7 @@ export function Comparison() {
                   <React.Fragment key={r.feat}>
                     {isGroupStart && (
                       <tr>
-                        <td colSpan={5} style={{
+                        <td colSpan={9} style={{
                           padding: '18px 28px 8px',
                           fontSize: 11,
                           textTransform: 'uppercase',
@@ -90,6 +96,10 @@ export function Comparison() {
                       <td><Tok kind={r.auth0} /></td>
                       <td><Tok kind={r.clerk} /></td>
                       <td><Tok kind={r.kc} /></td>
+                      <td><Tok kind={r.ory} /></td>
+                      <td><Tok kind={r.authelia} /></td>
+                      <td><Tok kind={r.zitadel} /></td>
+                      <td><Tok kind={r.authentik} /></td>
                     </tr>
                   </React.Fragment>
                 );
