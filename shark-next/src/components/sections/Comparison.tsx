@@ -26,6 +26,17 @@ export function Comparison() {
     { group: 'Deployment', feat: 'Air-gapped / no outbound calls', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'yes', ory: 'yes', authelia: 'yes', zitadel: 'yes', authentik: 'yes' },
     { group: 'Pricing', feat: 'Free tier self-host limit', shark: 'Unlimited', auth0: '25K MAU', clerk: '50K MRU', kc: 'Unlimited', ory: 'Unlimited', authelia: 'Unlimited', zitadel: 'Unlimited', authentik: 'Unlimited' },
     { group: 'Pricing', feat: 'First paid tier', shark: '$49/mo (Cloud)', auth0: '$35/mo (B2C)', clerk: '$20/mo (Pro)', kc: 'Free', ory: 'Free', authelia: 'Free', zitadel: 'Free', authentik: 'Free' },
+    { group: 'Ecosystem (Shark gaps)', feat: 'Native iOS / Android SDKs', shark: 'no', auth0: 'yes', clerk: 'yes', kc: 'no', ory: 'yes', authelia: 'no', zitadel: 'yes', authentik: 'no' },
+    { group: 'Ecosystem (Shark gaps)', feat: 'LDAP / Active Directory native', shark: 'no', auth0: 'yes', clerk: 'no', kc: 'yes', ory: 'no', authelia: 'yes', zitadel: 'no', authentik: 'yes' },
+    { group: 'Ecosystem (Shark gaps)', feat: 'SCIM user provisioning', shark: 'no', auth0: 'yes', clerk: 'no', kc: 'partial', ory: 'no', authelia: 'no', zitadel: 'yes', authentik: 'yes' },
+    { group: 'Ecosystem (Shark gaps)', feat: 'Push notification MFA', shark: 'no', auth0: 'yes', clerk: 'yes', kc: 'no', ory: 'partial', authelia: 'partial', zitadel: 'yes', authentik: 'no' },
+    { group: 'Ecosystem (Shark gaps)', feat: 'Breach / leaked password detection', shark: 'no', auth0: 'yes', clerk: 'no', kc: 'no', ory: 'no', authelia: 'no', zitadel: 'no', authentik: 'no' },
+    { group: 'Ecosystem (Shark gaps)', feat: 'GeoIP & impossible-travel alerts', shark: 'no', auth0: 'yes', clerk: 'no', kc: 'no', ory: 'no', authelia: 'partial', zitadel: 'no', authentik: 'yes' },
+    { group: 'Ecosystem (Shark gaps)', feat: 'FIPS 140-2 / compliance certs', shark: 'no', auth0: 'yes', clerk: 'no', kc: 'partial', ory: 'no', authelia: 'no', zitadel: 'no', authentik: 'no' },
+    { group: 'Ecosystem (Shark gaps)', feat: 'Global multi-region managed cloud', shark: 'no', auth0: 'yes', clerk: 'yes', kc: 'no', ory: 'yes', authelia: 'no', zitadel: 'yes', authentik: 'no' },
+    { group: 'Ecosystem (Shark gaps)', feat: 'Terraform / Pulumi provider', shark: 'no', auth0: 'yes', clerk: 'yes', kc: 'yes', ory: 'yes', authelia: 'partial', zitadel: 'yes', authentik: 'yes' },
+    { group: 'Ecosystem (Shark gaps)', feat: 'SIEM connectors (Splunk, Datadog)', shark: 'no', auth0: 'yes', clerk: 'no', kc: 'partial', ory: 'no', authelia: 'no', zitadel: 'no', authentik: 'no' },
+    { group: 'Ecosystem (Shark gaps)', feat: 'Custom claims scripting engine', shark: 'no', auth0: 'yes', clerk: 'no', kc: 'partial', ory: 'partial', authelia: 'no', zitadel: 'yes', authentik: 'yes' },
   ];
   const Tok = ({ kind }: { kind: string }) => {
     if (kind === 'yes') return <span className="tok yes"><Icon.check size={11} /></span>;
@@ -118,6 +129,16 @@ export function Comparison() {
           <a href="/docs" className="btn btn-ghost" style={{ height: 44 }}>
             Read the Specs
           </a>
+        </div>
+
+        <div className="reveal" style={{ marginTop: 28, padding: '20px 24px', borderRadius: 12, border: '1px solid hsl(0 0% 14%)', background: 'hsl(0 0% 5%)', maxWidth: 780 }}>
+          <p style={{ fontSize: 13, lineHeight: 1.6, color: 'hsl(0 0% 55%)', margin: 0 }}>
+            <strong style={{ color: 'hsl(0 0% 75%)' }}>We don't have everything yet.</strong>{' '}
+            SharkAuth v0.1.0 is a focused auth server for agents. We intentionally skipped enterprise baggage
+            (LDAP, SCIM, FIPS, native mobile SDKs) to ship RFC-grade agent primitives first. If you need
+            Active Directory federation or Splunk connectors today, Keycloak or Auth0 is the safer choice.
+            If you need agent delegation chains, there is no alternative.
+          </p>
         </div>
 
         <div className="reveal" style={{ marginTop: 22, fontSize: 12.5, color: 'hsl(0 0% 50%)', display: 'flex', alignItems: 'center', gap: 10 }}>
