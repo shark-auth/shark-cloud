@@ -7,7 +7,7 @@ export function Docs() {
   const [active, setActive] = useState(0);
   const sections = [
     { id: 'install', t: 'Install', sub: 'getting-started' },
-    { id: 'config', t: 'Configure', sub: 'shark.toml' },
+    { id: 'config', t: 'Configure', sub: 'environment' },
     { id: 'clients', t: 'Clients & agents', sub: 'register, kid, may_act' },
     { id: 'exchange', t: 'Token Exchange', sub: 'RFC 8693' },
     { id: 'dpop', t: 'DPoP key binding', sub: 'RFC 9449' },
@@ -20,16 +20,12 @@ export function Docs() {
 curl -fsSL sharkauth.com/get | sh
 shark --version
 # shark 0.1.0 (4f5a8b21) linux/amd64`,
-    `# shark.toml
-issuer = "https://auth.acme.dev"
-listen = ":4444"
-admin  = ":4445"
-
-[storage]
-sqlite = "./shark.db"
-
-[keys]
-signing = "auto"        # generates EC P-256 on first boot`,
+    `# configure via environment
+SHARK_ISSUER=https://auth.acme.dev
+SHARK_LISTEN=:4444
+SHARK_ADMIN=:4445
+SHARK_STORAGE_SQLITE=./shark.db
+SHARK_KEYS_SIGNING=auto   # generates EC P-256 on first boot`,
     `shark clients add research-orchestrator \\
   --type agent \\
   --jwks-uri https://orch.acme.dev/.well-known/jwks.json \\

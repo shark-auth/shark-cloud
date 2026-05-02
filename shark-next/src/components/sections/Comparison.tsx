@@ -14,7 +14,7 @@ export function Comparison() {
     { feat: 'Audit indexed by grant_id', shark: 'yes', auth0: 'partial', clerk: 'partial', kc: 'partial' },
     { feat: 'Single ~29 MB binary', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
     { feat: 'Self-hostable & open-source', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'yes' },
-    { feat: 'Runs on a Raspberry Pi', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
+    { feat: 'Runs on a $5 VPS', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
   ];
   const Tok = ({ kind }: { kind: string }) => {
     if (kind === 'yes') return <span className="tok yes"><Icon.check size={11} /></span>;

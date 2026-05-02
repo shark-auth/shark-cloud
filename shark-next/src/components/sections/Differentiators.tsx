@@ -37,7 +37,7 @@ export function Differentiators() {
       icon: <Icon.cube size={20} />,
       tag: '~29 MB binary',
       title: 'One binary. Zero dependencies. Anywhere.',
-      body: 'Static Go binary with embedded SQLite WAL. Run it next to your app, in a container, on a corporate VM, or an air-gapped Raspberry Pi. Backup is a single file copy.',
+      body: 'Static Go binary with embedded SQLite WAL. Run it next to your app, in a container, on a corporate VM, or an air-gapped edge. Or drop it on a $5 VPS. Backup is a single file copy.',
       kicker: 'cold start: 38 ms',
     },
     {

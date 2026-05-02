@@ -149,7 +149,7 @@ export default function RootLayout({
                       "name": "Can SharkAuth run offline or on edge devices?",
                       "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Yes. It ships as a single static Go binary with embedded SQLite WAL. Deploy it next to your app, in a container, on a corporate VM, or an air-gapped Raspberry Pi. Backup is a single file copy."
+                        "text": "Yes. It ships as a single static Go binary with embedded SQLite WAL. Deploy it next to your app, in a container, on a corporate VM, or an air-gapped edge. Or drop it on a $5 VPS. Backup is a single file copy."
                       }
                     },
                     {

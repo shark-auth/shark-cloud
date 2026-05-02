@@ -60,7 +60,7 @@ Repo:   https://github.com/shark-auth/shark
         <div className="reveal" style={{ marginTop: 36, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
           {[
             { n: '01', t: 'Drop the binary', d: 'Single Go binary, ~29 MB. macOS, Linux, ARM. No runtime, no daemon.' },
-            { n: '02', t: 'Configure once', d: 'shark.toml. Issuers, clients, may_act_grants. Or POST to the admin API.' },
+            { n: '02', t: 'Configure once', d: 'Environment variables or the admin API. Issuers, clients, may_act_grants.' },
             { n: '03', t: 'Mint agent tokens', d: 'OAuth 2.1, OIDC, Token Exchange, DPoP. Audit by grant_id. Done.' },
           ].map(s => (
             <div key={s.n} className="glass-card" style={{ padding: 22, borderRadius: 14 }}>

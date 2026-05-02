@@ -25,12 +25,12 @@ export function UseCases() {
     {
       n: '05',
       h: 'Edge & air-gapped deployments.',
-      b: 'A 29 MB binary on a Pi, talking to a SQLite file. No outbound calls. No phone-home. No "free until we change our mind."',
+      b: 'A 29 MB binary on a $5 VPS, talking to a SQLite file. No outbound calls. No phone-home. No "free until we change our mind."',
     },
     {
       n: '06',
       h: 'Compliance teams who have seen too much.',
-      b: 'MIT, hash-chained audit, deterministic config in shark.toml. Auditors get receipts. You get to sleep.',
+      b: 'MIT, hash-chained audit, deterministic config. No hidden state. Auditors get receipts. You get to sleep.',
     },
   ];
 

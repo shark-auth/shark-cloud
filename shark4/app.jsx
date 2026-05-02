@@ -303,7 +303,7 @@ function Quickstart() {
     { p: '$', t: 'curl -fsSL get.sharkauth.dev | sh', muted: false },
     { p: '',  t: '✓ downloaded shark-0.9.0-linux-amd64 (39.8 MB)', muted: true },
     { p: '$', t: 'shark init --issuer https://auth.acme.dev', muted: false },
-    { p: '',  t: '✓ wrote shark.toml  ✓ generated EC P-256 signing key', muted: true },
+    { p: '',  t: '✓ configured environment  ✓ generated EC P-256 signing key', muted: true },
     { p: '$', t: 'shark serve', muted: false },
     { p: '',  t: 'listening on :4444  ·  admin on :4445  ·  sqlite at ./shark.db', muted: true },
     { p: '',  t: 'discovery → /.well-known/oauth-authorization-server', muted: true },
@@ -382,7 +382,7 @@ const agentToken = await shark.tokenExchange({
         <div className="reveal" style={{ marginTop: 36, display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap: 16 }}>
           {[
             { n:'01', t:'Drop the binary', d:'Single Go binary, ~40 MB. macOS, Linux, ARM. No runtime, no daemon.'},
-            { n:'02', t:'Configure once', d:'shark.toml. Issuers, clients, may_act_grants. Or POST to the admin API.'},
+            { n:'02', t:'Configure once', d:'Environment variables or the admin API. Issuers, clients, may_act_grants.'},
             { n:'03', t:'Mint agent tokens', d:'OAuth 2.1, OIDC, Token Exchange, DPoP. Audit by grant_id. Done.'},
           ].map(s => (
             <div key={s.n} className="glass-card" style={{ padding: 22, borderRadius: 14 }}>
@@ -694,7 +694,7 @@ function Docs() {
   const [active, setActive] = useState(0);
   const sections = [
     { id: 'install',   t: 'Install', sub: 'getting-started' },
-    { id: 'config',    t: 'Configure', sub: 'shark.toml' },
+    { id: 'config',    t: 'Configure', sub: 'environment' },
     { id: 'clients',   t: 'Clients & agents', sub: 'register, kid, may_act' },
     { id: 'exchange',  t: 'Token Exchange', sub: 'RFC 8693' },
     { id: 'dpop',      t: 'DPoP key binding', sub: 'RFC 9449' },
@@ -707,7 +707,7 @@ function Docs() {
 curl -fsSL get.sharkauth.dev | sh
 shark --version
 # shark 0.9.0 (4f5a8b21) linux/amd64`,
-    `# shark.toml
+    `# configure via environment
 issuer = "https://auth.acme.dev"
 listen = ":4444"
 admin  = ":4445"
@@ -850,7 +850,7 @@ function UseCases() {
     {
       tag: '06',
       h: 'Compliance teams who have seen too much.',
-      b: 'AGPL-3.0, hash-chained audit, deterministic config in shark.toml. Auditors get receipts. You get to sleep.',
+      b: 'AGPL-3.0, hash-chained audit, deterministic config. No hidden state. Auditors get receipts. You get to sleep.',
     },
   ];
   return (

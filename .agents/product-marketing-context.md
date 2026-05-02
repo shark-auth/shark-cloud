@@ -214,7 +214,7 @@ playful, gradient, vibe-coded, free tier (prefer "self-host is the product"), ge
 | Agent-first security | Full RFC 8693 Token Exchange + RFC 9449 DPoP + cascade revocation + `may_act_grants` |
 | Zero-friction deployment | Single ~29 MB binary, embedded SQLite WAL, zero deps, 38ms cold start, runs on Raspberry Pi |
 | Audit perfection | grant_id-indexed, hash-chained, append-only, streamable to SIEM via events websocket |
-| Absolute freedom | MIT license, no telemetry, no vendor lock-in, deterministic config in `shark.toml` |
+| Absolute freedom | MIT license, no telemetry, no vendor lock-in, deterministic config |
 | RFC-grade rigor | OAuth 2.1, OIDC, RFC 8693, RFC 9449 — same standards, built for agents |
 
 ## Goals

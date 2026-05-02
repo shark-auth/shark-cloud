@@ -3,7 +3,7 @@
 > Auth for the Agent Era.
 
 ## What it is
-SharkAuth is an open-source identity platform built for the agentic/AI era. It ships as a single ~29 MB Go binary with embedded SQLite (WAL mode), requires zero dependencies and zero configuration, and runs anywhere — including Raspberry Pi and air-gapped environments.
+SharkAuth is an open-source identity platform built for the agentic/AI era. It ships as a single ~29 MB Go binary with embedded SQLite (WAL mode), requires zero dependencies and zero configuration, and runs anywhere — including a $5 VPS and air-gapped environments.
 
 ## Who it's for
 - Startups and scale-ups building AI agent systems
