@@ -5,16 +5,27 @@ import { Icon, LogoMark } from '../Icons';
 
 export function Comparison() {
   const rows = [
-    { feat: 'Agent as first-class identity', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
-    { feat: 'RFC 8693 Token Exchange', shark: 'yes', auth0: 'partial', clerk: 'no', kc: 'partial' },
-    { feat: 'Full act / actor chain (depth ≥ 4)', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
-    { feat: 'may_act_grants & granular policy', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
-    { feat: 'RFC 9449 DPoP key binding', shark: 'yes', auth0: 'partial', clerk: 'no', kc: 'no' },
-    { feat: 'Cascade revocation', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
-    { feat: 'Audit indexed by grant_id', shark: 'yes', auth0: 'partial', clerk: 'partial', kc: 'partial' },
-    { feat: 'Single ~29 MB binary', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
-    { feat: 'Self-hostable & open-source', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'yes' },
-    { feat: 'Runs on a $5 VPS', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
+    { group: 'Agent Era', feat: 'Agent as first-class identity', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
+    { group: 'Agent Era', feat: 'RFC 8693 Token Exchange (full)', shark: 'yes', auth0: 'partial', clerk: 'no', kc: 'partial' },
+    { group: 'Agent Era', feat: 'Act / actor chain (depth ≥ 4)', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
+    { group: 'Agent Era', feat: 'may_act_grants & granular policy', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
+    { group: 'Agent Era', feat: 'RFC 9449 DPoP key binding', shark: 'yes', auth0: 'partial', clerk: 'no', kc: 'no' },
+    { group: 'Agent Era', feat: 'Cascade revocation (< 12 ms)', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
+    { group: 'Agent Era', feat: 'Audit indexed by grant_id', shark: 'yes', auth0: 'partial', clerk: 'partial', kc: 'partial' },
+    { group: 'Standard Auth', feat: 'Passkeys / FIDO2', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes' },
+    { group: 'Standard Auth', feat: 'Magic links', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'no' },
+    { group: 'Standard Auth', feat: 'MFA / TOTP', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes' },
+    { group: 'Standard Auth', feat: 'Enterprise SSO (SAML 2.0, OIDC)', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes' },
+    { group: 'Standard Auth', feat: 'Multi-tenant organizations', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes' },
+    { group: 'Standard Auth', feat: 'Wildcard RBAC', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'yes' },
+    { group: 'Platform', feat: 'HMAC-signed webhooks', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'partial' },
+    { group: 'Platform', feat: 'Zero-config admin UI', shark: 'yes', auth0: 'yes', clerk: 'yes', kc: 'no' },
+    { group: 'Deployment', feat: 'Single binary, zero deps', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
+    { group: 'Deployment', feat: 'Self-hostable & open-source', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'yes' },
+    { group: 'Deployment', feat: 'Runs on a $5 VPS', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'no' },
+    { group: 'Deployment', feat: 'Air-gapped / no outbound calls', shark: 'yes', auth0: 'no', clerk: 'no', kc: 'yes' },
+    { group: 'Pricing', feat: 'Free tier self-host limit', shark: 'Unlimited', auth0: '25K MAU', clerk: '50K MRU', kc: 'Unlimited' },
+    { group: 'Pricing', feat: 'First paid tier', shark: '$49/mo (Cloud)', auth0: '$35/mo (B2C)', clerk: '$20/mo (Pro)', kc: 'Free' },
   ];
   const Tok = ({ kind }: { kind: string }) => {
     if (kind === 'yes') return <span className="tok yes"><Icon.check size={11} /></span>;
@@ -55,17 +66,48 @@ export function Comparison() {
               </tr>
             </thead>
             <tbody>
-              {rows.map((r, i) => (
-                <tr key={r.feat}>
-                  <td className="feat" style={{ paddingLeft: 28, textAlign: 'left' }}>{r.feat}</td>
-                  <td className={`cmp-shark-col ${i === rows.length - 1 ? 'last' : ''}`}><Tok kind={r.shark} /></td>
-                  <td><Tok kind={r.auth0} /></td>
-                  <td><Tok kind={r.clerk} /></td>
-                  <td><Tok kind={r.kc} /></td>
-                </tr>
-              ))}
+              {rows.map((r, i) => {
+                const isGroupStart = i === 0 || rows[i - 1].group !== r.group;
+                return (
+                  <React.Fragment key={r.feat}>
+                    {isGroupStart && (
+                      <tr>
+                        <td colSpan={5} style={{
+                          padding: '18px 28px 8px',
+                          fontSize: 11,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.12em',
+                          color: 'hsl(0 0% 40%)',
+                          borderTop: i > 0 ? '1px solid hsl(0 0% 12%)' : 'none',
+                        }}>
+                          {r.group}
+                        </td>
+                      </tr>
+                    )}
+                    <tr>
+                      <td className="feat" style={{ paddingLeft: 28, textAlign: 'left' }}>{r.feat}</td>
+                      <td className={`cmp-shark-col ${i === rows.length - 1 ? 'last' : ''}`}><Tok kind={r.shark} /></td>
+                      <td><Tok kind={r.auth0} /></td>
+                      <td><Tok kind={r.clerk} /></td>
+                      <td><Tok kind={r.kc} /></td>
+                    </tr>
+                  </React.Fragment>
+                );
+              })}
             </tbody>
           </table>
+        </div>
+
+        <div className="reveal" style={{ marginTop: 36, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <a href="#install" className="btn btn-primary" style={{ height: 44 }}>
+            Get the Binary <Icon.arrow size={12} />
+          </a>
+          <a href="/waitlist" className="btn btn-ghost" style={{ height: 44 }}>
+            Join Cloud Waitlist
+          </a>
+          <a href="/docs" className="btn btn-ghost" style={{ height: 44 }}>
+            Read the Specs
+          </a>
         </div>
 
         <div className="reveal" style={{ marginTop: 22, fontSize: 12.5, color: 'hsl(0 0% 50%)', display: 'flex', alignItems: 'center', gap: 10 }}>
