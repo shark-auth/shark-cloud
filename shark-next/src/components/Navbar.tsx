@@ -67,7 +67,7 @@ export function Navbar() {
               onMouseLeave={(e) => { e.currentTarget.style.color = 'hsl(0 0% 78%)'; e.currentTarget.style.background = 'transparent'; }}
             >{l.name}</a>
           ))}
-          <a href="#" onClick={(e) => { e.preventDefault(); document.querySelector('#top')?.scrollIntoView({ behavior: 'smooth' }); }} style={{
+          <a href="#demo" onClick={(e) => { e.preventDefault(); document.querySelector('#demo')?.scrollIntoView({ behavior: 'smooth' }); }} style={{
             color: 'hsl(0 0% 78%)', textDecoration: 'none', fontSize: 13.5,
             padding: '8px 14px', borderRadius: 8, letterSpacing: '-0.005em',
             transition: 'color .2s ease, background .2s ease', cursor: 'pointer',
